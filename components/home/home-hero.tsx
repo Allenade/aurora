@@ -4,7 +4,7 @@ import { IMAGES, ROUTES } from "@/lib/constants";
 
 const HomeHero = () => {
   return (
-    <section className="relative min-h-[520px] overflow-hidden bg-black sm:min-h-[420px] lg:min-h-[560px]">
+    <section className="relative min-h-[600px] overflow-hidden bg-black sm:min-h-[560px] lg:min-h-[700px] xl:min-h-[700px]">
       <div
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-size-[48px_48px] opacity-80"
         aria-hidden
@@ -22,7 +22,7 @@ const HomeHero = () => {
         />
       </div>
 
-      <div className="relative mx-auto max-w-[1813px] px-4 pb-10 pt-[20rem] sm:px-6 sm:pb-12 sm:pt-[21rem] lg:px-12 lg:pb-16 lg:pt-52 xl:pt-64 2xl:pt-72">
+      <div className="relative mx-auto max-w-[1813px] px-4 pb-14 pt-[29rem] sm:px-6 sm:pb-16 sm:pt-[30rem] lg:px-12 lg:pb-20 lg:pt-[24rem] xl:pb-24 xl:pt-[26rem] 2xl:pt-[28rem]">
         <div className="max-w-[682px]">
           <h1 className="max-w-5xl font-display text-[22px] font-bold uppercase leading-[1.1] text-white sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px]">
             <span className="block">A one stop</span>
