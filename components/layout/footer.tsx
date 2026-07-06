@@ -68,12 +68,6 @@ const Footer = () => {
               <h4 className={FOOTER_NAV_HEADING_CLASS}>Contact Us</h4>
               <div className="flex flex-col gap-3 font-sans text-sm text-white/55">
                 <a
-                  href={FOOTER_CONTACT.phoneHref}
-                  className="transition-colors hover:text-aurora-lime"
-                >
-                  {FOOTER_CONTACT.phone}
-                </a>
-                <a
                   href={FOOTER_CONTACT.emailHref}
                   className="transition-colors hover:text-aurora-lime"
                 >

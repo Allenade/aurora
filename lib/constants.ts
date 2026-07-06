@@ -156,8 +156,6 @@ export const FOOTER_URLS: FooterColumn[] = [
 ];
 
 export const FOOTER_CONTACT = Object.freeze({
-  phone: "+234 804567822",
-  phoneHref: "tel:+234804567822",
   email: "support@aurorarobotics.com",
   emailHref: "mailto:support@aurorarobotics.com",
 });
