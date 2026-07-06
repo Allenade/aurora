@@ -163,12 +163,12 @@ const Header = () => {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2 pt-6 sm:px-6 sm:pt-8 lg:px-8"
     >
       <div className="relative mx-auto max-w-[1813px] pointer-events-auto">
         <div
           className={cn(
-            "flex h-16 items-center justify-between gap-6 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(250,250,250,0.15)] px-5 shadow-[0_8px_32px_rgba(0,0,0,0.24)] backdrop-blur-md transition-shadow duration-200 sm:h-[72px] sm:px-8 lg:h-20 lg:px-10",
+            "flex h-16 items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(250,250,250,0.15)] px-5 shadow-[0_8px_32px_rgba(0,0,0,0.24)] backdrop-blur-md transition-shadow duration-200 sm:h-[72px] sm:gap-6 sm:px-8 lg:h-20 lg:px-10",
             isScrolled && "shadow-[0_12px_40px_rgba(0,0,0,0.45)]",
           )}
         >
@@ -285,7 +285,7 @@ const Header = () => {
       <div
         id="mobile-navigation-panel"
         className={cn(
-          "fixed inset-x-4 top-[calc(6rem+0.5rem)] bottom-4 overflow-y-auto rounded-2xl border border-white/10 bg-black/95 px-4 pb-8 pt-4 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-in-out sm:inset-x-6 sm:top-[calc(7rem+0.5rem)] lg:hidden",
+          "fixed inset-x-2 top-[calc(6rem+0.5rem)] bottom-4 overflow-y-auto rounded-2xl border border-white/10 bg-black/95 px-4 pb-8 pt-4 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-in-out sm:inset-x-6 sm:top-[calc(7rem+0.5rem)] lg:hidden",
           isMobileMenuOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-2 opacity-0",

@@ -28,6 +28,10 @@ export const metadata: Metadata = {
     template: "%s | Aurora",
   },
   description: "Aurora — AI & Robotics Solutions",
+  icons: {
+    icon: "/images/aurora-logo.svg",
+    apple: "/images/aurora-logo.svg",
+  },
 };
 
 export default function RootLayout({
