@@ -10,7 +10,7 @@ const HomeHero = () => {
         aria-hidden
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-28 h-[38%] sm:top-32 sm:h-[42%] lg:inset-x-auto lg:top-[40%] lg:right-[2%] lg:h-[64%] lg:w-[48%] xl:top-[44%] xl:right-[4%] xl:h-[68%] xl:w-[50%]">
+      <div className="pointer-events-none absolute inset-x-0 top-24 h-[48%] sm:top-28 sm:h-[52%] lg:inset-x-auto lg:top-[14%] lg:right-0 lg:h-[88%] lg:w-[65%] xl:top-[20%] xl:right-[2%] xl:h-[82%] xl:w-[62%]">
         <video
           src={IMAGES.HERO_VIDEO}
           autoPlay
@@ -22,12 +22,13 @@ const HomeHero = () => {
         />
       </div>
 
-      <div className="relative mx-auto max-w-[1813px] px-4 pb-10 pt-[21rem] sm:px-6 sm:pb-12 sm:pt-[23rem] lg:px-12 lg:pb-16 lg:pt-72 xl:pt-80">
+      <div className="relative mx-auto max-w-[1813px] px-4 pb-10 pt-[20rem] sm:px-6 sm:pb-12 sm:pt-[21rem] lg:px-12 lg:pb-16 lg:pt-52 xl:pt-64 2xl:pt-72">
         <div className="max-w-[682px]">
-          <h1 className="max-w-5xl font-display text-[28px] font-bold uppercase leading-[1.1] text-white sm:text-4xl lg:text-[52px] xl:text-[56px]">
+          <h1 className="max-w-5xl font-display text-[22px] font-bold uppercase leading-[1.1] text-white sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px]">
             <span className="block">A one stop</span>
-            <span className="block whitespace-nowrap">AI &amp; robotics</span>
-            <span className="block">solution</span>
+            <span className="block whitespace-nowrap">
+              AI &amp; robotics solution
+            </span>
           </h1>
           {/* 
           <p className="mt-5 max-w-[682px] font-sans text-sm leading-relaxed text-white sm:mt-6 sm:text-base lg:mt-8 lg:text-lg xl:text-xl">

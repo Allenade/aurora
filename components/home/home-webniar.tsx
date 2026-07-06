@@ -7,7 +7,7 @@ const HomeWebniar = () => {
     <section className="bg-[#151514]">
       <div className="mx-auto max-w-[1813px] px-4 py-5 sm:px-6 lg:px-12 lg:py-7">
         <div className="flex flex-col items-center gap-3 sm:ml-36 sm:flex-row sm:items-center sm:gap-8 lg:ml-52 lg:gap-12 xl:ml-64">
-          <p className="text-center font-display text-sm font-medium leading-tight whitespace-nowrap text-[#fdfdfd] sm:text-left sm:text-lg lg:text-xl xl:text-[28px]">
+          <p className="text-center font-display text-xs font-medium leading-tight whitespace-nowrap text-[#fdfdfd] sm:text-left sm:text-lg lg:text-xl xl:text-[28px]">
             {HOME_WEBINAR.title}
           </p>
 
