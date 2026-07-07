@@ -10,19 +10,19 @@ const HomeHero = () => {
         aria-hidden
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-24 h-[48%] sm:top-28 sm:h-[52%] lg:inset-x-auto lg:top-[14%] lg:right-0 lg:h-[88%] lg:w-[65%] xl:top-[20%] xl:right-[2%] xl:h-[82%] xl:w-[62%]">
+      <div className="pointer-events-none absolute inset-x-0 top-16 h-[60%] sm:top-20 sm:h-[64%] lg:inset-x-auto lg:top-[6%] lg:right-0 lg:h-[100%] lg:w-[78%] lg:translate-x-16 xl:top-[12%] xl:right-0 xl:h-[96%] xl:w-[74%] xl:translate-x-24">
         <video
           src={IMAGES.HERO_VIDEO}
           autoPlay
           loop
           muted
           playsInline
-          className="size-full object-contain object-center"
+          className="size-full object-contain object-center lg:object-right"
           aria-hidden
         />
       </div>
 
-      <div className="relative mx-auto max-w-[1813px] px-4 pb-14 pt-[29rem] sm:px-6 sm:pb-16 sm:pt-[30rem] lg:px-12 lg:pb-20 lg:pt-[24rem] xl:pb-24 xl:pt-[26rem] 2xl:pt-[28rem]">
+      <div className="relative mx-auto max-w-[1813px] px-4 pb-14 pt-[25rem] sm:px-6 sm:pb-16 sm:pt-[26rem] lg:px-12 lg:pb-20 lg:pt-[20rem] xl:pb-24 xl:pt-[22rem] 2xl:pt-[24rem]">
         <div className="max-w-[682px]">
           <h1 className="max-w-5xl font-display text-[22px] font-bold uppercase leading-[1.1] text-white sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px]">
             <span className="block">A one stop</span>

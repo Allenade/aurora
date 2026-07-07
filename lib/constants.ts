@@ -3,7 +3,7 @@ export const IMAGES = Object.freeze({
   ARROW_CIRCLE: "/images/arrow-circle.svg",
   ARROW_CIRCLE_DARK: "/images/arrow-circle-dark.svg",
   HERO_VISUAL: "/images/hero-visual.png",
-  HERO_VIDEO: "/videos/aurora.mp4",
+  HERO_VIDEO: "/videos/drone-build.mp4",
 });
 
 export const ROUTES = Object.freeze({
