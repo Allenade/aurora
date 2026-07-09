@@ -11,7 +11,7 @@
   --site-content-inset: calc(
     var(--site-container-padding) + var(--site-inner-padding)
   );
-  --hero-media-scale: 1;
+  --hero-media-scale: 1.08;
   color-scheme: dark;
 }
 
@@ -37,7 +37,7 @@
     --site-max-width: calc(100vw - 5rem);
     --site-container-padding: 3rem;
     --site-inner-padding: 3rem;
-    --hero-media-scale: 1.12;
+    --hero-media-scale: 1.35;
   }
 }
 

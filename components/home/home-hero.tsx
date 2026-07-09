@@ -21,7 +21,7 @@ const HomeHero = () => {
       >
         <SiteContent
           className={cn(
-            "relative lg:grid lg:grid-cols-[minmax(0,40%)_minmax(0,60%)]",
+            "relative lg:grid lg:grid-cols-[minmax(0,32%)_minmax(0,68%)]",
             "lg:items-end lg:gap-6 xl:gap-8 min-[2560px]:gap-12",
           )}
         >
@@ -53,10 +53,10 @@ const HomeHero = () => {
 
           <div
             className={cn(
-              "pointer-events-none absolute left-1/2 top-[-15rem] h-[min(72vw,340px)] w-screen max-w-none -translate-x-1/2",
-              "sm:top-[-16rem] sm:h-[min(68vw,380px)]",
-              "lg:static lg:col-start-2 lg:row-start-1 lg:h-auto lg:min-h-[300px] lg:w-full lg:translate-x-0",
-              "xl:min-h-[340px] min-[2560px]:min-h-[460px]",
+              "pointer-events-none absolute left-1/2 top-[-15rem] h-[min(84vw,420px)] w-screen max-w-none -translate-x-1/2",
+              "sm:top-[-16rem] sm:h-[min(80vw,460px)]",
+              "lg:static lg:col-start-2 lg:row-start-1 lg:h-auto lg:min-h-[480px] lg:w-full lg:translate-x-0",
+              "xl:min-h-[560px] min-[2560px]:min-h-[680px]",
             )}
           >
             <video
@@ -65,7 +65,7 @@ const HomeHero = () => {
               loop
               muted
               playsInline
-              className="size-full scale-[1.28] object-contain object-center lg:scale-100 lg:object-right min-[2560px]:scale-[var(--hero-media-scale)]"
+              className="size-full scale-[1.45] object-contain object-center lg:scale-125 xl:scale-[1.3] lg:object-right min-[2560px]:scale-[var(--hero-media-scale)]"
               aria-hidden
             />
           </div>
