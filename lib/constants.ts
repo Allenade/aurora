@@ -186,3 +186,24 @@ export const HOME_WEBINAR = Object.freeze({
   ctaLabel: "Register",
   ctaHref: ROUTES.BASE,
 });
+
+/** FCMB-style outer content band — full width on mobile, capped on desktop */
+export const SITE_SHELL =
+  "mx-auto w-full max-lg:max-w-none max-w-[var(--site-max-width)] px-[var(--site-edge)] lg:px-8 min-[2560px]:px-12";
+
+/** @deprecated Use SiteShell component */
+export const SITE_CONTAINER = SITE_SHELL;
+
+/** Nav pill inner padding — logo / Join Us edges */
+export const SITE_INNER_NAV =
+  "px-5 sm:px-8 lg:px-10 min-[2560px]:px-12";
+
+/** Content inset — matches nav pill at every breakpoint for alignment */
+export const SITE_INNER_CONTENT =
+  "px-5 sm:px-8 lg:px-10 min-[2560px]:px-12";
+
+/** @deprecated Use SITE_INNER_NAV or SITE_INNER_CONTENT */
+export const SITE_INNER = SITE_INNER_NAV;
+
+/** @deprecated Use SiteContent component */
+export const SITE_CONTENT_INSET = SITE_INNER_CONTENT;

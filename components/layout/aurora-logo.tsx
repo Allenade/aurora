@@ -25,7 +25,7 @@ export function AuroraLogo({ variant = "default" }: AuroraLogoProps) {
           variant === "footer"
             ? "h-11 w-auto"
             : variant === "header"
-              ? "h-9 w-auto sm:h-10"
+              ? "h-9 w-auto sm:h-10 min-[2560px]:h-12"
               : "h-[42px] w-auto sm:h-[55px]"
         }
         priority={variant === "default" || variant === "header"}
@@ -34,7 +34,7 @@ export function AuroraLogo({ variant = "default" }: AuroraLogoProps) {
         className={cn(
           "font-brand font-bold uppercase leading-none tracking-[0.12em] text-aurora-lime",
           variant === "header"
-            ? "text-[10px] sm:text-[11px]"
+            ? "text-[10px] sm:text-[11px] min-[2560px]:text-sm"
             : variant === "footer"
               ? "text-xs sm:text-sm"
               : "text-[11px] sm:text-sm",

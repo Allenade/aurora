@@ -1,10 +1,7 @@
 import Link from "next/link";
-import {
-  FOOTER_CONTACT,
-  FOOTER_COPYRIGHT,
-  FOOTER_SOCIAL_LINKS,
-  FOOTER_URLS,
-} from "@/lib/constants";
+import { FOOTER_CONTACT, FOOTER_COPYRIGHT, FOOTER_SOCIAL_LINKS, FOOTER_URLS } from "@/lib/constants";
+import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { cn } from "@/lib/utils";
 import { AuroraLogo } from "./aurora-logo";
 import { FooterNewsletter } from "./footer-newsletter";
 
@@ -38,69 +35,77 @@ function SocialIcon({ name }: { name: string }) {
 const Footer = () => {
   return (
     <footer className="mt-auto bg-[#121212] text-white">
-      <div className="mx-auto max-w-[1813px] px-4 py-14 sm:px-6 lg:px-10 lg:py-16">
-        <div className="flex flex-col gap-12 xl:flex-row xl:justify-between xl:gap-16">
-          <div className="shrink-0 xl:max-w-sm">
-            <AuroraLogo variant="footer" />
-            <FooterNewsletter />
-          </div>
+      <SiteShell className="py-14 lg:py-16">
+        <SiteContent>
+          <div className="flex flex-col gap-12 xl:flex-row xl:justify-between xl:gap-16">
+            <div className="shrink-0 xl:max-w-sm">
+              <AuroraLogo variant="footer" />
+              <FooterNewsletter />
+            </div>
 
-          <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-6 lg:gap-10">
-            {FOOTER_URLS.map((column) => (
-              <div key={column.name} className="flex flex-col gap-4">
-                <h4 className={FOOTER_NAV_HEADING_CLASS}>{column.name}</h4>
-                <ul className="flex flex-col gap-3">
-                  {column.routes.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.route}
-                        className="font-sans text-sm text-white/55 transition-colors hover:text-aurora-lime"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-6 lg:gap-10">
+              {FOOTER_URLS.map((column) => (
+                <div key={column.name} className="flex flex-col gap-4">
+                  <h4 className={FOOTER_NAV_HEADING_CLASS}>{column.name}</h4>
+                  <ul className="flex flex-col gap-3">
+                    {column.routes.map((link) => (
+                      <li key={link.name}>
+                        <Link
+                          href={link.route}
+                          className="font-sans text-sm text-white/55 transition-colors hover:text-aurora-lime"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
 
-            <div className="flex flex-col gap-4">
-              <h4 className={FOOTER_NAV_HEADING_CLASS}>Contact Us</h4>
-              <div className="flex flex-col gap-3 font-sans text-sm text-white/55">
-                <a
-                  href={FOOTER_CONTACT.emailHref}
-                  className="transition-colors hover:text-aurora-lime"
-                >
-                  {FOOTER_CONTACT.email}
-                </a>
+              <div className="flex flex-col gap-4">
+                <h4 className={FOOTER_NAV_HEADING_CLASS}>Contact Us</h4>
+                <div className="flex flex-col gap-3 font-sans text-sm text-white/55">
+                  <a
+                    href={FOOTER_CONTACT.emailHref}
+                    className="transition-colors hover:text-aurora-lime"
+                  >
+                    {FOOTER_CONTACT.email}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </SiteContent>
+      </SiteShell>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1813px] flex-col gap-6 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-10">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-            <p className="font-sans text-sm font-medium text-white">Connect with Us</p>
-            <div className="flex items-center gap-4">
-              {FOOTER_SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="text-white transition-colors hover:text-aurora-lime"
-                >
-                  <SocialIcon name={social.name} />
-                </a>
-              ))}
+        <SiteShell className="py-6">
+          <SiteContent
+            className={cn(
+              "flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between",
+            )}
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <p className="font-sans text-sm font-medium text-white">Connect with Us</p>
+              <div className="flex items-center gap-4">
+                {FOOTER_SOCIAL_LINKS.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="text-white transition-colors hover:text-aurora-lime"
+                  >
+                    <SocialIcon name={social.name} />
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <p className="font-sans text-sm text-white/45">{FOOTER_COPYRIGHT}</p>
-        </div>
+            <p className="font-sans text-sm text-white/45">{FOOTER_COPYRIGHT}</p>
+          </SiteContent>
+        </SiteShell>
       </div>
     </footer>
   );

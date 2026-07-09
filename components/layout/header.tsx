@@ -3,8 +3,9 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "@/components/icons/chevron-down";
-import { HEADER_OPTIONS, type HeaderOptionItem } from "@/lib/constants";
+import { HEADER_OPTIONS, SITE_INNER_NAV, type HeaderOptionItem } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { SiteShell } from "./site-shell";
 import { AuroraLogo } from "./aurora-logo";
 import { JoinUsButton } from "./join-us-button";
 
@@ -163,19 +164,20 @@ const Header = () => {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2 pt-4 sm:px-6 sm:pt-6 lg:px-8"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-[var(--site-edge)] pt-4 sm:pt-6 lg:px-0 lg:pt-6"
     >
-      <div className="relative mx-auto max-w-[1813px] pointer-events-auto">
+      <SiteShell className="relative max-lg:max-w-none pointer-events-auto px-0 lg:px-8 min-[2560px]:px-12">
         <div
           className={cn(
-            "flex h-16 items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(250,250,250,0.15)] px-5 shadow-[0_8px_32px_rgba(0,0,0,0.24)] backdrop-blur-md transition-shadow duration-200 sm:h-[72px] sm:gap-6 sm:px-8 lg:h-20 lg:px-10",
+            "flex h-16 items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[rgba(250,250,250,0.15)] shadow-[0_8px_32px_rgba(0,0,0,0.24)] backdrop-blur-md transition-shadow duration-200 sm:h-[72px] sm:gap-6 lg:h-20 min-[2560px]:h-24 min-[2560px]:gap-8 min-[2560px]:rounded-3xl",
+            SITE_INNER_NAV,
             isScrolled && "shadow-[0_12px_40px_rgba(0,0,0,0.45)]",
           )}
         >
           <AuroraLogo variant="header" />
 
           <nav
-            className="hidden flex-1 items-center justify-center gap-10 lg:flex xl:gap-14 2xl:gap-20"
+            className="hidden flex-1 items-center justify-center gap-10 lg:flex xl:gap-14 2xl:gap-20 min-[2560px]:gap-24"
             aria-label="Primary"
           >
             {HEADER_OPTIONS.map((option) => {
@@ -190,7 +192,7 @@ const Header = () => {
                     aria-expanded={isOpen}
                     aria-controls={getMenuPanelId(option.name)}
                     className={cn(
-                      "group flex items-center gap-1 whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base",
+                      "group flex items-center gap-1 whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
                       isActive && "text-aurora-lime",
                     )}
                     onClick={() =>
@@ -215,7 +217,7 @@ const Header = () => {
                   key={option.name}
                   type="button"
                   className={cn(
-                    "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base",
+                    "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
                     isActive && "text-aurora-lime",
                   )}
                   onClick={() => handleNavigate(option.route)}
@@ -280,12 +282,12 @@ const Header = () => {
             </div>
           </div>
         )}
-      </div>
+      </SiteShell>
 
       <div
         id="mobile-navigation-panel"
         className={cn(
-          "fixed inset-x-2 top-[calc(5.5rem+0.5rem)] bottom-4 overflow-y-auto rounded-2xl border border-white/10 bg-black/95 px-4 pb-8 pt-4 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-in-out sm:inset-x-6 sm:top-[calc(6.5rem+0.5rem)] lg:hidden",
+          "fixed inset-x-[var(--site-edge)] top-[calc(5.5rem+0.5rem)] bottom-4 overflow-y-auto rounded-2xl border border-white/10 bg-black/95 px-4 pb-8 pt-4 shadow-[0_24px_60px_rgba(0,0,0,0.45)] backdrop-blur-md transition-[opacity,transform] duration-300 ease-in-out sm:top-[calc(6.5rem+0.5rem)] lg:hidden",
           isMobileMenuOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-2 opacity-0",
