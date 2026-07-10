@@ -9,15 +9,15 @@ const HomeWebniar = () => {
     <section className="bg-[#151514]">
       <SiteShell
         className={cn(
-          "py-5 lg:pb-10 lg:pt-14 xl:pb-12 xl:pt-16",
-          "min-[2560px]:py-12 min-[2560px]:pb-16 min-[2560px]:pt-24",
+          "py-2 sm:py-2.5",
+          "lg:py-4 xl:py-5",
+          "min-[2560px]:py-6 min-[2560px]:pb-7 min-[2560px]:pt-8",
         )}
       >
         <SiteContent
           className={cn(
-            "flex flex-col items-center gap-3",
-            "sm:flex-row sm:items-center sm:justify-center sm:gap-8",
-            "lg:gap-12 min-[2560px]:gap-16",
+            "flex flex-col items-center gap-1.5",
+            "sm:flex-row sm:items-center sm:justify-center sm:gap-5 lg:gap-6 min-[2560px]:gap-8",
           )}
         >
           <p className="text-center font-display text-xs font-medium leading-tight whitespace-nowrap text-[#fdfdfd] sm:text-lg lg:text-xl xl:text-[28px] min-[2560px]:text-[40px]">
@@ -26,7 +26,7 @@ const HomeWebniar = () => {
 
           <Link
             href={HOME_WEBINAR.ctaHref}
-            className="inline-flex shrink-0 items-center gap-2 self-center rounded-lg border-2 border-aurora-lime px-3 py-2 text-aurora-lime transition-opacity hover:opacity-90 sm:gap-4 sm:rounded-xl sm:px-5 sm:py-3 lg:px-7 lg:py-4 min-[2560px]:gap-5 min-[2560px]:rounded-2xl min-[2560px]:border-[3px] min-[2560px]:px-9 min-[2560px]:py-5"
+            className="inline-flex shrink-0 items-center gap-1.5 self-center rounded-lg border-2 border-aurora-lime px-2.5 py-0.5 text-aurora-lime transition-opacity hover:opacity-90 sm:gap-2.5 sm:rounded-xl sm:px-3.5 sm:py-1 lg:px-4 lg:py-1.5 min-[2560px]:gap-3 min-[2560px]:rounded-2xl min-[2560px]:border-[3px] min-[2560px]:px-6 min-[2560px]:py-2.5"
           >
             <span className="font-sans text-xs font-medium sm:text-base lg:text-lg xl:text-xl min-[2560px]:text-2xl">
               {HOME_WEBINAR.ctaLabel}
