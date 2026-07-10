@@ -17,7 +17,7 @@ const HomeHero = () => {
       <div
         className={cn(
           "pointer-events-none absolute inset-0",
-          "min-[2260px]:-inset-x-[14%] min-[2260px]:top-[8%] min-[2260px]:bottom-[-16%]",
+          "min-[2260px]:flex min-[2260px]:items-end min-[2260px]:justify-center",
         )}
         aria-hidden
       >
@@ -29,16 +29,15 @@ const HomeHero = () => {
           playsInline
           className={cn(
             "size-full origin-center object-contain",
-            "scale-[1.35] sm:scale-[1.4]",
-            "lg:scale-[1.15] xl:scale-[1.2]",
-            "min-[2260px]:origin-[50%_100%] min-[2260px]:scale-[2.15]",
+            "max-[2259px]:scale-[1.35] sm:max-[2259px]:scale-[1.4]",
+            "lg:max-[2259px]:scale-[1.15] xl:max-[2259px]:scale-[1.2]",
             "object-[50%_42%] sm:object-[50%_48%]",
             "lg:object-[50%_78%] xl:object-[50%_82%]",
-            "min-[2260px]:object-bottom min-[2260px]:translate-y-[8%]",
+            "min-[2260px]:origin-[50%_100%] min-[2260px]:scale-[1.8]",
+            "min-[2260px]:object-bottom min-[2260px]:translate-y-[50%]",
           )}
         />
       </div>
-
       <SiteShell
         className={cn(
           "relative z-10",
