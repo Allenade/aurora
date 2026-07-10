@@ -31,7 +31,7 @@ const HomeHero = () => {
             "size-full origin-center object-contain",
             "max-[2259px]:scale-[1.35] sm:max-[2259px]:scale-[1.4]",
             "lg:max-[2259px]:scale-[1.15] xl:max-[2259px]:scale-[1.2]",
-            "object-[50%_42%] sm:object-[50%_48%]",
+            "max-sm:object-[50%_58%] sm:object-[50%_48%]",
             "lg:object-[50%_78%] xl:object-[50%_82%]",
             "min-[2260px]:origin-[50%_100%] min-[2260px]:scale-[1.8]",
             "min-[2260px]:object-bottom min-[2260px]:translate-y-[50%]",
