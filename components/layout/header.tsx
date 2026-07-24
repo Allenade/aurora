@@ -1,9 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "@/components/icons/chevron-down";
-import { HEADER_OPTIONS, SITE_INNER_NAV, type HeaderOptionItem } from "@/lib/constants";
+import {
+  HEADER_OPTIONS,
+  SITE_INNER_NAV,
+  type HeaderOptionItem,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { SiteShell } from "./site-shell";
 import { AuroraLogo } from "./aurora-logo";
@@ -92,7 +97,10 @@ const Header = () => {
     const normalizedPathname = normalizeRoute(pathname);
     if (!normalizedRoute) return false;
     if (normalizedRoute === "/") return normalizedPathname === "/";
-    return normalizedPathname.startsWith(normalizedRoute);
+    return (
+      normalizedPathname === normalizedRoute ||
+      normalizedPathname.startsWith(`${normalizedRoute}/`)
+    );
   };
 
   const isMenuItemActive = (item: HeaderOptionItem): boolean => {
@@ -104,6 +112,9 @@ const Header = () => {
     if (isRouteActive(option.route)) return true;
     return option.options.some((item) => isMenuItemActive(item));
   };
+
+  const navTextClass = (isActive: boolean) =>
+    isActive ? "text-aurora-lime" : "text-white";
 
   const handleNavigate = (route?: string) => {
     setOpenMenu(null);
@@ -129,9 +140,9 @@ const Header = () => {
         <button
           type="button"
           className={cn(
-            "flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-sans text-sm font-medium uppercase tracking-wide text-white/90 transition-colors hover:bg-white/10 hover:text-aurora-lime",
+            "flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-sans text-sm font-medium uppercase tracking-wide transition-colors hover:bg-white/10 hover:text-aurora-lime",
             isNested && "pl-8",
-            isActive && "text-aurora-lime",
+            isActive ? "text-aurora-lime" : "text-white/90",
           )}
           onClick={() => {
             if (hasChildren) {
@@ -186,29 +197,52 @@ const Header = () => {
 
               if (option.options.length > 0) {
                 return (
-                  <button
-                    key={option.name}
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={getMenuPanelId(option.name)}
-                    className={cn(
-                      "group flex items-center gap-1 whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
-                      isActive && "text-aurora-lime",
+                  <div key={option.name} className="flex items-center gap-0.5">
+                    {option.route ? (
+                      <Link
+                        href={option.route}
+                        className={cn(
+                          "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
+                          navTextClass(isActive),
+                        )}
+                        onClick={() => setOpenMenu(null)}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {option.name}
+                      </Link>
+                    ) : (
+                      <span
+                        className={cn(
+                          "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide lg:text-base min-[2560px]:text-xl",
+                          navTextClass(isActive),
+                        )}
+                      >
+                        {option.name}
+                      </span>
                     )}
-                    onClick={() =>
-                      setOpenMenu((current) =>
-                        current === option.name ? null : option.name,
-                      )
-                    }
-                  >
-                    {option.name}
-                    <ChevronDown
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-controls={getMenuPanelId(option.name)}
+                      aria-label={`${option.name} menu`}
                       className={cn(
-                        "size-4 transition-transform duration-300 xl:size-5",
-                        isOpen && "rotate-180",
+                        "flex items-center transition-colors hover:text-aurora-lime",
+                        navTextClass(isActive),
                       )}
-                    />
-                  </button>
+                      onClick={() =>
+                        setOpenMenu((current) =>
+                          current === option.name ? null : option.name,
+                        )
+                      }
+                    >
+                      <ChevronDown
+                        className={cn(
+                          "size-4 transition-transform duration-300 xl:size-5",
+                          isOpen && "rotate-180",
+                        )}
+                      />
+                    </button>
+                  </div>
                 );
               }
 
@@ -217,8 +251,8 @@ const Header = () => {
                   key={option.name}
                   type="button"
                   className={cn(
-                    "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
-                    isActive && "text-aurora-lime",
+                    "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
+                    navTextClass(isActive),
                   )}
                   onClick={() => handleNavigate(option.route)}
                 >
@@ -304,27 +338,56 @@ const Header = () => {
                   key={option.name}
                   className="overflow-hidden rounded-xl border border-white/10"
                 >
-                  <button
-                    type="button"
-                    className={cn(
-                      "flex w-full items-center justify-between gap-4 px-4 py-3 text-left font-sans text-sm font-semibold uppercase tracking-wide text-white",
-                      isActive && "text-aurora-lime",
+                  <div className="flex items-stretch">
+                    {option.route ? (
+                      <Link
+                        href={option.route}
+                        className={cn(
+                          "flex min-h-12 flex-1 items-center px-4 font-sans text-sm font-semibold uppercase tracking-wide transition-colors hover:text-aurora-lime",
+                          navTextClass(isActive),
+                        )}
+                        onClick={() => {
+                          setOpenMenu(null);
+                          setOpenChildMenus({});
+                          setIsMobileMenuOpen(false);
+                        }}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {option.name}
+                      </Link>
+                    ) : (
+                      <span
+                        className={cn(
+                          "flex min-h-12 flex-1 items-center px-4 font-sans text-sm font-semibold uppercase tracking-wide",
+                          navTextClass(isActive),
+                        )}
+                      >
+                        {option.name}
+                      </span>
                     )}
-                    onClick={() => {
-                      setOpenChildMenus({});
-                      setOpenMenu((current) =>
-                        current === option.name ? null : option.name,
-                      );
-                    }}
-                  >
-                    <span>{option.name}</span>
-                    <ChevronDown
+                    <button
+                      type="button"
                       className={cn(
-                        "size-4 transition-transform duration-300",
-                        isExpanded && "rotate-180",
+                        "flex w-12 shrink-0 items-center justify-center border-l border-white/10 transition-colors",
+                        navTextClass(isActive),
                       )}
-                    />
-                  </button>
+                      aria-expanded={isExpanded}
+                      aria-label={`${option.name} menu`}
+                      onClick={() => {
+                        setOpenChildMenus({});
+                        setOpenMenu((current) =>
+                          current === option.name ? null : option.name,
+                        );
+                      }}
+                    >
+                      <ChevronDown
+                        className={cn(
+                          "size-4 transition-transform duration-300",
+                          isExpanded && "rotate-180",
+                        )}
+                      />
+                    </button>
+                  </div>
 
                   <div
                     className={cn(
@@ -349,8 +412,8 @@ const Header = () => {
                 key={option.name}
                 type="button"
                 className={cn(
-                  "h-12 rounded-xl border border-white/10 px-4 text-left font-sans text-sm font-semibold uppercase tracking-wide text-white hover:text-aurora-lime",
-                  isActive && "text-aurora-lime",
+                  "h-12 rounded-xl border border-white/10 px-4 text-left font-sans text-sm font-semibold uppercase tracking-wide hover:text-aurora-lime",
+                  navTextClass(isActive),
                 )}
                 onClick={() => handleNavigate(option.route)}
               >
