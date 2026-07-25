@@ -33,6 +33,8 @@ export type PageHeroProps = {
   contentClassName?: string;
   /** Override default overlay classes when showOverlay is true */
   overlayClassName?: string;
+  /** Optional className for the description paragraph */
+  descriptionClassName?: string;
   /** Optional content below description/CTA (e.g. carousel dots) */
   footer?: ReactNode;
 };
@@ -61,6 +63,7 @@ export function PageHero({
   contentShellClassName,
   contentClassName,
   overlayClassName,
+  descriptionClassName,
   footer,
 }: PageHeroProps) {
   const isCentered = contentAlign === "center";
@@ -188,8 +191,11 @@ export function PageHero({
                 className={cn(
                   "mt-4 font-sans text-sm leading-relaxed text-white/90 sm:mt-5 sm:text-base lg:mt-6 lg:text-lg min-[2560px]:mt-8 min-[2560px]:text-2xl min-[2560px]:leading-relaxed",
                   isCentered
-                    ? "mx-auto max-w-none sm:max-w-2xl lg:max-w-3xl xl:max-w-[52rem]"
+                    ? descriptionClassName
+                      ? "mx-auto"
+                      : "mx-auto max-w-none sm:max-w-2xl lg:max-w-3xl xl:max-w-[52rem]"
                     : "max-w-md sm:max-w-lg lg:max-w-xl min-[2560px]:max-w-2xl",
+                  descriptionClassName,
                 )}
               >
                 {description}

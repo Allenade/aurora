@@ -21,6 +21,7 @@ export const IMAGES = Object.freeze({
   MOBILITY_SIDE: "/images/products/mobility/side.png",
   MOBILITY_ENVIRONMENT: "/images/products/mobility/environment.png",
   HERO_VIDEO: "/videos/comp-2.mp4",
+  EDUCATION_HERO: "/images/education/hero-bg.png",
 });
 
 export const ROUTES = Object.freeze({
@@ -103,11 +104,11 @@ export const HEADER_OPTIONS: HeaderOption[] = [
   },
   {
     name: "Education",
-    route: ROUTES.BASE,
+    route: ROUTES.EDUCATION,
     options: [
-      { name: "Overview", route: ROUTES.BASE },
-      { name: "Workshops", route: ROUTES.BASE },
-      { name: "Courses", route: ROUTES.BASE },
+      { name: "Overview", route: ROUTES.EDUCATION },
+      { name: "Workshops", route: ROUTES.EDUCATION_WORKSHOPS },
+      { name: "Courses", route: ROUTES.EDUCATION_COURSES },
     ],
   },
   {
@@ -225,6 +226,90 @@ export const JOIN_US_HERO_COPY = Object.freeze({
   ],
   slideCount: 3,
   activeSlide: 0,
+});
+
+export const EDUCATION_HERO = Object.freeze({
+  titleLines: [
+    "WE DO NOT JUST TEACH ROBOTICS.",
+    "WE BUILD THE PEOPLE WHO WILL",
+    "BUILD THE FUTURE.",
+  ],
+  descriptionLines: [
+    "Subsidised cohorts, remote robotics labs, robot kits,",
+    "university training, and internship pathways — designed to",
+    "take African engineers from curiosity to career.",
+  ],
+  tagline: "LEARN IT · BUILD IT · DEPLOY IT.",
+  primaryCta: {
+    label: "Explore Workshops",
+    href: ROUTES.EDUCATION_WORKSHOPS,
+  },
+  secondaryCta: {
+    label: "See the Ecosystem",
+    href: ROUTES.EDUCATION,
+  },
+  stats: [
+    { value: "190+", label: "Engineers Trained" },
+    { value: "3", label: "Cohorts" },
+    { value: "22", label: "Universities Reached" },
+    { value: "15+", label: "International Workshops" },
+    { value: "1500+", label: "Community Members" },
+  ],
+});
+
+export const EDUCATION_SYSTEM = Object.freeze({
+  eyebrow: "THE EDUCATION SYSTEM",
+  title: "One Education System, Many Ways To Enter and Grow",
+  descriptionLines: [
+    "Whether you join through the free community, a gateway workshop, a paid specialist",
+    "track, a university programme, a roadshow, or a competition — every path leads toward",
+    "internships, research teams, and product development roles within Aurora and beyond.",
+  ],
+  cards: [
+    {
+      id: "theory",
+      title: "Theory First, Practice Always",
+      bodyLines: [
+        "Concepts are taught clearly, then immediately converted into",
+        "code, simulations, hardware tasks and working demonstrations.",
+      ],
+    },
+    {
+      id: "access",
+      title: "Access before Exclusion",
+      bodyLines: [
+        "Free gateway training, subsidised fees, recordings, remote",
+        "laboratories and optional kits reduce the barriers that normally",
+        "keep learners out of robotics.",
+      ],
+    },
+    {
+      id: "proof",
+      title: "Proof Before Promises",
+      bodyLines: [
+        "Assessment focuses on what learners can build. Portfolios,",
+        "GitHub repositories, demos and capstones become visible",
+        "evidence of skill.",
+      ],
+    },
+    {
+      id: "pathway",
+      title: "Learning that leads somewhere",
+      bodyLines: [
+        "Top performance can lead to internships, competitive teams,",
+        "research, leadership, Talent-as-a-Service placements and",
+        "industrial work.",
+      ],
+    },
+  ],
+  primaryCta: {
+    label: "View Core Tracks",
+    href: ROUTES.EDUCATION_COURSES,
+  },
+  secondaryCta: {
+    label: "See the Talent Pathway",
+    href: ROUTES.JOIN_US,
+  },
 });
 
 export const JOIN_US_GALAXY = Object.freeze({
