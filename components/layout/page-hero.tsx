@@ -30,6 +30,11 @@ export type PageHeroProps = {
   mediaClassName?: string;
   sectionClassName?: string;
   contentShellClassName?: string;
+  contentClassName?: string;
+  /** Override default overlay classes when showOverlay is true */
+  overlayClassName?: string;
+  /** Optional content below description/CTA (e.g. carousel dots) */
+  footer?: ReactNode;
 };
 
 const DEFAULT_MEDIA_CLASS = cn(
@@ -54,6 +59,9 @@ export function PageHero({
   mediaClassName,
   sectionClassName,
   contentShellClassName,
+  contentClassName,
+  overlayClassName,
+  footer,
 }: PageHeroProps) {
   const isCentered = contentAlign === "center";
 
@@ -84,6 +92,7 @@ export function PageHero({
       <div
         className={cn(
           "pointer-events-none absolute inset-0",
+          mediaLayout === "cover" && "h-full w-full",
           mediaLayout === "default" &&
             "min-[2260px]:flex min-[2260px]:items-end min-[2260px]:justify-center",
         )}
@@ -101,6 +110,7 @@ export function PageHero({
             alt={media.alt ?? ""}
             fill
             priority
+            sizes="100vw"
             className={mediaClasses}
             aria-hidden
           />
@@ -111,9 +121,10 @@ export function PageHero({
         <div
           className={cn(
             "pointer-events-none absolute inset-0",
-            isCentered
-              ? "bg-gradient-to-b from-black/55 via-black/25 to-black/50"
-              : "bg-gradient-to-r from-black/80 via-black/35 to-black/10",
+            overlayClassName ??
+              (isCentered
+                ? "bg-gradient-to-b from-black/55 via-black/25 to-black/50"
+                : "bg-gradient-to-r from-black/80 via-black/35 to-black/10"),
           )}
           aria-hidden
         />
@@ -142,9 +153,12 @@ export function PageHero({
           <div
             className={cn(
               "relative",
-              isCentered
-                ? "mx-auto max-w-3xl text-center xl:max-w-4xl min-[2560px]:max-w-5xl"
-                : "max-w-[682px] min-[2560px]:max-w-[1100px]",
+              isCentered && "mx-auto text-center",
+              isCentered &&
+                !contentClassName &&
+                "max-w-3xl xl:max-w-4xl min-[2560px]:max-w-5xl",
+              !isCentered && "max-w-[682px] min-[2560px]:max-w-[1100px]",
+              contentClassName,
             )}
           >
             {eyebrow ? (
@@ -206,6 +220,19 @@ export function PageHero({
                   aria-hidden
                 />
               </Link>
+            ) : null}
+
+            {footer ? (
+              <div
+                className={cn(
+                  "flex justify-center",
+                  cta || description
+                    ? "mt-8 sm:mt-10 lg:mt-12"
+                    : "mt-6 sm:mt-8",
+                )}
+              >
+                {footer}
+              </div>
             ) : null}
           </div>
         </SiteContent>

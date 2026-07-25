@@ -75,6 +75,539 @@ export function CheckIcon({ className }: IconProps) {
   );
 }
 
+/** Join Us — lime info badge (material-symbols info rounded) */
+export function LimeInfoIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" fill="#C6FF00" />
+      <circle cx="12" cy="7.25" r="1.35" fill="#151514" />
+      <path
+        d="M12 10.5v6.5"
+        stroke="#151514"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us workshop — programming / code monitor */
+export function WorkshopCodeIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <rect
+        x="3.5"
+        y="4"
+        width="17"
+        height="12.5"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M8 20h8M12 16.5V20"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M9 9.5l-2 2 2 2M15 9.5l2 2-2 2"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us workshop — IoT / satellite dish (asset) */
+export function WorkshopSatelliteIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/workshop-iot.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us workshop — mobile robotics / rover */
+export function WorkshopRoverIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M5.5 14.5h13l-1.2-5.2A2 2 0 0015.4 8H8.6a2 2 0 00-1.9 1.3L5.5 14.5z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <circle cx="8" cy="16.5" r="1.8" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="16" cy="16.5" r="1.8" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="M12 8V5.5M10 5.5h4"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 14.5h16"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us workshop — computer vision / eye */
+export function WorkshopVisionIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="12" r="2.75" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  );
+}
+
+/** Join Us workshop — AI / brain (asset) */
+export function WorkshopAiIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/workshop-ai.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us workshop — robotic arm (asset) */
+export function WorkshopArmIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/workshop-arm.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us become — performance / bolt */
+export function BoltIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M13 2L4 13.5h6.5L10 22l9-11.5h-6.5L13 2z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us become — curiosity / lightbulb (asset) */
+export function IdeaBulbIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/curiosity.png"
+      alt=""
+      width={24}
+      height={24}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us become — consistency / stopwatch (asset) */
+export function ConsistencyTimerIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/consistency-stopwatch.png"
+      alt=""
+      width={24}
+      height={24}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us become — leadership / badge (asset) */
+export function LeadershipBadgeIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/leadership.png"
+      alt=""
+      width={24}
+      height={24}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us become — business chart */
+export function ChartIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M4 19h16M7 16V11M12 16V7M17 16v-5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us become — MVP flask */
+export function FlaskIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M9.5 3h5M10 3v6.2L5.2 18a2.2 2.2 0 001.9 3.3h9.8a2.2 2.2 0 001.9-3.3L14 9.2V3"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.5 14.5h7"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us become — agreement document */
+export function DocumentIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M7 3.5h7.5L18.5 8v12.5H7V3.5z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.5 3.5V8H18.5M9.5 12h5M9.5 15.5h5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us become — important warning */
+export function WarningTriangleIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M12 3.5L21.5 20H2.5L12 3.5z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 10v4.5M12 17.5h.01"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us become — scroll chevron */
+export function ChevronDownIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us bring — SWEP / gear */
+export function GearServiceIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M12 8.2a3.8 3.8 0 100 7.6 3.8 3.8 0 000-7.6z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M19.4 13.2a7.6 7.6 0 000-2.4l2-1.5-1.9-3.3-2.4.9a7.7 7.7 0 00-2.1-1.2L14.6 3h-5.2l-.4 2.7a7.7 7.7 0 00-2.1 1.2l-2.4-.9-1.9 3.3 2 1.5a7.6 7.6 0 000 2.4l-2 1.5 1.9 3.3 2.4-.9a7.7 7.7 0 002.1 1.2l.4 2.7h5.2l.4-2.7a7.7 7.7 0 002.1-1.2l2.4.9 1.9-3.3-2-1.5z"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us bring — robotics tour */
+export function TourPinIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <circle cx="12" cy="11" r="7.25" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="11" r="2.2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="6.4" r="1" fill="currentColor" />
+      <circle cx="16.2" cy="13.4" r="1" fill="currentColor" />
+      <circle cx="7.8" cy="13.4" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Join Us bring — events / event organisers (asset) */
+export function BringEventsIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/bring-events.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us bring — companies (asset) */
+export function BringCompaniesIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/bring-companies.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us bring — institutions / laboratory (asset) */
+export function BringInstitutionIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/bring-institution.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us bring — connectors (asset) */
+export function BringConnectorsIcon({ className }: IconProps) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/join-us/icons/bring-connectors.png"
+      alt=""
+      width={28}
+      height={28}
+      className={cn("shrink-0 object-contain", className)}
+      aria-hidden
+    />
+  );
+}
+
+/** Join Us bring — partnership / handshake mark */
+export function HandshakeIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M8 11.5l2.2-2.2a2 2 0 012.8 0L15 11.3M7 14l2.5 2.5a3 3 0 004.2 0L19 11"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4.5 12.5L8 9l2 2M19.5 12.5L16 9l-1.5 1.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us bring — client project */
+export function ProjectBoardIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <rect
+        x="3.5"
+        y="4.5"
+        width="17"
+        height="15"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M8 9h8M8 12.5h5M8 16h6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function InfoIcon({ className }: IconProps) {
   return (
     <svg
@@ -171,6 +704,414 @@ export function ShieldIcon({ className }: IconProps) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+/** Join Us galaxy — community chat */
+export function ChatBubbleIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M5 6.5A3.5 3.5 0 018.5 3h7A3.5 3.5 0 0119 6.5v5A3.5 3.5 0 0115.5 15H11l-3.5 3.25V15H8.5A3.5 3.5 0 015 11.5v-5z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+      <circle cx="9" cy="9" r="1" fill="currentColor" />
+      <circle cx="12" cy="9" r="1" fill="currentColor" />
+      <circle cx="15" cy="9" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Join Us galaxy — associate badge (shield + star) */
+export function AssociateBadgeIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M5.5 4h13v1.2l1.2.45a1 1 0 01.65 1.15L18.8 12c-.6 3.55-2.95 6-6.8 7.5C8.15 18 5.8 15.55 5.2 12L3.65 6.8a1 1 0 01.65-1.15L5.5 5.2V4z"
+        stroke="currentColor"
+        strokeWidth="1.65"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 8l1.05 2.15 2.35.35-1.7 1.65.4 2.35L12 13.4l-2.1 1.1.4-2.35-1.7-1.65 2.35-.35L12 8z"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us galaxy — workshop (crossed wrench + screwdriver) */
+export function ToolsIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      {/* screwdriver */}
+      <path
+        d="M8.2 15.8L15.5 8.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16.3 5.2a2.2 2.2 0 013.1 3.1L17.8 9.9 14.1 6.2 16.3 5.2z"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.2 16.8l-1.5 1.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      {/* wrench */}
+      <path
+        d="M9.2 8.8l6 6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M7.4 5.4a2.4 2.4 0 00-2.2 3.9l2.1-2.1 1.4 1.4-2.1 2.1a2.4 2.4 0 003.9-2.2L7.4 5.4z"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M16.8 16.4l1.6 1.6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us galaxy — bring Aurora to you (house + building) */
+export function BuildingCommunityIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M3.5 12.5L9 7.5l5.5 5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5 12v7.5h8V12"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.2 19.5v-3.2a1.3 1.3 0 011.3-1.3h0a1.3 1.3 0 011.3 1.3v3.2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.5 20.5V8.5h6v12"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="16.4" cy="11.2" r="0.7" fill="currentColor" />
+      <circle cx="18.6" cy="11.2" r="0.7" fill="currentColor" />
+      <circle cx="16.4" cy="13.8" r="0.7" fill="currentColor" />
+      <circle cx="18.6" cy="13.8" r="0.7" fill="currentColor" />
+      <circle cx="16.4" cy="16.4" r="0.7" fill="currentColor" />
+      <circle cx="18.6" cy="16.4" r="0.7" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** Join Us community — graduation / free training */
+export function GraduationCapIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M2.5 9.5L12 4.5l9.5 5-9.5 5-9.5-5z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.5 12v4.2c0 .4.2.8.55 1C8.5 18.2 10.1 19 12 19s3.5-.8 4.95-1.8c.35-.2.55-.6.55-1V12"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21.5 9.5v5.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us community — inside access */
+export function EyeOffIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M3 3l18 18"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M10.6 10.7a2.2 2.2 0 003 2.9M9.5 5.6C10.3 5.2 11.15 5 12 5c4.5 0 7.8 3.1 9.3 5.3a1.6 1.6 0 010 1.8c-.55.8-1.45 1.9-2.7 2.9M6.2 6.9C4.5 8.2 3.3 9.7 2.7 10.6a1.6 1.6 0 000 1.8C4.2 14.9 7.5 18 12 18c1.1 0 2.15-.2 3.1-.55"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Join Us community — opportunity board */
+export function BriefcaseIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <rect
+        x="3"
+        y="7"
+        width="18"
+        height="13"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M8 7V5.5A1.5 1.5 0 019.5 4h5A1.5 1.5 0 0116 5.5V7"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3 12h18"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function WhatsAppIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M12 2.5a9.5 9.5 0 00-8.2 14.3L2.8 21.2l4.5-.9A9.5 9.5 0 1012 2.5z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.2 8.8c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.2.6l-.4.4c-.1.1-.2.3 0 .5.4.6 1 1.2 1.7 1.6.2.1.4.1.5 0l.5-.4c.2-.1.4-.1.6 0l1.6.8c.3.1.4.3.4.5v.5c0 .3 0 .5-.4.7-.4.2-.9.4-1.4.4-1.5 0-3.3-.8-4.7-2.2-1.3-1.3-2.1-3-2.1-4.5 0-.5.1-1 .3-1.4z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function DiscordIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M8.5 6.5c1.4-.5 2.7-.7 3.5-.7s2.1.2 3.5.7l1.2-.4c.7 1.2 1.2 2.4 1.4 3.6.6 1.1.9 2.2.9 3.3 0 .2-.5 1.3-1.5 2.3l1 .9c-.4.6-.9 1.1-1.5 1.5l-1.1-.7c-.8.3-1.7.5-2.9.5s-2.1-.2-2.9-.5l-1.1.7c-.6-.4-1.1-.9-1.5-1.5l1-.9C6.6 14.3 6.1 13.2 6.1 13c0-1.1.3-2.2.9-3.3.2-1.2.7-2.4 1.4-3.6l1.1.4z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="9.5" cy="12.2" r="1.1" fill="currentColor" />
+      <circle cx="14.5" cy="12.2" r="1.1" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function FlagIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M5 4v16"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M5 5h11l-1.5 3.5L16 12H5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function GrowthArrowIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M5 16l5-5 3.5 3.5L19 9"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 9h5v5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function EyeIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <path
+        d="M2.7 12c1.5-2.2 4.8-5.5 9.3-5.5S20.8 9.8 22.3 12c-1.5 2.2-4.8 5.5-9.3 5.5S4.2 14.2 2.7 12z"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="2.6"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+    </svg>
+  );
+}
+
+export function TargetIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="1.2" fill="currentColor" />
     </svg>
   );
 }
