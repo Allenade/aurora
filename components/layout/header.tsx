@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown } from "@/components/icons/chevron-down";
+import { useEffect, useRef, useState } from "react";
+// import { ChevronDown } from "@/components/icons/chevron-down";
 import {
   HEADER_OPTIONS,
   SITE_INNER_NAV,
@@ -14,8 +14,8 @@ import { SiteShell } from "./site-shell";
 import { AuroraLogo } from "./aurora-logo";
 import { JoinUsButton } from "./join-us-button";
 
-const getMenuPanelId = (name: string) =>
-  `${name.toLowerCase().replace(/\s+/g, "-")}-panel`;
+// const getMenuPanelId = (name: string) =>
+//   `${name.toLowerCase().replace(/\s+/g, "-")}-panel`;
 
 const Header = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,14 +25,15 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOverLight, setIsOverLight] = useState(false);
   const [openChildMenus, setOpenChildMenus] = useState<Record<string, boolean>>(
     {},
   );
 
-  const activeMenu = useMemo(
-    () => HEADER_OPTIONS.find((option) => option.name === openMenu) ?? null,
-    [openMenu],
-  );
+  // const activeMenu = useMemo(
+  //   () => HEADER_OPTIONS.find((option) => option.name === openMenu) ?? null,
+  //   [openMenu],
+  // );
 
   useEffect(() => {
     if (!openMenu && !isMobileMenuOpen) return;
@@ -74,10 +75,65 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    const parseRgba = (value: string) => {
+      const match = value.match(
+        /rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)/i,
+      );
+      if (!match) return null;
+      return {
+        r: Number(match[1]),
+        g: Number(match[2]),
+        b: Number(match[3]),
+        a: match[4] === undefined ? 1 : Number(match[4]),
+      };
+    };
+
+    const isLightColor = (r: number, g: number, b: number) =>
+      0.2126 * r + 0.7152 * g + 0.0722 * b > 160;
+
+    const sampleBehindNav = () => {
+      const shell = containerRef.current;
+      if (!shell) return;
+
+      const rect = shell.getBoundingClientRect();
+      const x = Math.min(
+        Math.max(rect.left + rect.width / 2, 0),
+        window.innerWidth - 1,
+      );
+      const y = Math.min(rect.bottom + 8, window.innerHeight - 1);
+
+      // Hide header so elementFromPoint hits page content underneath
+      const previousVisibility = shell.style.visibility;
+      shell.style.visibility = "hidden";
+      const target = document.elementFromPoint(x, y) as HTMLElement | null;
+      shell.style.visibility = previousVisibility;
+
+      let el: HTMLElement | null = target;
+      while (el) {
+        const bg = getComputedStyle(el).backgroundColor;
+        const color = parseRgba(bg);
+        if (color && color.a >= 0.6) {
+          setIsOverLight(isLightColor(color.r, color.g, color.b));
+          return;
+        }
+        el = el.parentElement;
+      }
+
+      setIsOverLight(false);
+    };
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+      sampleBehindNav();
+    };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", sampleBehindNav);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", sampleBehindNav);
+    };
   }, []);
 
   useEffect(() => {
@@ -96,7 +152,8 @@ const Header = () => {
     const normalizedRoute = normalizeRoute(route);
     const normalizedPathname = normalizeRoute(pathname);
     if (!normalizedRoute) return false;
-    if (normalizedRoute === "/") return normalizedPathname === "/";
+    // Home placeholders (Services, Research, etc.) should not all highlight on `/`
+    if (normalizedRoute === "/") return false;
     return (
       normalizedPathname === normalizedRoute ||
       normalizedPathname.startsWith(`${normalizedRoute}/`)
@@ -114,7 +171,11 @@ const Header = () => {
   };
 
   const navTextClass = (isActive: boolean) =>
-    isActive ? "text-aurora-lime" : "text-white";
+    isActive
+      ? "text-aurora-lime"
+      : isOverLight
+        ? "text-[#151514]"
+        : "text-white";
 
   const handleNavigate = (route?: string) => {
     setOpenMenu(null);
@@ -129,7 +190,10 @@ const Header = () => {
       [name]: !current[name],
     }));
   };
+  void openChildMenus;
+  void toggleChildMenu;
 
+  /* Dropdown menu items — temporarily disabled
   const renderMenuItem = (item: HeaderOptionItem, isNested = false) => {
     const hasChildren = Boolean(item.children?.length);
     const isExpanded = openChildMenus[item.name];
@@ -171,6 +235,7 @@ const Header = () => {
       </div>
     );
   };
+  */
 
   return (
     <div
@@ -192,7 +257,7 @@ const Header = () => {
             aria-label="Primary"
           >
             {HEADER_OPTIONS.map((option) => {
-              const isOpen = openMenu === option.name;
+              // const isOpen = openMenu === option.name;
               const isActive = isOptionActive(option);
 
               if (option.options.length > 0) {
@@ -220,6 +285,7 @@ const Header = () => {
                         {option.name}
                       </span>
                     )}
+                    {/* Dropdown arrow — temporarily disabled
                     <button
                       type="button"
                       aria-expanded={isOpen}
@@ -242,6 +308,7 @@ const Header = () => {
                         )}
                       />
                     </button>
+                    */}
                   </div>
                 );
               }
@@ -268,7 +335,12 @@ const Header = () => {
 
           <button
             type="button"
-            className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-white/20 text-white lg:hidden"
+            className={cn(
+              "flex size-10 shrink-0 items-center justify-center rounded-lg border transition-colors lg:hidden",
+              isOverLight
+                ? "border-black/20 text-[#151514]"
+                : "border-white/20 text-white",
+            )}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-navigation-panel"
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
@@ -304,6 +376,7 @@ const Header = () => {
           </button>
         </div>
 
+        {/* Desktop dropdown panel — temporarily disabled
         {activeMenu && (
           <div
             id={getMenuPanelId(activeMenu.name)}
@@ -316,6 +389,7 @@ const Header = () => {
             </div>
           </div>
         )}
+        */}
       </SiteShell>
 
       <div
@@ -329,7 +403,7 @@ const Header = () => {
       >
         <nav className="flex flex-col gap-2" aria-label="Mobile primary">
           {HEADER_OPTIONS.map((option) => {
-            const isExpanded = openMenu === option.name;
+            // const isExpanded = openMenu === option.name;
             const isActive = isOptionActive(option);
 
             if (option.options.length > 0) {
@@ -365,6 +439,7 @@ const Header = () => {
                         {option.name}
                       </span>
                     )}
+                    {/* Mobile dropdown arrow — temporarily disabled
                     <button
                       type="button"
                       className={cn(
@@ -387,8 +462,10 @@ const Header = () => {
                         )}
                       />
                     </button>
+                    */}
                   </div>
 
+                  {/* Mobile dropdown panel — temporarily disabled
                   <div
                     className={cn(
                       "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out",
@@ -403,6 +480,7 @@ const Header = () => {
                       </div>
                     </div>
                   </div>
+                  */}
                 </div>
               );
             }

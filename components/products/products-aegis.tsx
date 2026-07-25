@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   CheckIcon,
@@ -10,8 +9,7 @@ import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { PRODUCTS_AEGIS } from "@/lib/constants";
 
 const ProductsAegis = () => {
-  const { capabilities, designedFor, howItWorks, cta, status, stages } =
-    PRODUCTS_AEGIS;
+  const { capabilities, designedFor, howItWorks, cta, status } = PRODUCTS_AEGIS;
 
   return (
     <section className="bg-[#fcfcfe]">
@@ -43,7 +41,7 @@ const ProductsAegis = () => {
             </p>
           </div>
 
-          {/* Pipeline stages */}
+          {/* Pipeline stages — hidden until new assets arrive
           <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4 lg:gap-5">
             {stages.map((stage) => (
               <article
@@ -65,6 +63,7 @@ const ProductsAegis = () => {
               </article>
             ))}
           </div>
+          */}
 
           {/* Capabilities + Designed For */}
           <div className="mt-10 grid gap-10 lg:mt-14 lg:grid-cols-2 lg:gap-12 xl:gap-16">
