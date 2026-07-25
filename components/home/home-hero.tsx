@@ -12,7 +12,7 @@ const HomeHero = () => {
           </span>
         </>
       }
-      media={{ type: "video", src: IMAGES.HERO_VIDEO, startOffset: 4 }}
+      media={{ type: "video", src: IMAGES.HERO_VIDEO }}
       cta={{ label: "Learn More", href: ROUTES.BASE }}
     />
   );

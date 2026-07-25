@@ -20,7 +20,7 @@ export const IMAGES = Object.freeze({
   MOBILITY_REAR: "/images/products/mobility/rear.png",
   MOBILITY_SIDE: "/images/products/mobility/side.png",
   MOBILITY_ENVIRONMENT: "/images/products/mobility/environment.png",
-  HERO_VIDEO: "/videos/drone-build.mp4",
+  HERO_VIDEO: "/videos/comp-2.mp4",
 });
 
 export const ROUTES = Object.freeze({
