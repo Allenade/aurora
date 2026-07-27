@@ -4,6 +4,7 @@ export const IMAGES = Object.freeze({
   ARROW_CIRCLE_DARK: "/images/arrow-circle-dark.svg",
   HERO_VISUAL: "/images/hero-visual.png",
   PRODUCTS_HERO: "/images/products-hero-aurora-v2.jpg",
+  PRODUCTS_HERO_VIDEO: "/videos/pov-1.mp4",
   JOIN_US_HERO: "/images/join-us/hero.png",
   PRODUCT_BRAINIAC: "/images/products/brainiac-product.png",
   PRODUCT_STREAMFORGE: "/images/products/streamforge-product.png",

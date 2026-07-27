@@ -13,15 +13,14 @@ const ProductsHero = () => {
         </span>
       ))}
       media={{
-        type: "image",
-        src: IMAGES.PRODUCTS_HERO,
-        alt: "Aurora Robotics product lineup under the northern lights",
+        type: "video",
+        src: IMAGES.PRODUCTS_HERO_VIDEO,
       }}
       mediaLayout="cover"
       showOverlay
       contentAlign="center"
       // Keep products in frame; text sits lower above them — same on all large screens
-      mediaClassName="object-cover object-[50%_88%]"
+      mediaClassName="object-cover object-center"
       contentShellClassName={cn(
         "items-end",
         "pb-[28%] pt-[18%]",
