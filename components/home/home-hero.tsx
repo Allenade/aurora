@@ -13,7 +13,7 @@ const HomeHero = () => {
         </>
       }
       media={{ type: "video", src: IMAGES.HERO_VIDEO }}
-      cta={{ label: "Learn More", href: ROUTES.BASE }}
+      cta={{ label: "Learn More", href: ROUTES.ABOUT_US }}
     />
   );
 };

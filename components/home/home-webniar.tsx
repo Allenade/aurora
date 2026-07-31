@@ -26,6 +26,8 @@ const HomeWebniar = () => {
 
           <Link
             href={HOME_WEBINAR.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center gap-1.5 self-center rounded-lg border-2 border-aurora-lime px-2.5 py-0.5 text-aurora-lime transition-opacity hover:opacity-90 sm:gap-2.5 sm:rounded-xl sm:px-3.5 sm:py-1 lg:px-4 lg:py-1.5 min-[2560px]:gap-3 min-[2560px]:rounded-2xl min-[2560px]:border-[3px] min-[2560px]:px-6 min-[2560px]:py-2.5"
           >
             <span className="font-sans text-xs font-medium sm:text-base lg:text-lg xl:text-xl min-[2560px]:text-2xl">

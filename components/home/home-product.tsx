@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { AppLink } from "@/components/layout/app-link";
 import { HOME_PRODUCT, IMAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -94,7 +94,7 @@ const HomeProduct = () => {
             </div>
 
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
-              <Link
+              <AppLink
                 href={primaryCta.href}
                 className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-aurora-lime px-4 py-3 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:gap-3 sm:px-5 sm:py-3.5 sm:text-base"
               >
@@ -107,14 +107,14 @@ const HomeProduct = () => {
                   className="size-5 shrink-0 sm:size-6"
                   aria-hidden
                 />
-              </Link>
+              </AppLink>
 
-              <Link
+              <AppLink
                 href={secondaryCta.href}
                 className="inline-flex items-center justify-center rounded-lg border border-[#151514] bg-white px-4 py-3 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-80 sm:px-5 sm:py-3.5 sm:text-base"
               >
                 {secondaryCta.label}
-              </Link>
+              </AppLink>
             </div>
           </div>
         </div>

@@ -24,14 +24,21 @@ export const IMAGES = Object.freeze({
   HERO_VIDEO: "/videos/comp-2.mp4",
   EDUCATION_HERO: "/images/education/hero-bg.png",
   RESEARCH_HERO: "/images/research/hero-robot-book.jpg",
+  ABOUT_HERO: "/images/about/hero.png",
+  ABOUT_ENGINE_ENGINEERING: "/images/about/engines/engineering.png",
+  ABOUT_ENGINE_TALENT: "/images/about/engines/talent.png",
+  ABOUT_ENGINE_PRODUCTS: "/images/about/engines/products.png",
+  ABOUT_ENGINE_RESEARCH: "/images/about/engines/research.png",
   RESEARCH_TEAM_BG: "/images/research/team-bg.jpg",
   RESEARCH_TEAM_ROBOT: "/images/research/team-robot-cutout.png",
   RESEARCH_PAPER_KALMAN: "/images/research/papers/kalman-lab.jpg",
   RESEARCH_PAPER_TRUST_BOOK: "/images/research/papers/trust-robot-book.jpg",
-  RESEARCH_PAPER_LOCOMOTION: "/images/research/papers/locomotion-underground.jpg",
+  RESEARCH_PAPER_LOCOMOTION:
+    "/images/research/papers/locomotion-underground.jpg",
   RESEARCH_PAPER_SCENE: "/images/research/papers/scene-rover.jpg",
   RESEARCH_PAPER_ELDER_CARE: "/images/research/papers/trust-sar-companion.jpg",
-  RESEARCH_PAPER_METACOGNITION: "/images/research/papers/metacognition-brain.jpg",
+  RESEARCH_PAPER_METACOGNITION:
+    "/images/research/papers/metacognition-brain.jpg",
   RESEARCH_PAPER_TRAFFIC: "/images/research/papers/traffic-signals.jpg",
   RESEARCH_PAPER_WEBSOCKET: "/images/research/papers/websocket-lab.jpg",
   HOME_EDUCATION_GAP: "/images/home/education-gap-visual.svg",
@@ -67,12 +74,19 @@ export const ROUTES = Object.freeze({
   NEWS_PRESS_RELEASES: "/news/press-releases",
   NEWS_EVENTS: "/news/events",
   ABOUT_US: "/about-us",
+  ABOUT_TRACTION: "/about-us#traction",
   FAQ: "/faq",
   JOIN_US: "/join-us",
-  CONTACT: "/contact",
+  CONTACT: "#contact",
   PRIVACY_POLICY: "/privacy-policy",
   TERMS_AND_CONDITIONS: "/terms-and-conditions",
   COOKIE_POLICY: "/cookie-policy",
+});
+
+/** External forms / third-party destinations */
+export const EXTERNAL_LINKS = Object.freeze({
+  WORKSHOP_WAITLIST:
+    "https://docs.google.com/forms/d/e/1FAIpQLScIlTJG4jBTUtb4ksU-nM_3-Ynqd8wbqAvVg-e9mXj9ae_9iQ/viewform?usp=header",
 });
 
 export type HeaderOptionItem = {
@@ -129,12 +143,12 @@ export const HEADER_OPTIONS: HeaderOption[] = [
     ],
   },
   {
-    name: "News",
-    route: ROUTES.BASE,
+    name: "About",
+    route: ROUTES.ABOUT_US,
     options: [
-      { name: "Overview", route: ROUTES.BASE },
-      { name: "Press Releases", route: ROUTES.BASE },
-      { name: "Events", route: ROUTES.BASE },
+      { name: "Overview", route: ROUTES.ABOUT_US },
+      { name: "Join Us", route: ROUTES.JOIN_US },
+      { name: "Contact", route: ROUTES.CONTACT },
     ],
   },
 ];
@@ -191,25 +205,67 @@ export const FOOTER_URLS: FooterColumn[] = [
 ];
 
 export const FOOTER_CONTACT = Object.freeze({
-  email: "support@aurorarobotics.com",
-  emailHref: "mailto:support@aurorarobotics.com",
+  email: "admin@aurora-robotics.com",
+  emailHref: "mailto:admin@aurora-robotics.com",
+  phones: [
+    {
+      label: "Call",
+      value: "+234 808 078 5472",
+      href: "tel:+2348080785472",
+    },
+    {
+      label: "International Call",
+      value: "+34 600 070 617",
+      href: "tel:+34600070617",
+    },
+    {
+      label: "WhatsApp",
+      value: "+234 705 750 0771",
+      href: "https://wa.me/2347057500771",
+    },
+  ],
+  websites: [
+    {
+      label: "www.aurora-robotics.com",
+      href: "https://www.aurora-robotics.com",
+    },
+    {
+      label: "bakel-bakel.github.io",
+      href: "https://bakel-bakel.github.io/bakel-bakel.com",
+    },
+  ],
+  community: {
+    label: "Join the Community",
+    href: "https://chat.whatsapp.com/G9ztUjUU8UzK64CURqsxRK",
+  },
+  tagline: "Forza Aurora",
 });
 
 export const FOOTER_SOCIAL_LINKS = [
   {
     name: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/aurora-robotics-in",
     label: "LinkedIn",
   },
   {
     name: "X",
-    href: "https://x.com",
+    href: "https://x.com/aurora_robots",
     label: "X (Twitter)",
   },
   {
     name: "YouTube",
-    href: "https://youtube.com",
+    href: "https://www.youtube.com/@AuroraRoboticsNG",
     label: "YouTube",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/Aurora-Robotics",
+    label: "GitHub — Aurora Robotics",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/Bakel-Bakel",
+    label: "GitHub — Bakel Bakel",
   },
 ] as const;
 
@@ -219,7 +275,7 @@ export const FOOTER_COPYRIGHT =
 export const HOME_WEBINAR = Object.freeze({
   title: "Robotics Core Workshop 3.0",
   ctaLabel: "Register",
-  ctaHref: ROUTES.BASE,
+  ctaHref: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
 });
 
 export const HOME_WHO = Object.freeze({
@@ -229,7 +285,7 @@ export const HOME_WHO = Object.freeze({
   stats: [
     { value: "8+", label: "Projects Completed & Delivered" },
     { value: "100%", label: "Successful Delivery rate" },
-    { value: "15+", label: "Brands, Partners, Clients" },
+    { value: "15+", label: "Brands, Partners and Clients" },
   ],
 });
 
@@ -254,8 +310,8 @@ export const HOME_WE = Object.freeze({
     body: "Free and heavily subsidized robotics cohorts (the Core Workshop Series) that develop world-class engineers, plus the Aurora Robotics Tour (ART) — Africa's equivalent of NVIDIA GTC — bringing professional-grade hardware directly to students.",
   },
   cta: {
-    label: "View Our Courses",
-    href: ROUTES.EDUCATION_COURSES,
+    label: "Join Waitlist",
+    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
   },
   image: {
     src: IMAGES.HOME_EDUCATION_GAP,
@@ -292,8 +348,8 @@ export const HOME_WE_CLOSE = Object.freeze({
     ],
   },
   cta: {
-    label: "Request Consultation",
-    href: ROUTES.SERVICES_CONSULTING,
+    label: "View Research",
+    href: ROUTES.RESEARCH,
   },
   background: {
     src: IMAGES.HOME_DEPLOYMENT_GAP,
@@ -329,7 +385,7 @@ export const HOME_PRODUCT = Object.freeze({
   },
   primaryCta: {
     label: "Build A Product With Us",
-    href: ROUTES.JOIN_US,
+    href: ROUTES.CONTACT,
   },
   secondaryCta: {
     label: "View Our Products",
@@ -370,7 +426,7 @@ export const HOME_EXPERIENCE = Object.freeze({
   },
   cta: {
     label: "View Our Track Record",
-    href: ROUTES.ABOUT_US,
+    href: ROUTES.ABOUT_TRACTION,
   },
   image: {
     src: IMAGES.HOME_EXPERIENCE_GAP,
@@ -390,10 +446,7 @@ export const HOME_RESEARCH = Object.freeze({
     },
     {
       value: "<30%",
-      labelLines: [
-        "OF THEORETICAL RESEARCH",
-        "TRANSLATES TO COMMERCIAL USE",
-      ],
+      labelLines: ["OF THEORETICAL RESEARCH", "TRANSLATES TO COMMERCIAL USE"],
     },
   ],
   problem: {
@@ -412,8 +465,8 @@ export const HOME_RESEARCH = Object.freeze({
     ],
   },
   cta: {
-    label: "Request Consultation",
-    href: ROUTES.SERVICES_CONSULTING,
+    label: "View Research",
+    href: ROUTES.RESEARCH,
   },
   background: {
     src: IMAGES.HOME_RESEARCH_GAP,
@@ -440,6 +493,166 @@ export const RESEARCH_HERO = Object.freeze({
     src: IMAGES.RESEARCH_HERO,
     alt: "Humanoid robot holding a red book in front of a blackboard of mathematical formulas",
   },
+});
+
+export const ABOUT_HERO = Object.freeze({
+  eyebrow: "Africa's One-Stop AI and Robotics Solution",
+  titleLines: [
+    "We train the talent. We build the",
+    "systems. We move AI & robotics from",
+    "possibility to deployment.",
+  ],
+  description:
+    "Aurora Robotics Ltd (RC-8896924), a Nigerian AI/robotics company founded 2025, incorporated 6 October 2025, HQ Abuja — builds autonomous systems, develops engineering talent, creates proprietary products, and connects research to industrial deployment, from Nigeria to the world.",
+  image: {
+    src: IMAGES.ABOUT_HERO,
+    alt: "Aurora team collaborating at workstations in a robotics lab",
+  },
+});
+
+export const ABOUT_MISSION = Object.freeze({
+  cards: [
+    {
+      id: "mission",
+      title: "Our Mission",
+      body: "Become the source the industry trusts to train, deploy, and distribute autonomous-systems talent and technology globally.",
+    },
+    {
+      id: "vision",
+      title: "Our Vision",
+      body: "To be the institution the global robotics industry hires from, partners with, and benchmarks against.",
+    },
+    {
+      id: "approach",
+      title: "Our Approach",
+      body: "Aurora trains engineers through practical and subsidised programmes, builds proprietary AI and robotics products for real environments, and partners with industry to deploy systems that work — connecting talent, technology, and deployment in one pipeline.",
+      wide: true,
+    },
+  ],
+});
+
+export const ABOUT_TRACTION = Object.freeze({
+  titleLines: ["Our Traction In Less Than A Year", "From Inception"],
+  stats: [
+    { value: "190+", label: "Engineers Trained" },
+    { value: "22", label: "Talents Absorbed" },
+    { value: "8", label: "Industrial Contracts" },
+    { value: "6", label: "Industries Served" },
+    { value: "6", label: "Research Units" },
+    { value: "9+", label: "Published Papers" },
+    { value: "4", label: "Flagship Products" },
+    { value: "41", label: "Universities Reached" },
+  ],
+});
+
+export const ABOUT_MILESTONES = Object.freeze({
+  title: "Milestones",
+  items: [
+    {
+      number: "01",
+      year: "2025",
+      title: "Foundation & Incorporation",
+      body: "Aurora Robotics Ltd incorporated in Abuja — building Africa's AI and robotics pipeline from day one.",
+    },
+    {
+      number: "02",
+      year: "2025",
+      title: "Core 1.0 — The First Proof",
+      body: "Launched the first proof-of-concept programmes converting curiosity into deployable robotics talent.",
+    },
+    {
+      number: "03",
+      year: "2025",
+      title: "Product Line Launch",
+      body: "Shipped proprietary platforms spanning perception, data infrastructure, and human-machine systems.",
+    },
+    {
+      number: "04",
+      year: "2025",
+      title: "University Network",
+      body: "Expanded partnerships across campuses — workshops, labs, and internship pathways at scale.",
+    },
+    {
+      number: "05",
+      year: "2026",
+      title: "Industry Deployment",
+      body: "Moved systems from lab to field — connecting trained talent with real industrial contracts.",
+    },
+  ],
+});
+
+export const ABOUT_WIDER_REACH = Object.freeze({
+  title: "Wider Reach",
+  stats: [
+    { value: "1500+", label: "In House Community" },
+    { value: "4000+", label: "Company Wide Following" },
+    { value: "41", label: "University Footprint" },
+    { value: "2", label: "Talent-As-A-Service Engagements" },
+  ],
+  ctas: [
+    {
+      id: "track-record",
+      label: "View Track Record",
+      href: ROUTES.ABOUT_TRACTION,
+      variant: "primary" as const,
+    },
+    {
+      id: "capability-deck",
+      label: "Request Capability Deck",
+      href: ROUTES.CONTACT,
+      variant: "outline" as const,
+    },
+    {
+      id: "start-project",
+      label: "Start A Project",
+      href: ROUTES.CONTACT,
+      variant: "outline" as const,
+    },
+  ],
+});
+
+export const ABOUT_TALENT_VALUE = Object.freeze({
+  title: "How Aurora Turns Talent Into Industrial Value",
+  description:
+    "Five connected engines, each independently valuable, together a flywheel — training produces talent, talent delivers projects, research, and products, results strengthen the brand and attract the next generation.",
+  engines: [
+    {
+      id: "education",
+      number: "01",
+      title: "Education & Training",
+      body: "Core Workshop Series, university programmes, SWEP-as-a-Service, specialist tracks.",
+      icon: "education" as const,
+      featured: true,
+    },
+    {
+      id: "engineering",
+      number: "02",
+      title: "Industrial B2B Engineering",
+      body: "AI, robotics, automation, embedded hardware, maritime tech, inspection systems.",
+      iconSrc: IMAGES.ABOUT_ENGINE_ENGINEERING,
+    },
+    {
+      id: "talent",
+      number: "03",
+      title: "Talent-as-a-Service",
+      body: "Vetted engineers join client teams as specialists, pods, or retained units.",
+      iconSrc: IMAGES.ABOUT_ENGINE_TALENT,
+    },
+    {
+      id: "products",
+      number: "04",
+      title: "Proprietary Products",
+      body: "AEGIS-SUBSEA, Brainiac, StreamForge, Xavier, more in development.",
+      iconSrc: IMAGES.ABOUT_ENGINE_PRODUCTS,
+    },
+    {
+      id: "research",
+      number: "05",
+      title: "AI & Robotics Research",
+      body: "Six specialised units producing publication-grade work, prototypes, datasets.",
+      iconSrc: IMAGES.ABOUT_ENGINE_RESEARCH,
+    },
+  ],
 });
 
 export const RESEARCH_ABOUT = Object.freeze({
@@ -616,12 +829,8 @@ export const EDUCATION_HERO = Object.freeze({
   ],
   tagline: "LEARN IT · BUILD IT · DEPLOY IT.",
   primaryCta: {
-    label: "Explore Workshops",
-    href: ROUTES.EDUCATION_WORKSHOPS,
-  },
-  secondaryCta: {
-    label: "See the Ecosystem",
-    href: ROUTES.EDUCATION,
+    label: "Join the Waitlist",
+    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
   },
   stats: [
     { value: "190+", label: "Engineers Trained" },
@@ -678,12 +887,8 @@ export const EDUCATION_SYSTEM = Object.freeze({
     },
   ],
   primaryCta: {
-    label: "View Core Tracks",
-    href: ROUTES.EDUCATION_COURSES,
-  },
-  secondaryCta: {
-    label: "See the Talent Pathway",
-    href: ROUTES.JOIN_US,
+    label: "Join the Waitlist",
+    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
   },
 });
 
@@ -1258,8 +1463,6 @@ export const PRODUCTS_AEGIS = Object.freeze({
   },
   cta: {
     title: "Inspect Smarter. Act Earlier",
-    demoLabel: "Watch Demo",
-    demoHref: ROUTES.BASE,
     pilotLabel: "Discuss A Pilot",
     pilotHref: ROUTES.CONTACT,
   },
@@ -1364,8 +1567,6 @@ export const PRODUCTS_QOREL = Object.freeze({
     title: "Make your industrial data trustworthy.",
     pilotLabel: "Request A Pilot",
     pilotHref: ROUTES.CONTACT,
-    tourLabel: "View Product Tour",
-    tourHref: ROUTES.BASE,
   },
 });
 
@@ -1432,10 +1633,8 @@ export const PRODUCTS_BRAINIAC = Object.freeze({
   },
   cta: {
     title: "Build the Next Interface With Us",
-    partnershipLabel: "Research Partnership",
-    partnershipHref: ROUTES.RESEARCH,
     validationLabel: "Join Validation",
-    validationHref: ROUTES.JOIN_US,
+    validationHref: ROUTES.CONTACT,
   },
 });
 
@@ -1517,10 +1716,8 @@ export const PRODUCTS_MOBILITY = Object.freeze({
   },
   cta: {
     title: "Give people their world back.",
-    partnerLabel: "Partner With Xavier",
-    partnerHref: ROUTES.CONTACT,
     pilotLabel: "Join the Pilot Network",
-    pilotHref: ROUTES.JOIN_US,
+    pilotHref: ROUTES.CONTACT,
   },
 });
 

@@ -1,10 +1,10 @@
-import Link from "next/link";
 import {
   CheckIcon,
   ChipIcon,
   InfoIcon,
   LaunchIcon,
 } from "@/components/icons/figma-icons";
+import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { PRODUCTS_AEGIS } from "@/lib/constants";
 
@@ -157,18 +157,12 @@ const ProductsAegis = () => {
               {cta.title}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <Link
-                href={cta.demoHref}
-                className="inline-flex items-center justify-center rounded-xl border-[2.5px] border-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-aurora-lime transition-opacity hover:opacity-90 lg:text-[28px]"
-              >
-                {cta.demoLabel}
-              </Link>
-              <Link
+              <AppLink
                 href={cta.pilotHref}
                 className="inline-flex items-center justify-center rounded-xl bg-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-[#242424] transition-opacity hover:opacity-90 lg:text-[28px]"
               >
                 {cta.pilotLabel}
-              </Link>
+              </AppLink>
             </div>
           </div>
         </SiteContent>

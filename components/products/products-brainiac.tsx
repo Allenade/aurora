@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { AppLink } from "@/components/layout/app-link";
 import {
   CheckIcon,
   ChipIcon,
@@ -113,18 +113,12 @@ const ProductsBrainiac = () => {
               {cta.title}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <Link
-                href={cta.partnershipHref}
-                className="inline-flex items-center justify-center rounded-xl border-[2.5px] border-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-aurora-lime transition-opacity hover:opacity-90 lg:text-[28px]"
-              >
-                {cta.partnershipLabel}
-              </Link>
-              <Link
+              <AppLink
                 href={cta.validationHref}
                 className="inline-flex items-center justify-center rounded-xl bg-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-[#242424] transition-opacity hover:opacity-90 lg:text-[28px]"
               >
                 {cta.validationLabel}
-              </Link>
+              </AppLink>
             </div>
           </div>
         </SiteContent>

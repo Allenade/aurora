@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink } from "@/components/layout/app-link";
 import {
   ArchitectureHeaderIcon,
   CheckIcon,
@@ -186,18 +186,12 @@ const ProductsQorel = () => {
               {cta.title}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <Link
+              <AppLink
                 href={cta.pilotHref}
-                className="inline-flex items-center justify-center rounded-xl border-[2.5px] border-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-aurora-lime transition-opacity hover:opacity-90 lg:text-[28px]"
-              >
-                {cta.pilotLabel}
-              </Link>
-              <Link
-                href={cta.tourHref}
                 className="inline-flex items-center justify-center rounded-xl bg-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-[#242424] transition-opacity hover:opacity-90 lg:text-[28px]"
               >
-                {cta.tourLabel}
-              </Link>
+                {cta.pilotLabel}
+              </AppLink>
             </div>
           </div>
         </SiteContent>

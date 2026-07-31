@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink } from "@/components/layout/app-link";
 import {
   CheckIcon,
   HeartIcon,
@@ -122,12 +122,12 @@ const ProductsMobility = () => {
             <p className="font-sans text-sm leading-relaxed text-[#fcfcfe] sm:text-base lg:text-xl">
               {codesign.body}
             </p>
-            <Link
+            <AppLink
               href={codesign.ctaHref}
               className="inline-flex w-fit items-center justify-center rounded-xl border-[2.5px] border-aurora-lime px-6 py-3.5 font-sans text-base font-semibold text-aurora-lime transition-opacity hover:opacity-90 sm:px-8 sm:text-lg lg:text-xl"
             >
               {codesign.ctaLabel}
-            </Link>
+            </AppLink>
           </div>
 
           <div className="mt-10 flex flex-col gap-6 rounded-xl bg-black px-6 py-8 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
@@ -135,18 +135,12 @@ const ProductsMobility = () => {
               {cta.title}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <Link
-                href={cta.partnerHref}
-                className="inline-flex items-center justify-center rounded-xl border-[2.5px] border-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-aurora-lime transition-opacity hover:opacity-90 lg:text-[28px]"
-              >
-                {cta.partnerLabel}
-              </Link>
-              <Link
+              <AppLink
                 href={cta.pilotHref}
                 className="inline-flex items-center justify-center rounded-xl bg-aurora-lime px-8 py-4 font-sans text-lg font-semibold text-[#242424] transition-opacity hover:opacity-90 lg:text-[28px]"
               >
                 {cta.pilotLabel}
-              </Link>
+              </AppLink>
             </div>
           </div>
         </SiteContent>

@@ -3,7 +3,7 @@ import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { EDUCATION_SYSTEM } from "@/lib/constants";
 
 const EducationSystem = () => {
-  const { eyebrow, title, descriptionLines, cards, primaryCta, secondaryCta } =
+  const { eyebrow, title, descriptionLines, cards, primaryCta } =
     EDUCATION_SYSTEM;
 
   return (
@@ -70,15 +70,11 @@ const EducationSystem = () => {
           <div className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-start sm:gap-4 lg:mt-14">
             <Link
               href={primaryCta.href}
-              className="inline-flex w-full items-center justify-center rounded-xl border border-white/80 bg-transparent px-7 py-3.5 font-sans text-base font-medium text-[#fcfcfe] transition-colors hover:border-aurora-lime hover:text-aurora-lime sm:w-auto sm:min-w-[11.5rem] sm:px-8 sm:text-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-aurora-lime px-7 py-3.5 font-sans text-base font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:w-auto sm:min-w-[11.5rem] sm:px-8 sm:text-lg"
             >
               {primaryCta.label}
-            </Link>
-            <Link
-              href={secondaryCta.href}
-              className="inline-flex w-full items-center justify-center rounded-xl border border-white/80 bg-transparent px-7 py-3.5 font-sans text-base font-medium text-[#fcfcfe] transition-colors hover:border-aurora-lime hover:text-aurora-lime sm:w-auto sm:min-w-[11.5rem] sm:px-8 sm:text-lg"
-            >
-              {secondaryCta.label}
             </Link>
           </div>
         </SiteContent>

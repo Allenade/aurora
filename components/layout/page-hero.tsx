@@ -35,8 +35,14 @@ export type PageHeroProps = {
   overlayClassName?: string;
   /** Optional className for the description paragraph */
   descriptionClassName?: string;
+  /** Optional className for the eyebrow */
+  eyebrowClassName?: string;
+  /** Optional className for the title */
+  titleClassName?: string;
   /** Optional content below description/CTA (e.g. carousel dots) */
   footer?: ReactNode;
+  /** Place footer under content, or pinned to the section bottom */
+  footerPlacement?: "inline" | "bottom";
 };
 
 const DEFAULT_MEDIA_CLASS = cn(
@@ -64,7 +70,10 @@ export function PageHero({
   contentClassName,
   overlayClassName,
   descriptionClassName,
+  eyebrowClassName,
+  titleClassName,
   footer,
+  footerPlacement = "inline",
 }: PageHeroProps) {
   const isCentered = contentAlign === "center";
 
@@ -170,6 +179,7 @@ export function PageHero({
                 className={cn(
                   "mb-3 font-display text-xs font-medium uppercase tracking-wide sm:mb-4 sm:text-sm lg:mb-5 lg:text-base xl:text-xl min-[2560px]:mb-6 min-[2560px]:text-2xl",
                   isCentered ? "text-aurora-lime" : "text-white",
+                  eyebrowClassName,
                 )}
               >
                 {eyebrow}
@@ -182,6 +192,7 @@ export function PageHero({
                 isCentered
                   ? "text-[22px] sm:text-3xl lg:text-[40px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:text-[72px]"
                   : "max-w-5xl text-[22px] sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:max-w-none min-[2560px]:text-[84px] min-[2560px]:leading-[1.05]",
+                titleClassName,
               )}
             >
               {title}
@@ -229,7 +240,7 @@ export function PageHero({
               </Link>
             ) : null}
 
-            {footer ? (
+            {footer && footerPlacement === "inline" ? (
               <div
                 className={cn(
                   "flex justify-center",
@@ -244,6 +255,12 @@ export function PageHero({
           </div>
         </SiteContent>
       </SiteShell>
+
+      {footer && footerPlacement === "bottom" ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex justify-center sm:bottom-8 lg:bottom-10">
+          {footer}
+        </div>
+      ) : null}
     </section>
   );
 }

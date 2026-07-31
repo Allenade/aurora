@@ -1,44 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDownIcon } from "@/components/icons/figma-icons";
+// import { useState } from "react";
+// import { ChevronDownIcon } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { RESEARCH_ABOUT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import ResearchCard from "./research-card";
-import ResearchPagination from "./research-pagination";
+// import ResearchPagination from "./research-pagination";
 
-function SearchIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("shrink-0", className)}
-      aria-hidden
-    >
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M20 20l-3.5-3.5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+// function SearchIcon({ className }: { className?: string }) {
+//   return (
+//     <svg
+//       width="18"
+//       height="18"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       xmlns="http://www.w3.org/2000/svg"
+//       className={cn("shrink-0", className)}
+//       aria-hidden
+//     >
+//       <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+//       <path
+//         d="M20 20l-3.5-3.5"
+//         stroke="currentColor"
+//         strokeWidth="1.8"
+//         strokeLinecap="round"
+//       />
+//     </svg>
+//   );
+// }
 
 const ResearchAbout = () => {
-  const { title, description, searchPlaceholder, filters, papers, pagination } =
+  const { title, description, /* searchPlaceholder, filters, */ papers } =
     RESEARCH_ABOUT;
 
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(
-      filters.groups.map((group) => [group.id, group.defaultOpen]),
-    ),
-  );
+  // const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
+  //   Object.fromEntries(
+  //     filters.groups.map((group) => [group.id, group.defaultOpen]),
+  //   ),
+  // );
 
   return (
     <section className="bg-black">
@@ -53,7 +53,7 @@ const ResearchAbout = () => {
             </p>
           </div>
 
-          <label className="relative mx-auto mt-8 block w-full max-w-5xl sm:mt-10 lg:mt-12 xl:max-w-6xl">
+          {/* <label className="relative mx-auto mt-8 block w-full max-w-5xl sm:mt-10 lg:mt-12 xl:max-w-6xl">
             <span className="sr-only">Search research</span>
             <span className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-[#8a8a8a] sm:left-6">
               <SearchIcon className="size-[15px] sm:size-4" />
@@ -70,7 +70,7 @@ const ResearchAbout = () => {
                 "sm:py-4 sm:pl-14 sm:pr-8 sm:text-[15px]",
               )}
             />
-          </label>
+          </label> */}
 
           {/*
             Figma 3-col grid:
@@ -85,7 +85,7 @@ const ResearchAbout = () => {
               "xl:gap-x-7 xl:gap-y-8",
             )}
           >
-            <aside className="self-start text-left sm:col-span-2 lg:col-span-1">
+            {/* <aside className="self-start text-left sm:col-span-2 lg:col-span-1">
               <h3 className="font-sans text-xl font-semibold text-[#fcfcfe] sm:text-2xl">
                 {filters.title}
               </h3>
@@ -143,7 +143,7 @@ const ResearchAbout = () => {
                   );
                 })}
               </div>
-            </aside>
+            </aside> */}
 
             {papers.map((paper) => (
               <ResearchCard
@@ -155,14 +155,14 @@ const ResearchAbout = () => {
             ))}
           </div>
 
-          <ResearchPagination
+          {/* <ResearchPagination
             previousLabel={pagination.previousLabel}
             nextLabel={pagination.nextLabel}
             pages={pagination.pages}
             initialPage={pagination.activePage}
             aria-label="Research pagination"
             className="mt-12 sm:mt-14 lg:mt-16"
-          />
+          /> */}
         </SiteContent>
       </SiteShell>
     </section>

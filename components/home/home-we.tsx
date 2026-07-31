@@ -59,6 +59,8 @@ const HomeWe = () => {
 
             <Link
               href={cta.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-8 inline-flex w-fit items-center gap-2.5 rounded-xl bg-aurora-lime px-5 py-3 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:mt-10 sm:gap-3 sm:px-6 sm:py-3.5 sm:text-base"
             >
               <span>{cta.label}</span>
