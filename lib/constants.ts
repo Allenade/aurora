@@ -23,6 +23,17 @@ export const IMAGES = Object.freeze({
   MOBILITY_ENVIRONMENT: "/images/products/mobility/environment.png",
   HERO_VIDEO: "/videos/comp-2.mp4",
   EDUCATION_HERO: "/images/education/hero-bg.png",
+  RESEARCH_HERO: "/images/research/hero-robot-book.jpg",
+  RESEARCH_TEAM_BG: "/images/research/team-bg.jpg",
+  RESEARCH_TEAM_ROBOT: "/images/research/team-robot-cutout.png",
+  RESEARCH_PAPER_KALMAN: "/images/research/papers/kalman-lab.jpg",
+  RESEARCH_PAPER_TRUST_BOOK: "/images/research/papers/trust-robot-book.jpg",
+  RESEARCH_PAPER_LOCOMOTION: "/images/research/papers/locomotion-underground.jpg",
+  RESEARCH_PAPER_SCENE: "/images/research/papers/scene-rover.jpg",
+  RESEARCH_PAPER_ELDER_CARE: "/images/research/papers/trust-sar-companion.jpg",
+  RESEARCH_PAPER_METACOGNITION: "/images/research/papers/metacognition-brain.jpg",
+  RESEARCH_PAPER_TRAFFIC: "/images/research/papers/traffic-signals.jpg",
+  RESEARCH_PAPER_WEBSOCKET: "/images/research/papers/websocket-lab.jpg",
   HOME_EDUCATION_GAP: "/images/home/education-gap-visual.svg",
   HOME_DEPLOYMENT_GAP: "/images/home/deployment-gap-bg.svg",
   HOME_PRODUCT_GAP: "/images/home/product-gap-visual.svg",
@@ -101,11 +112,11 @@ export const HEADER_OPTIONS: HeaderOption[] = [
   },
   {
     name: "Research",
-    route: ROUTES.BASE,
+    route: ROUTES.RESEARCH,
     options: [
-      { name: "Overview", route: ROUTES.BASE },
-      { name: "Publications", route: ROUTES.BASE },
-      { name: "Labs", route: ROUTES.BASE },
+      { name: "Overview", route: ROUTES.RESEARCH },
+      { name: "Publications", route: ROUTES.RESEARCH_PUBLICATIONS },
+      { name: "Labs", route: ROUTES.RESEARCH_LABS },
     ],
   },
   {
@@ -172,7 +183,7 @@ export const FOOTER_URLS: FooterColumn[] = [
     name: "Company",
     routes: [
       { name: "About Us", route: ROUTES.BASE, isInternal: true },
-      { name: "Research", route: ROUTES.BASE, isInternal: true },
+      { name: "Research", route: ROUTES.RESEARCH, isInternal: true },
       { name: "FAQ", route: ROUTES.BASE, isInternal: true },
       { name: "News", route: ROUTES.BASE, isInternal: true },
     ],
@@ -418,6 +429,165 @@ export const PRODUCTS_HERO_COPY = Object.freeze({
     "most human problems — subsea infrastructure, industrial data,",
     "human-machine interaction, independent mobility.",
   ],
+});
+
+export const RESEARCH_HERO = Object.freeze({
+  titleLine1: "WE RESEARCH",
+  titleLine2: "ANYTHING ROBOTICS",
+  description:
+    "We cover the full breadth of robotics: theory, review, simulation, hands-on systems that work in cities, factories, classrooms and homes.",
+  image: {
+    src: IMAGES.RESEARCH_HERO,
+    alt: "Humanoid robot holding a red book in front of a blackboard of mathematical formulas",
+  },
+});
+
+export const RESEARCH_ABOUT = Object.freeze({
+  title: "ABOUT",
+  description:
+    "Aurora Robotics builds the mathematical, perceptual and cognitive foundations for next generation autonomous systems. Our research spans rigorous expositions on estimation and trust modeling, systematic reviews of locomotion and scene understanding, and hands-on conference work in computer vision, edge computing, and accessible robotics education.",
+  searchPlaceholder: "Search Titles, Venues, Technologies and more...",
+  filters: {
+    title: "Filters",
+    groups: [
+      {
+        id: "research-areas",
+        label: "Research Areas",
+        defaultOpen: true,
+        options: [
+          "Mathematical Modeling",
+          "Human-computer Interaction",
+          "Semantic Mapping",
+          "Mobile Manipulation",
+          "Architecture",
+        ],
+      },
+      {
+        id: "tags",
+        label: "Tags",
+        defaultOpen: false,
+        options: [
+          "Survey",
+          "Theory",
+          "Simulation",
+          "Field Robotics",
+          "Education",
+        ],
+      },
+      {
+        id: "year",
+        label: "Year",
+        defaultOpen: false,
+        options: ["2026", "2025", "2024", "2023"],
+      },
+    ],
+  },
+  papers: [
+    {
+      id: "kalman-filter",
+      title:
+        "The Kalman Filter Mathematical Exposition for Robotic State Estimation",
+      authors: "Abdullahi Olalekan Abdulmumeen",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_KALMAN,
+        alt: "Humanoid robot studying mathematics on a blackboard",
+      },
+    },
+    {
+      id: "trust-sar",
+      title:
+        "Mathematical Modeling of Trust and Adaptive Autonomy in Socially Assistive Robotics (SAR)",
+      authors: "Mashkur Olalekan Alaran",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_TRUST_BOOK,
+        alt: "Humanoid robot reading a red book",
+      },
+    },
+    {
+      id: "locomotion",
+      title:
+        "A Comparative Review Between Wheeled, Legged, and Hybrid Locomotion Platforms for Mobile Robotics",
+      authors: "Meansworth David Mayasare, Bakel Bakel",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_LOCOMOTION,
+        alt: "Underground transit platform with curved tracks",
+      },
+    },
+    {
+      id: "scene-understanding",
+      title:
+        "Advancement in 3D Scene Understanding for Indoor Mobile Robots: A Systematic Review",
+      authors: "Meansworth David Mayasare, Mashkur Olalekan Alaran",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_SCENE,
+        alt: "Engineer working with robotics hardware in a workshop",
+      },
+    },
+    {
+      id: "elder-care",
+      title:
+        "Long-Term User Engagement in Socially Assistive Robotics: A Review of Strategies for Elder Care",
+      authors: "Mashkur Olalekan Alaran, Bakel Bakel",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_ELDER_CARE,
+        alt: "Humanoid robot assisting an elderly person",
+      },
+    },
+    {
+      id: "metacognition",
+      title:
+        "Metacognition in Cognitive Robots: A Survey of Uncertainty-Aware and Self-Monitoring Mechanisms",
+      authors: "Abdullahi Olalekan Abdulmumeen, Bakel Bakel",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_METACOGNITION,
+        alt: "Digital illustration of a human brain with an embedded microchip",
+      },
+    },
+    {
+      id: "traffic",
+      title:
+        "Autonomous Traffic Signal Control Using YOLOv8 and Fourier-Based Congestion Estimation for Smart Cities",
+      authors: "Bakel Bakel, Tikuochi Iheukwumere",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_TRAFFIC,
+        alt: "Traffic lights at an urban intersection",
+      },
+    },
+    {
+      id: "websocket-lab",
+      title:
+        "A Lightweight WebSocket-SSH Remote Laboratory Architecture for Robotics Education in Bandwidth-Constrained Regions",
+      authors: "Bakel Bakel, Tikuochi Iheukwumere, Oluwatobi Ademosu",
+      image: {
+        src: IMAGES.RESEARCH_PAPER_WEBSOCKET,
+        alt: "WebSocket remote laboratory graphic",
+      },
+    },
+  ],
+  pagination: {
+    previousLabel: "Previous",
+    nextLabel: "Next >",
+    pages: [1, 2, 3, "ellipsis", 11] as const,
+    activePage: 1,
+  },
+});
+
+export const RESEARCH_TEAM = Object.freeze({
+  titleLines: ["Looking to Join Our", "Research Team?"],
+  description:
+    "Work on mathematical foundations, perception systems, and field-ready robotics with Aurora. We welcome researchers, engineers, and builders who want their ideas to ship in the real world.",
+  cta: {
+    label: "Join Our Team",
+    href: ROUTES.JOIN_US,
+  },
+  background: {
+    src: IMAGES.RESEARCH_TEAM_BG,
+    alt: "",
+  },
+  image: {
+    src: IMAGES.RESEARCH_TEAM_ROBOT,
+    alt: "Humanoid robot reading a book",
+  },
 });
 
 export const JOIN_US_HERO_COPY = Object.freeze({

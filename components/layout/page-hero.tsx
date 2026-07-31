@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export type PageHeroMedia =
   | { type: "video"; src: string; startOffset?: number }
-  | { type: "image"; src: string; alt?: string };
+  | { type: "image"; src: string; alt?: string; unoptimized?: boolean };
 
 export type PageHeroCta = {
   label: string;
@@ -114,6 +114,7 @@ export function PageHero({
             fill
             priority
             sizes="100vw"
+            unoptimized={media.unoptimized}
             className={mediaClasses}
             aria-hidden
           />
