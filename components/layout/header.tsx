@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 // import { ChevronDown } from "@/components/icons/chevron-down";
+import { AppLink } from "@/components/layout/app-link";
 import {
   HEADER_OPTIONS,
   SITE_INNER_NAV,
@@ -145,7 +145,10 @@ const Header = () => {
 
   const normalizeRoute = (route?: string) => {
     if (!route) return "";
-    return route !== "/" && route.endsWith("/") ? route.slice(0, -1) : route;
+    const withoutHash = route.split("#")[0] ?? route;
+    return withoutHash !== "/" && withoutHash.endsWith("/")
+      ? withoutHash.slice(0, -1)
+      : withoutHash;
   };
 
   const isRouteActive = (route?: string) => {
@@ -154,6 +157,8 @@ const Header = () => {
     if (!normalizedRoute) return false;
     // Home placeholders (Services, Research, etc.) should not all highlight on `/`
     if (normalizedRoute === "/") return false;
+    // Hash deep-links (e.g. /about-us#services) should not steal the About active state
+    if (route?.includes("#")) return false;
     return (
       normalizedPathname === normalizedRoute ||
       normalizedPathname.startsWith(`${normalizedRoute}/`)
@@ -181,7 +186,26 @@ const Header = () => {
     setOpenMenu(null);
     setIsMobileMenuOpen(false);
     setOpenChildMenus({});
-    if (route) router.push(route);
+    if (!route) return;
+    if (route.includes("#")) {
+      const [path, hash] = route.split("#");
+      const go = () => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", `#${hash}`);
+        }
+      };
+      if (path && normalizeRoute(path) !== normalizeRoute(pathname)) {
+        router.push(route);
+        window.setTimeout(go, 50);
+        window.setTimeout(go, 300);
+      } else {
+        go();
+      }
+      return;
+    }
+    router.push(route);
   };
 
   const toggleChildMenu = (name: string) => {
@@ -264,7 +288,7 @@ const Header = () => {
                 return (
                   <div key={option.name} className="flex items-center gap-0.5">
                     {option.route ? (
-                      <Link
+                      <AppLink
                         href={option.route}
                         className={cn(
                           "whitespace-nowrap font-sans text-sm font-semibold uppercase tracking-wide transition-colors hover:text-aurora-lime lg:text-base min-[2560px]:text-xl",
@@ -274,7 +298,7 @@ const Header = () => {
                         aria-current={isActive ? "page" : undefined}
                       >
                         {option.name}
-                      </Link>
+                      </AppLink>
                     ) : (
                       <span
                         className={cn(
@@ -414,7 +438,7 @@ const Header = () => {
                 >
                   <div className="flex items-stretch">
                     {option.route ? (
-                      <Link
+                      <AppLink
                         href={option.route}
                         className={cn(
                           "flex min-h-12 flex-1 items-center px-4 font-sans text-sm font-semibold uppercase tracking-wide transition-colors hover:text-aurora-lime",
@@ -428,7 +452,7 @@ const Header = () => {
                         aria-current={isActive ? "page" : undefined}
                       >
                         {option.name}
-                      </Link>
+                      </AppLink>
                     ) : (
                       <span
                         className={cn(

@@ -8,7 +8,7 @@ const AboutTalentValue = () => {
   const { title, description, engines } = ABOUT_TALENT_VALUE;
 
   return (
-    <section className="bg-black">
+    <section id="services" className="scroll-mt-24 bg-black">
       <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
         <SiteContent>
           <div className="mx-auto w-full text-center">

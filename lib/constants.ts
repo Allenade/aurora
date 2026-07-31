@@ -75,6 +75,7 @@ export const ROUTES = Object.freeze({
   NEWS_EVENTS: "/news/events",
   ABOUT_US: "/about-us",
   ABOUT_TRACTION: "/about-us#traction",
+  ABOUT_SERVICES: "/about-us#services",
   FAQ: "/faq",
   JOIN_US: "/join-us",
   CONTACT: "#contact",
@@ -116,9 +117,9 @@ export const HEADER_OPTIONS: HeaderOption[] = [
   },
   {
     name: "Services",
-    route: ROUTES.BASE,
+    route: ROUTES.ABOUT_SERVICES,
     options: [
-      { name: "Overview", route: ROUTES.BASE },
+      { name: "Overview", route: ROUTES.ABOUT_SERVICES },
       { name: "Consulting", route: ROUTES.BASE },
       { name: "Integration", route: ROUTES.BASE },
       { name: "Support", route: ROUTES.BASE },
@@ -149,57 +150,6 @@ export const HEADER_OPTIONS: HeaderOption[] = [
       { name: "Overview", route: ROUTES.ABOUT_US },
       { name: "Join Us", route: ROUTES.JOIN_US },
       { name: "Contact", route: ROUTES.CONTACT },
-    ],
-  },
-];
-
-export type FooterLink = {
-  name: string;
-  route: string;
-  isInternal?: boolean;
-};
-
-export type FooterColumn = {
-  name: string;
-  routes: FooterLink[];
-};
-
-export const FOOTER_URLS: FooterColumn[] = [
-  {
-    name: "Services",
-    routes: [
-      {
-        name: "Talent-as-a-Service",
-        route: ROUTES.BASE,
-        isInternal: true,
-      },
-      {
-        name: "Robotic Engineering",
-        route: ROUTES.BASE,
-        isInternal: true,
-      },
-      { name: "Education", route: ROUTES.BASE, isInternal: true },
-    ],
-  },
-  {
-    name: "Product",
-    routes: [
-      { name: "Brainiac", route: ROUTES.BASE, isInternal: true },
-      {
-        name: "StreamForge",
-        route: ROUTES.BASE,
-        isInternal: true,
-      },
-      { name: "Xavier", route: ROUTES.BASE, isInternal: true },
-    ],
-  },
-  {
-    name: "Company",
-    routes: [
-      { name: "About Us", route: ROUTES.BASE, isInternal: true },
-      { name: "Research", route: ROUTES.RESEARCH, isInternal: true },
-      { name: "FAQ", route: ROUTES.BASE, isInternal: true },
-      { name: "News", route: ROUTES.BASE, isInternal: true },
     ],
   },
 ];

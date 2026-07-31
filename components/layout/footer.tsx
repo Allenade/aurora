@@ -1,20 +1,12 @@
-import Link from "next/link";
 import {
   FOOTER_CONTACT,
   FOOTER_COPYRIGHT,
   FOOTER_SOCIAL_LINKS,
-  FOOTER_URLS,
 } from "@/lib/constants";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { cn } from "@/lib/utils";
 import { AuroraLogo } from "./aurora-logo";
 import { FooterNewsletter } from "./footer-newsletter";
-
-const FOOTER_NAV_HEADING_CLASS =
-  "font-sans text-sm font-semibold uppercase tracking-wide text-white lg:text-base";
-
-const FOOTER_LINK_CLASS =
-  "font-sans text-sm text-white/55 transition-colors hover:text-aurora-lime";
 
 function SocialIcon({ name }: { name: string }) {
   if (name === "LinkedIn") {
@@ -48,116 +40,240 @@ function SocialIcon({ name }: { name: string }) {
   );
 }
 
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-11Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="m5 7 7 5 7-5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function PhoneIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M8.5 4.5h-2A2 2 0 0 0 4.5 6.5c0 8.008 6.492 14.5 14.5 14.5a2 2 0 0 0 2-2v-2l-3.2-1.6-1.6 1.6a11.2 11.2 0 0 1-5.6-5.6l1.6-1.6L10.6 4.5H8.5Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function GlobeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8.25" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M3.75 12h16.5M12 3.75c2.4 2.6 3.6 5.4 3.6 8.25S14.4 17.65 12 20.25C9.6 17.65 8.4 14.85 8.4 12S9.6 6.35 12 3.75Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+    </svg>
+  );
+}
+
 const Footer = () => {
   return (
-    <footer id="contact" className="mt-auto scroll-mt-24 bg-[#121212] text-white">
-      <SiteShell className="py-14 lg:py-16">
+    <footer
+      id="contact"
+      className="relative mt-auto scroll-mt-24 overflow-hidden bg-[#0e0e0e] text-white"
+    >
+      {/* Atmosphere */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(198,255,0,0.08),transparent_45%),radial-gradient(ellipse_at_90%_80%,rgba(198,255,0,0.05),transparent_40%)]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-aurora-lime/40 to-transparent"
+        aria-hidden
+      />
+
+      <SiteShell className="relative py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <div className="flex flex-col gap-12 xl:flex-row xl:justify-between xl:gap-16">
-            <div className="shrink-0 xl:max-w-sm">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-20">
+            {/* Brand column */}
+            <div className="flex flex-col">
               <AuroraLogo variant="footer" />
               <FooterNewsletter />
-              <div className="mt-8 space-y-2">
+              <div className="mt-8 flex flex-col gap-3 sm:mt-10">
                 <a
                   href={FOOTER_CONTACT.community.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block font-sans text-sm font-semibold uppercase tracking-wide text-aurora-lime transition-opacity hover:opacity-90"
+                  className="inline-flex w-fit items-center gap-2 border-b border-aurora-lime/50 pb-1 font-sans text-sm font-semibold uppercase tracking-[0.12em] text-aurora-lime transition-colors hover:border-aurora-lime hover:text-white"
                 >
                   {FOOTER_CONTACT.community.label}
+                  <span aria-hidden>→</span>
                 </a>
-                <p className="font-display text-sm font-bold uppercase tracking-wide text-white/80">
+                <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-white/55">
                   {FOOTER_CONTACT.tagline}
                 </p>
               </div>
             </div>
 
-            <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-6 lg:gap-10">
-              {FOOTER_URLS.map((column) => (
-                <div key={column.name} className="flex flex-col gap-4">
-                  <h4 className={FOOTER_NAV_HEADING_CLASS}>{column.name}</h4>
-                  <ul className="flex flex-col gap-3">
-                    {column.routes.map((link) => (
-                      <li key={link.name}>
-                        <Link href={link.route} className={FOOTER_LINK_CLASS}>
-                          {link.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Contact */}
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-1.5 w-8 shrink-0 bg-aurora-lime" aria-hidden />
+                <h2 className="font-sans text-sm font-semibold uppercase tracking-[0.16em] text-white lg:text-base">
+                  Contact Us
+                </h2>
+              </div>
 
-              <div className="flex flex-col gap-4">
-                <h4 className={FOOTER_NAV_HEADING_CLASS}>Contact Us</h4>
-                <div className="flex flex-col gap-3">
-                  <a href={FOOTER_CONTACT.emailHref} className={FOOTER_LINK_CLASS}>
+              <a
+                href={FOOTER_CONTACT.emailHref}
+                className="group mt-6 flex items-start gap-4 sm:mt-7"
+              >
+                <span className="mt-1 flex size-10 shrink-0 items-center justify-center border border-aurora-lime/35 text-aurora-lime transition-colors group-hover:border-aurora-lime group-hover:bg-aurora-lime/10">
+                  <MailIcon />
+                </span>
+                <span>
+                  <span className="block font-sans text-xs uppercase tracking-[0.14em] text-white/40">
+                    Email
+                  </span>
+                  <span className="mt-1 block font-sans text-lg font-semibold text-white transition-colors group-hover:text-aurora-lime sm:text-xl lg:text-2xl">
                     {FOOTER_CONTACT.email}
-                  </a>
+                  </span>
+                </span>
+              </a>
 
-                  {FOOTER_CONTACT.phones.map((phone) => (
+              <div className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-4">
+                {FOOTER_CONTACT.phones.map((phone) => {
+                  const isExternal = phone.href.startsWith("http");
+                  return (
                     <a
                       key={phone.label}
                       href={phone.href}
-                      className={FOOTER_LINK_CLASS}
-                      target={phone.href.startsWith("http") ? "_blank" : undefined}
-                      rel={
-                        phone.href.startsWith("http")
-                          ? "noopener noreferrer"
-                          : undefined
-                      }
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      className={cn(
+                        "group relative flex flex-col gap-3 border border-white/10 bg-white/[0.03] px-4 py-4 transition-colors",
+                        "hover:border-aurora-lime/50 hover:bg-aurora-lime/[0.06]",
+                      )}
                     >
-                      <span className="block text-white/35">{phone.label}</span>
-                      <span>{phone.value}</span>
+                      <span className="flex items-center gap-2 text-aurora-lime">
+                        <PhoneIcon />
+                        <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em]">
+                          {phone.label}
+                        </span>
+                      </span>
+                      <span className="font-sans text-sm font-medium leading-snug text-white/80 transition-colors group-hover:text-white sm:text-[15px]">
+                        {phone.value}
+                      </span>
+                      <span
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-aurora-lime transition-transform duration-300 group-hover:scale-x-100"
+                        aria-hidden
+                      />
                     </a>
-                  ))}
+                  );
+                })}
+              </div>
 
-                  {FOOTER_CONTACT.websites.map((site) => (
+              <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-3">
+                {FOOTER_CONTACT.websites.map((site) => (
+                  <a
+                    key={site.href}
+                    href={site.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 font-sans text-sm text-white/55 transition-colors hover:text-aurora-lime"
+                  >
+                    <GlobeIcon className="text-white/35 transition-colors group-hover:text-aurora-lime" />
+                    {site.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Social constellation */}
+          <div className="mt-14 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-16">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+              <div>
+                <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-aurora-lime">
+                  Signal Out
+                </p>
+                <p className="mt-2 max-w-md font-sans text-sm text-white/50 sm:text-base">
+                  Follow the build — research, robots, and the people behind them.
+                </p>
+              </div>
+
+              <ul className="relative flex flex-wrap items-end gap-3 sm:gap-4">
+                <li
+                  className="pointer-events-none absolute top-1/2 right-0 left-0 hidden h-px -translate-y-1/2 bg-gradient-to-r from-aurora-lime/0 via-aurora-lime/35 to-aurora-lime/0 sm:block"
+                  aria-hidden
+                />
+                {FOOTER_SOCIAL_LINKS.map((social, index) => (
+                  <li
+                    key={`${social.name}-${social.href}`}
+                    className={cn(
+                      "relative",
+                      index % 2 === 1 && "sm:-translate-y-2",
+                      index % 3 === 2 && "sm:translate-y-1",
+                    )}
+                  >
                     <a
-                      key={site.href}
-                      href={site.href}
+                      href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={FOOTER_LINK_CLASS}
+                      aria-label={social.label}
+                      title={social.label}
+                      className={cn(
+                        "flex size-12 items-center justify-center border border-white/15 bg-[#151514] text-white",
+                        "transition-all duration-300",
+                        "hover:-translate-y-1 hover:border-aurora-lime hover:bg-aurora-lime hover:text-[#151514]",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aurora-lime",
+                        "sm:size-14",
+                      )}
                     >
-                      {site.label}
+                      <SocialIcon name={social.name} />
                     </a>
-                  ))}
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </SiteContent>
       </SiteShell>
 
-      <div className="border-t border-white/10">
-        <SiteShell className="py-6">
-          <SiteContent
-            className={cn(
-              "flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between",
-            )}
-          >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-              <p className="font-sans text-sm font-medium text-white">
-                Connect with Us
-              </p>
-              <div className="flex items-center gap-4">
-                {FOOTER_SOCIAL_LINKS.map((social) => (
-                  <a
-                    key={`${social.name}-${social.href}`}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="text-white transition-colors hover:text-aurora-lime"
-                  >
-                    <SocialIcon name={social.name} />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <p className="font-sans text-sm text-white/45">{FOOTER_COPYRIGHT}</p>
+      <div className="relative border-t border-white/10">
+        <SiteShell className="py-5 sm:py-6">
+          <SiteContent>
+            <p className="font-sans text-sm text-white/40">{FOOTER_COPYRIGHT}</p>
           </SiteContent>
         </SiteShell>
       </div>
