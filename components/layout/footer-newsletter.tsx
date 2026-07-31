@@ -34,13 +34,13 @@ export function FooterNewsletter() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Enter Your Email"
-            className="h-12 w-full rounded-lg bg-white pr-4 pl-11 text-sm text-[#171717] placeholder:text-[#9ca3af] outline-none"
+            className="h-12 w-full rounded-xl bg-white pr-4 pl-11 text-sm text-[#171717] placeholder:text-[#9ca3af] outline-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="h-12 w-full rounded-lg bg-aurora-lime text-sm font-semibold text-black transition-opacity hover:opacity-90"
+          className="h-12 w-full rounded-xl bg-aurora-lime text-sm font-semibold text-black transition-opacity hover:opacity-90"
         >
           Subscribe
         </button>

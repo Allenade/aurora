@@ -112,13 +112,8 @@ const Footer = () => {
       id="contact"
       className="relative mt-auto scroll-mt-24 overflow-hidden bg-[#0e0e0e] text-white"
     >
-      {/* Atmosphere */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(198,255,0,0.08),transparent_45%),radial-gradient(ellipse_at_90%_80%,rgba(198,255,0,0.05),transparent_40%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-aurora-lime/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
         aria-hidden
       />
 
@@ -158,7 +153,7 @@ const Footer = () => {
                 href={FOOTER_CONTACT.emailHref}
                 className="group mt-6 flex items-start gap-4 sm:mt-7"
               >
-                <span className="mt-1 flex size-10 shrink-0 items-center justify-center border border-aurora-lime/35 text-aurora-lime transition-colors group-hover:border-aurora-lime group-hover:bg-aurora-lime/10">
+                <span className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-xl border border-aurora-lime/35 text-aurora-lime transition-colors group-hover:border-aurora-lime">
                   <MailIcon />
                 </span>
                 <span>
@@ -181,8 +176,8 @@ const Footer = () => {
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noopener noreferrer" : undefined}
                       className={cn(
-                        "group relative flex flex-col gap-3 border border-white/10 bg-white/[0.03] px-4 py-4 transition-colors",
-                        "hover:border-aurora-lime/50 hover:bg-aurora-lime/[0.06]",
+                        "group relative flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4 transition-colors",
+                        "hover:border-white/30",
                       )}
                     >
                       <span className="flex items-center gap-2 text-aurora-lime">
@@ -194,10 +189,6 @@ const Footer = () => {
                       <span className="font-sans text-sm font-medium leading-snug text-white/80 transition-colors group-hover:text-white sm:text-[15px]">
                         {phone.value}
                       </span>
-                      <span
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-aurora-lime transition-transform duration-300 group-hover:scale-x-100"
-                        aria-hidden
-                      />
                     </a>
                   );
                 })}
@@ -234,7 +225,7 @@ const Footer = () => {
 
               <ul className="relative flex flex-wrap items-end gap-3 sm:gap-4">
                 <li
-                  className="pointer-events-none absolute top-1/2 right-0 left-0 hidden h-px -translate-y-1/2 bg-gradient-to-r from-aurora-lime/0 via-aurora-lime/35 to-aurora-lime/0 sm:block"
+                  className="pointer-events-none absolute top-1/2 right-0 left-0 hidden h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent sm:block"
                   aria-hidden
                 />
                 {FOOTER_SOCIAL_LINKS.map((social, index) => (
@@ -253,7 +244,7 @@ const Footer = () => {
                       aria-label={social.label}
                       title={social.label}
                       className={cn(
-                        "flex size-12 items-center justify-center border border-white/15 bg-[#151514] text-white",
+                        "flex size-12 items-center justify-center rounded-xl border border-white/15 bg-[#151514] text-white",
                         "transition-all duration-300",
                         "hover:-translate-y-1 hover:border-aurora-lime hover:bg-aurora-lime hover:text-[#151514]",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aurora-lime",
