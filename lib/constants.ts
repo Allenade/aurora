@@ -23,6 +23,11 @@ export const IMAGES = Object.freeze({
   MOBILITY_ENVIRONMENT: "/images/products/mobility/environment.png",
   HERO_VIDEO: "/videos/comp-2.mp4",
   EDUCATION_HERO: "/images/education/hero-bg.png",
+  HOME_EDUCATION_GAP: "/images/home/education-gap-visual.svg",
+  HOME_DEPLOYMENT_GAP: "/images/home/deployment-gap-bg.svg",
+  HOME_PRODUCT_GAP: "/images/home/product-gap-visual.svg",
+  HOME_EXPERIENCE_GAP: "/images/home/experience-gap-visual.jpg",
+  HOME_RESEARCH_GAP: "/images/home/research-gap-bg.jpg",
 });
 
 export const ROUTES = Object.freeze({
@@ -201,9 +206,208 @@ export const FOOTER_COPYRIGHT =
   "Copyright © 2025 Aurora Robotics | All Rights Reserved.";
 
 export const HOME_WEBINAR = Object.freeze({
-  title: "Robotics Core Workshop 2.0",
+  title: "Robotics Core Workshop 3.0",
   ctaLabel: "Register",
   ctaHref: ROUTES.BASE,
+});
+
+export const HOME_WHO = Object.freeze({
+  title: "WHO WE ARE",
+  description:
+    "Aurora Robotics is a Nigerian AI and robotics company building world-class talent and autonomous systems for global impact. We train engineers through accessible, hands-on programmes and deploy their expertise across industrial projects, talent-as-a-service, proprietary products and cutting-edge research—closing the education, experience, deployment, product and research gaps within one company.",
+  stats: [
+    { value: "8+", label: "Projects Completed & Delivered" },
+    { value: "100%", label: "Successful Delivery rate" },
+    { value: "15+", label: "Brands, Partners, Clients" },
+  ],
+});
+
+export const HOME_WE = Object.freeze({
+  title: "We Close the Education Gap",
+  stats: [
+    {
+      value: "2.1M",
+      label: "GLOBAL TALENT SHORTFALL BY 2030",
+    },
+    {
+      value: "60%",
+      label: "UNTAPPED TALENT IS AFRICAN",
+    },
+  ],
+  problem: {
+    title: "The Problem",
+    body: "Robotics is expensive to learn, and that steeply hinders skill acquisition — the real bottleneck in robotics is talent, not just technology.",
+  },
+  solution: {
+    title: "The Solution",
+    body: "Free and heavily subsidized robotics cohorts (the Core Workshop Series) that develop world-class engineers, plus the Aurora Robotics Tour (ART) — Africa's equivalent of NVIDIA GTC — bringing professional-grade hardware directly to students.",
+  },
+  cta: {
+    label: "View Our Courses",
+    href: ROUTES.EDUCATION_COURSES,
+  },
+  image: {
+    src: IMAGES.HOME_EDUCATION_GAP,
+    alt: "Aurora Robotics Core Workshop 2 promotional graphic featuring the Yahboom Transbot",
+  },
+});
+
+export const HOME_WE_CLOSE = Object.freeze({
+  titleLines: ["We Close the", "Deployment Gap"],
+  stats: [
+    {
+      value: "80%",
+      label:
+        "OF AI AND ROBOTICS PILOTS FAIL TO SCALE INTO FULL INDUSTRIAL PRODUCTION",
+    },
+    {
+      value: "76%",
+      label:
+        "OF GLOBAL EXECUTIVES CITE SYSTEM INTEGRATION AS THEIR PRIMARY AUTOMATION HURDLE",
+    },
+  ],
+  problem: {
+    title: "The Problem",
+    bodyLines: [
+      "Industries need autonomous systems, but lack robotics",
+      "partners capable of delivering them at scale.",
+    ],
+  },
+  solution: {
+    title: "Our Solution",
+    bodyLines: [
+      "We provide B2B robotics solutions and on-demand Talent-as-a-",
+      "Service embedding trained engineers directly into client teams.",
+    ],
+  },
+  cta: {
+    label: "Request Consultation",
+    href: ROUTES.SERVICES_CONSULTING,
+  },
+  background: {
+    src: IMAGES.HOME_DEPLOYMENT_GAP,
+    alt: "Humanoid robots working along an industrial assembly line",
+  },
+});
+
+export const HOME_PRODUCT = Object.freeze({
+  title: "We Close the Product Gap",
+  stats: [
+    {
+      value: "<20%",
+      labelLines: ["OF COMPANIES HAVE APPLIED AI", "WHERE NEEDED"],
+    },
+    {
+      value: "<1%",
+      labelLines: ["OF HOMES OWN A CONSUMER ROBOT", "BEYOND CLEANING"],
+    },
+  ],
+  problem: {
+    title: "The Problem",
+    bodyLines: [
+      "Advanced AI and Robotics remain inaccessible to most",
+      "businesses and households, limiting their products.",
+    ],
+  },
+  solution: {
+    title: "Our Solution",
+    bodyLines: [
+      "We develop and scale AI & Robotics products that solve",
+      "practical problems and create sustainable commercial value.",
+    ],
+  },
+  primaryCta: {
+    label: "Build A Product With Us",
+    href: ROUTES.JOIN_US,
+  },
+  secondaryCta: {
+    label: "View Our Products",
+    href: ROUTES.PRODUCTS,
+  },
+  image: {
+    src: IMAGES.HOME_PRODUCT_GAP,
+    alt: "Brainiac EEG headset, wireless hub, and Active Mode control dashboard",
+  },
+});
+
+export const HOME_EXPERIENCE = Object.freeze({
+  titleLines: ["We Close The", "Experience Gap"],
+  stats: [
+    {
+      value: "77%",
+      labelLines: ["OF EMPLOYERS REPORT SEVERE", "HANDS-ON TALENT SHORTAGE"],
+    },
+    {
+      value: "<10%",
+      labelLines: ["OF ENGINEERING GRADS ARE", "IMMEDIATELY INDUSTRY-READY"],
+    },
+  ],
+  problem: {
+    title: "The Problem",
+    bodyLines: [
+      "Graduates need experience to get hired, but companies",
+      "demand graduates who already have it.",
+    ],
+  },
+  solution: {
+    title: "Our Solution",
+    bodyLines: [
+      "Top cohort performers are converted into paid internships and",
+      "full-time roles on real client contracts, turning raw talent into",
+      "industry-ready professionals immediately.",
+    ],
+  },
+  cta: {
+    label: "View Our Track Record",
+    href: ROUTES.ABOUT_US,
+  },
+  image: {
+    src: IMAGES.HOME_EXPERIENCE_GAP,
+    alt: "Engineer assembling robotics hardware in a workshop",
+  },
+});
+
+export const HOME_RESEARCH = Object.freeze({
+  title: "We Close The Research Gap",
+  stats: [
+    {
+      value: "90%",
+      labelLines: [
+        "OF ADVANCED AI RESEARCH",
+        "CONCENTRATED IN FEW GLOBAL HUBS",
+      ],
+    },
+    {
+      value: "<30%",
+      labelLines: [
+        "OF THEORETICAL RESEARCH",
+        "TRANSLATES TO COMMERCIAL USE",
+      ],
+    },
+  ],
+  problem: {
+    title: "The Problem",
+    bodyLines: [
+      "The AI and robotics field use more researchers, dedicated",
+      "institutions and platforms for high-impact innovation.",
+    ],
+  },
+  solution: {
+    title: "Our Solution",
+    bodyLines: [
+      "We operate specialized research units that produce industrial-grade",
+      "discoveries and publications, turning research into real",
+      "engineering capability.",
+    ],
+  },
+  cta: {
+    label: "Request Consultation",
+    href: ROUTES.SERVICES_CONSULTING,
+  },
+  background: {
+    src: IMAGES.HOME_RESEARCH_GAP,
+    alt: "Researcher in a lab coat collaborating with a humanoid robot",
+  },
 });
 
 export const PRODUCTS_HERO_COPY = Object.freeze({
