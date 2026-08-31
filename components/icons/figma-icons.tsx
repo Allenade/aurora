@@ -142,7 +142,7 @@ export function WorkshopSatelliteIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/workshop-iot.png"
+      src="/images/cohort/icons/workshop-iot.png"
       alt=""
       width={28}
       height={28}
@@ -152,62 +152,43 @@ export function WorkshopSatelliteIcon({ className }: IconProps) {
   );
 }
 
-/** Join Us workshop — mobile robotics / rover */
+/** Join Us workshop — mobile robotics / car (asset) */
 export function WorkshopRoverIcon({ className }: IconProps) {
   return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("shrink-0", className)}
+    <span
+      className={cn("inline-block size-7 shrink-0 bg-current", className)}
+      style={{
+        WebkitMaskImage: "url(/images/cohort/icons/workshop-mobile.png)",
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskImage: "url(/images/cohort/icons/workshop-mobile.png)",
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+      }}
       aria-hidden
-    >
-      <path
-        d="M5.5 14.5h13l-1.2-5.2A2 2 0 0015.4 8H8.6a2 2 0 00-1.9 1.3L5.5 14.5z"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-      />
-      <circle cx="8" cy="16.5" r="1.8" stroke="currentColor" strokeWidth="1.7" />
-      <circle cx="16" cy="16.5" r="1.8" stroke="currentColor" strokeWidth="1.7" />
-      <path
-        d="M12 8V5.5M10 5.5h4"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-      <path
-        d="M4 14.5h16"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
-    </svg>
+    />
   );
 }
 
-/** Join Us workshop — computer vision / eye */
+/** Join Us workshop — computer vision / low-vision (asset) */
 export function WorkshopVisionIcon({ className }: IconProps) {
   return (
-    <svg
-      width="28"
-      height="28"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("shrink-0", className)}
+    <span
+      className={cn("inline-block size-7 shrink-0 bg-current", className)}
+      style={{
+        WebkitMaskImage: "url(/images/cohort/icons/workshop-vision.png)",
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskImage: "url(/images/cohort/icons/workshop-vision.png)",
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+      }}
       aria-hidden
-    >
-      <path
-        d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="12" r="2.75" stroke="currentColor" strokeWidth="1.7" />
-    </svg>
+    />
   );
 }
 
@@ -216,7 +197,7 @@ export function WorkshopAiIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/workshop-ai.png"
+      src="/images/cohort/icons/workshop-ai.png"
       alt=""
       width={28}
       height={28}
@@ -231,7 +212,7 @@ export function WorkshopArmIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/workshop-arm.png"
+      src="/images/cohort/icons/workshop-arm.png"
       alt=""
       width={28}
       height={28}
@@ -268,7 +249,7 @@ export function IdeaBulbIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/curiosity.png"
+      src="/images/cohort/icons/curiosity.png"
       alt=""
       width={24}
       height={24}
@@ -283,7 +264,7 @@ export function ConsistencyTimerIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/consistency-stopwatch.png"
+      src="/images/cohort/icons/consistency-stopwatch.png"
       alt=""
       width={24}
       height={24}
@@ -298,7 +279,7 @@ export function LeadershipBadgeIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/leadership.png"
+      src="/images/cohort/icons/leadership.png"
       alt=""
       width={24}
       height={24}
@@ -492,7 +473,7 @@ export function BringEventsIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/bring-events.png"
+      src="/images/cohort/icons/bring-events.png"
       alt=""
       width={28}
       height={28}
@@ -507,7 +488,7 @@ export function BringCompaniesIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/bring-companies.png"
+      src="/images/cohort/icons/bring-companies.png"
       alt=""
       width={28}
       height={28}
@@ -522,7 +503,7 @@ export function BringInstitutionIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/bring-institution.png"
+      src="/images/cohort/icons/bring-institution.png"
       alt=""
       width={28}
       height={28}
@@ -537,7 +518,7 @@ export function BringConnectorsIcon({ className }: IconProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/join-us/icons/bring-connectors.png"
+      src="/images/cohort/icons/bring-connectors.png"
       alt=""
       width={28}
       height={28}

@@ -11,7 +11,7 @@ type JoinUsButtonProps = {
 };
 
 export function JoinUsButton({
-  href = ROUTES.JOIN_US,
+  href = ROUTES.COHORT,
   label = "Join Us",
   className,
   compact = false,

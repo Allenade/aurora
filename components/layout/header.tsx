@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppLink } from "@/components/layout/app-link";
 import {
   HEADER_OPTIONS,
+  ROUTES,
   SITE_INNER_NAV,
   type HeaderOptionItem,
 } from "@/lib/constants";
@@ -354,7 +355,7 @@ const Header = () => {
           </nav>
 
           <div className="hidden shrink-0 lg:block">
-            <JoinUsButton compact />
+            <JoinUsButton compact href={ROUTES.COHORT} />
           </div>
 
           <button
@@ -526,7 +527,7 @@ const Header = () => {
         </nav>
 
         <div className="mt-4">
-          <JoinUsButton className="w-full justify-center" />
+          <JoinUsButton className="w-full justify-center" href={ROUTES.COHORT} />
         </div>
       </div>
     </div>
