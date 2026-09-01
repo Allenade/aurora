@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Orbitron, Tektur } from "next/font/google";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
+import { MotionProvider } from "@/components/motion";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -45,9 +46,11 @@ export default function RootLayout({
       className={`${manrope.variable} ${tektur.variable} ${orbitron.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-black font-sans text-white">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MotionProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

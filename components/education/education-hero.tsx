@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageHero } from "@/components/layout/page-hero";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { CountUp, Stagger, StaggerItem } from "@/components/motion";
 import { EDUCATION_HERO, IMAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -79,10 +80,15 @@ const EducationHero = () => {
       <section className="border-t border-white/10 bg-black">
         <SiteShell className="py-8 sm:py-10 lg:py-12">
           <SiteContent>
-            <ul className="grid grid-cols-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0">
+            <Stagger
+              as="ul"
+              className="grid grid-cols-2 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-0"
+              stagger={0.08}
+            >
               {stats.map((stat, index) => (
-                <li
+                <StaggerItem
                   key={stat.label}
+                  as="li"
                   className={cn(
                     "flex flex-col items-center px-3 text-center sm:px-4",
                     index > 0 && "lg:border-l lg:border-white/25",
@@ -93,14 +99,14 @@ const EducationHero = () => {
                   )}
                 >
                   <p className="font-display text-3xl font-semibold tabular-nums text-[#fcfcfe] sm:text-4xl lg:text-[44px]">
-                    {stat.value}
+                    <CountUp value={stat.value} />
                   </p>
                   <p className="mt-2 font-sans text-xs text-white/75 sm:text-sm lg:text-base">
                     {stat.label}
                   </p>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
           </SiteContent>
         </SiteShell>
       </section>

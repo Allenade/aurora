@@ -89,6 +89,8 @@ export const ROUTES = Object.freeze({
 export const EXTERNAL_LINKS = Object.freeze({
   WORKSHOP_WAITLIST:
     "https://docs.google.com/forms/d/e/1FAIpQLScIlTJG4jBTUtb4ksU-nM_3-Ynqd8wbqAvVg-e9mXj9ae_9iQ/viewform?usp=header",
+  COHORT_REGISTRATION:
+    "https://docs.google.com/forms/d/13-XINwl3hpw1ZzTCrazD6QVvAgX90IuUZeJtL8GYqD4/viewform",
 });
 
 export type HeaderOptionItem = {
@@ -755,15 +757,15 @@ export const RESEARCH_TEAM = Object.freeze({
 
 export const COHORT_HERO = Object.freeze({
   eyebrow: "LEARN. BUILD. PROVE. EARN YOUR PLACE.",
-  title: "SIGN UP FOR THE AURORA CORE 3.0 WORKSHOP",
+  title: "Sign up for the Aurora Educators program (aep)",
   description:
-    "Aurora workshops move from guided instruction into practical tasks, real tools, and a capstone that proves what you can do.",
+    "Learn for Free from guided instruction to practical tasks, real tools, and a capstone project that proves what you can do.",
 });
 
 export const COHORT_TRACKS = Object.freeze({
   title: "Choose Your Track",
   description:
-    "Learn to code for free. Then build toward a specialty — take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer)",
+    "Learn for free building towards a specialty — take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer)",
   curriculumLabel: "View Curriculum",
   outlineLabel: "Curriculum Outline",
   enrollLabel: "Enroll for CORE 3.0",
@@ -776,7 +778,7 @@ export const COHORT_TRACKS = Object.freeze({
     pathwayEmpty: "Select two or more tracks to preview a combined pathway.",
   },
   stats: [
-    { value: "6", label: "Tracks Total" },
+    { value: "8", label: "Tracks Total" },
     { value: "8", label: "Weeks Per Specialist Track" },
     { value: "1", label: "Cohort, Aug 2026 - Jan 2027" },
   ],
@@ -859,6 +861,38 @@ export const COHORT_TRACKS = Object.freeze({
         "Module 2 - Deep learning for perception",
         "Module 3 - Reinforcement learning for control",
         "Module 4 - Deploying models on robot systems",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "8 weeks - 2 live classes/week at 2 hrs each",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "blockchain",
+      title: "Blockchain For Autonomous Systems",
+      body: "Blockchain, smart contracts, decentralised systems and secure data sharing for trusted autonomous robots and machines",
+      detail:
+        "Build trust into autonomous machines. Work with blockchain, smart contracts, and decentralised systems so robots can share data securely and operate with verifiable integrity.",
+      icon: "blockchain" as const,
+      modules: [
+        "Module 1 - Blockchain foundations for robotics",
+        "Module 2 - Smart contracts & on-chain logic",
+        "Module 3 - Decentralised identity & secure data sharing",
+        "Module 4 - Trusted autonomy systems capstone",
       ],
       meta: [
         {
@@ -975,6 +1009,38 @@ export const COHORT_TRACKS = Object.freeze({
         },
       ],
     },
+    {
+      id: "aerial",
+      title: "Aerial Robotics (Drones)",
+      body: "Drone systems, flight control, PX4, simulation, navigation, sensor integration and autonomous aerial vehicles.",
+      detail:
+        "Take robotics into the air. Learn drone systems, PX4 flight control, simulation, navigation, and sensor integration to build autonomous aerial vehicles.",
+      icon: "drone" as const,
+      modules: [
+        "Module 1 - Drone systems & flight fundamentals",
+        "Module 2 - PX4, firmware & simulation",
+        "Module 3 - Navigation, sensing & autonomy",
+        "Module 4 - Autonomous aerial vehicle capstone",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "8 weeks - 2 live classes/week at 2 hrs each",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
   ],
 });
 
@@ -991,8 +1057,8 @@ export const COHORT_PROGRAM = Object.freeze({
     },
     {
       id: "paid",
-      title: "Core 3.0 Tracks — 5 paid specializations",
-      body: "Choose IoT, Mobile Robotics, AI, Robotic Arm, or Computer Vision. Take one track or combine several where the timetable allows.",
+      title: "Core 3.0 Tracks — 7 paid specializations",
+      body: "Choose IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, or Aerial Robotics. Take one track or combine several where the timetable allows.",
       badge: "PAID",
       badgeTone: "paid" as const,
     },
@@ -1032,7 +1098,11 @@ export const COHORT_PROGRAM = Object.freeze({
         tracks: [
           { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
           { id: "iot", title: "IoT in Robotics", icon: "satellite" as const },
-          { id: "programming", title: "Programming Robotics", icon: "code" as const },
+          {
+            id: "programming",
+            title: "Programming Robotics",
+            icon: "code" as const,
+          },
         ],
         why: "System engineers stitch navigation, sensing networks, and reliable software foundations — Mobile, IoT, and Programming build that stack.",
       },
@@ -1123,7 +1193,7 @@ export const COHORT_ENROLL = Object.freeze({
   eyebrow: "— REGISTRATION & ENROLLMENT",
   title: "How To Enroll",
   ctaLabel: "Start the free Gateway",
-  ctaHref: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+  ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
   note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
   steps: [
     {
@@ -1139,7 +1209,7 @@ export const COHORT_ENROLL = Object.freeze({
     {
       id: "03",
       title: "Choose your Core 3.0 track — or combine several",
-      body: "Pick IoT, Mobile, AI, Arm, or Vision. Stack compatible tracks where the timetable allows.",
+      body: "Pick IoT, Mobile, AI, Arm, Vision, Blockchain, or Aerial. Stack compatible tracks where the timetable allows.",
     },
     {
       id: "04",
@@ -1162,7 +1232,7 @@ export const COHORT_FAQ = Object.freeze({
       id: "core-free",
       question: "Is Core 3.0 itself free?",
       answer:
-        "No — Core 3.0 specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, and Computer Vision are paid specializations.",
+        "No — Core 3.0 specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, and Aerial Robotics are paid specializations.",
     },
     {
       id: "gateway-required",
@@ -1191,10 +1261,10 @@ export const COHORT_FAQ = Object.freeze({
   ],
   cta: {
     title: "Ready To Run Into the Unknown?",
-    body: "One free step. Six specialist tracks. A capstone that proves what you can do — and a community that has your back.",
+    body: "One free step. Eight specialist tracks. A capstone that proves what you can do — and a community that has your back.",
     primary: {
       label: "Start Free Gateway",
-      href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+      href: EXTERNAL_LINKS.COHORT_REGISTRATION,
     },
     secondary: {
       label: "Explore Paid Tracks",

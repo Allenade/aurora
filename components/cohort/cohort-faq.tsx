@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_FAQ } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -14,15 +15,22 @@ const CohortFaq = () => {
     <section className="bg-black">
       <SiteShell className="py-14 sm:py-16 lg:py-20 xl:py-24">
         <SiteContent>
-          <h2 className="text-center font-display text-[1.5rem] font-semibold uppercase tracking-[0.04em] text-white sm:text-2xl lg:text-3xl xl:text-[2.25rem]">
+          <Reveal
+            as="h2"
+            className="text-center font-display text-[1.5rem] font-semibold uppercase tracking-[0.04em] text-white sm:text-2xl lg:text-3xl xl:text-[2.25rem]"
+          >
             {title}
-          </h2>
+          </Reveal>
 
-          <ul className="mx-auto mt-10 max-w-4xl sm:mt-12">
+          <Stagger as="ul" className="mx-auto mt-10 max-w-4xl sm:mt-12">
             {items.map((item) => {
               const isOpen = item.id === openId;
               return (
-                <li key={item.id} className="border-b border-white/15">
+                <StaggerItem
+                  as="li"
+                  key={item.id}
+                  className="border-b border-white/15"
+                >
                   <button
                     type="button"
                     onClick={() =>
@@ -54,12 +62,12 @@ const CohortFaq = () => {
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
-                </li>
+                </StaggerItem>
               );
             })}
-          </ul>
+          </Stagger>
 
-          <div className="mx-auto mt-12 max-w-4xl rounded-lg bg-[#1a1a19] px-6 py-10 text-center sm:mt-14 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+          <Reveal className="mx-auto mt-12 max-w-4xl rounded-lg bg-[#1a1a19] px-6 py-10 text-center sm:mt-14 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
             <h3 className="font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-2xl lg:text-3xl xl:text-[2.25rem]">
               {cta.title}
             </h3>
@@ -82,11 +90,14 @@ const CohortFaq = () => {
                 {cta.secondary.label}
               </AppLink>
             </div>
-          </div>
+          </Reveal>
 
-          <p className="mx-auto mt-6 max-w-4xl text-center font-sans text-[0.65rem] uppercase tracking-[0.08em] text-[#757575] sm:mt-8 sm:text-xs">
+          <Reveal
+            as="p"
+            className="mx-auto mt-6 max-w-4xl text-center font-sans text-[0.65rem] uppercase tracking-[0.08em] text-[#757575] sm:mt-8 sm:text-xs"
+          >
             {legal}
-          </p>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

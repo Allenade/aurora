@@ -11,6 +11,7 @@ import {
   WorkshopVisionIcon,
 } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_PROGRAM, EXTERNAL_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -137,20 +138,26 @@ const CohortProgram = () => {
     <section className="bg-[#151514]">
       <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <div className="flex items-center gap-3">
-            <span className="h-1 w-8 shrink-0 bg-aurora-lime" aria-hidden />
-            <p className="font-display text-xs uppercase tracking-[0.16em] text-white/70 sm:text-sm">
-              {eyebrow}
-            </p>
-          </div>
-          <h2 className="mt-4 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-white sm:mt-5 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
-            {title}
-          </h2>
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <span className="h-1 w-8 shrink-0 bg-aurora-lime" aria-hidden />
+              <p className="font-display text-xs uppercase tracking-[0.16em] text-white/70 sm:text-sm">
+                {eyebrow}
+              </p>
+            </div>
+            <h2 className="mt-4 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-white sm:mt-5 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+              {title}
+            </h2>
+          </Reveal>
 
-          <div className="mt-8 flex flex-col items-stretch gap-4 lg:mt-10 lg:flex-row lg:items-center lg:gap-5">
-            {steps.map((step, index) => (
-              <div key={step.id} className="contents lg:contents">
-                <article className="relative flex-1 rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7">
+          <Stagger className="mt-8 flex flex-col items-stretch gap-4 lg:mt-10 lg:flex-row lg:items-center lg:gap-5">
+            {steps.flatMap((step, index) => {
+              const card = (
+                <StaggerItem
+                  as="article"
+                  key={step.id}
+                  className="relative flex-1 rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7"
+                >
                   <span
                     className={cn(
                       "absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide",
@@ -168,31 +175,38 @@ const CohortProgram = () => {
                   <p className="mt-3 font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
                     {step.body}
                   </p>
-                </article>
-                {index < steps.length - 1 ? (
-                  <div className="flex justify-center lg:shrink-0">
-                    <StepArrow className="rotate-90 lg:rotate-0" />
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </div>
+                </StaggerItem>
+              );
+
+              if (index >= steps.length - 1) return [card];
+
+              return [
+                card,
+                <div
+                  key={`${step.id}-arrow`}
+                  className="flex justify-center lg:shrink-0"
+                >
+                  <StepArrow className="rotate-90 lg:rotate-0" />
+                </div>,
+              ];
+            })}
+          </Stagger>
 
           <div className="mt-14 sm:mt-16 lg:mt-20">
-            <h3 className="max-w-3xl font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-3xl lg:text-[2.5rem]">
+            <Reveal as="h3" className="max-w-3xl font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-3xl lg:text-[2.5rem]">
               {engineer.title}
-            </h3>
+            </Reveal>
 
             <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">
               <div>
                 <p className="font-sans text-sm font-semibold text-white/80 sm:text-base">
                   {engineer.listLabel}
                 </p>
-                <ul className="mt-4 space-y-3">
+                <Stagger as="ul" className="mt-4 space-y-3">
                   {engineer.roles.map((role) => {
                     const isOpen = role.id === openId;
                     return (
-                      <li key={role.id}>
+                      <StaggerItem as="li" key={role.id}>
                         <button
                           type="button"
                           onClick={() =>
@@ -222,60 +236,62 @@ const CohortProgram = () => {
                             {isOpen ? "−" : "+"}
                           </span>
                         </button>
-                      </li>
+                      </StaggerItem>
                     );
                   })}
-                </ul>
+                </Stagger>
               </div>
 
-              <aside className="rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7">
-                <h4 className="font-sans text-lg font-semibold text-white sm:text-xl">
-                  {engineer.combinationLabel}
-                </h4>
+              <Reveal>
+                <aside className="rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7">
+                  <h4 className="font-sans text-lg font-semibold text-white sm:text-xl">
+                    {engineer.combinationLabel}
+                  </h4>
 
-                {activeRole ? (
-                  <>
-                    <div className="mt-5 flex flex-wrap gap-2.5">
-                      {activeRole.tracks.map((track) => {
-                        const Icon = TRACK_ICONS[track.icon];
-                        return (
-                          <span
-                            key={track.id}
-                            className="inline-flex items-center gap-2 rounded-full border border-aurora-lime px-3.5 py-2 font-sans text-sm text-aurora-lime"
-                          >
-                            <Icon className="size-4" />
-                            {track.title}
-                          </span>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-6">
-                      <p className="font-sans text-sm font-semibold text-white sm:text-base">
-                        {engineer.whyLabel}
-                      </p>
-                      <div className="mt-3 rounded-xl bg-[#151514] px-4 py-4 sm:px-5 sm:py-5">
-                        <p className="font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
-                          {activeRole.why}
-                        </p>
+                  {activeRole ? (
+                    <>
+                      <div className="mt-5 flex flex-wrap gap-2.5">
+                        {activeRole.tracks.map((track) => {
+                          const Icon = TRACK_ICONS[track.icon];
+                          return (
+                            <span
+                              key={track.id}
+                              className="inline-flex items-center gap-2 rounded-full border border-aurora-lime px-3.5 py-2 font-sans text-sm text-aurora-lime"
+                            >
+                              <Icon className="size-4" />
+                              {track.title}
+                            </span>
+                          );
+                        })}
                       </div>
-                    </div>
 
-                    <p className="mt-6 font-sans text-sm text-white/70 sm:text-base">
-                      {engineer.dateRange}
+                      <div className="mt-6">
+                        <p className="font-sans text-sm font-semibold text-white sm:text-base">
+                          {engineer.whyLabel}
+                        </p>
+                        <div className="mt-3 rounded-xl bg-[#151514] px-4 py-4 sm:px-5 sm:py-5">
+                          <p className="font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
+                            {activeRole.why}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mt-6 font-sans text-sm text-white/70 sm:text-base">
+                        {engineer.dateRange}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="mt-5 font-sans text-sm text-[#757575]">
+                      Select a role to preview your track combination.
                     </p>
-                  </>
-                ) : (
-                  <p className="mt-5 font-sans text-sm text-[#757575]">
-                    Select a role to preview your track combination.
-                  </p>
-                )}
-              </aside>
+                  )}
+                </aside>
+              </Reveal>
             </div>
 
-            <div className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
+            <Reveal className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
               <a
-                href={EXTERNAL_LINKS.WORKSHOP_WAITLIST}
+                href={EXTERNAL_LINKS.COHORT_REGISTRATION}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ borderRadius: 16 }}
@@ -285,7 +301,7 @@ const CohortProgram = () => {
                 <ArrowIcon />
               </a>
               <a
-                href={EXTERNAL_LINKS.WORKSHOP_WAITLIST}
+                href={EXTERNAL_LINKS.COHORT_REGISTRATION}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ borderRadius: 16 }}
@@ -294,7 +310,7 @@ const CohortProgram = () => {
                 <CalendarIcon />
                 {engineer.calendarLabel}
               </a>
-            </div>
+            </Reveal>
           </div>
         </SiteContent>
       </SiteShell>

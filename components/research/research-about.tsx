@@ -3,6 +3,7 @@
 // import { useState } from "react";
 // import { ChevronDownIcon } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { RESEARCH_ABOUT } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import ResearchCard from "./research-card";
@@ -44,14 +45,14 @@ const ResearchAbout = () => {
     <section className="bg-black">
       <SiteShell className="py-16 sm:py-20 lg:py-24 xl:py-28">
         <SiteContent>
-          <div className="mx-auto max-w-[52rem] text-center xl:max-w-[56rem]">
+          <Reveal className="mx-auto max-w-[52rem] text-center xl:max-w-[56rem]">
             <h2 className="font-display text-[1.75rem] font-semibold uppercase tracking-wide text-[#fcfcfe] sm:text-4xl lg:text-[2.75rem] xl:text-[3rem]">
               {title}
             </h2>
             <p className="mt-5 font-sans text-[13px] leading-[1.65] text-[#fcfcfe] sm:mt-6 sm:text-base lg:mt-7 lg:text-lg lg:leading-relaxed">
               {description}
             </p>
-          </div>
+          </Reveal>
 
           {/* <label className="relative mx-auto mt-8 block w-full max-w-5xl sm:mt-10 lg:mt-12 xl:max-w-6xl">
             <span className="sr-only">Search research</span>
@@ -78,12 +79,13 @@ const ResearchAbout = () => {
             [Locomotion] [Scene] [Elder care]
             [Metacognition] [Traffic] [WebSocket]
           */}
-          <div
+          <Stagger
             className={cn(
               "mt-10 grid grid-cols-1 items-stretch gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6",
               "lg:mt-14 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-7",
               "xl:gap-x-7 xl:gap-y-8",
             )}
+            stagger={0.08}
           >
             {/* <aside className="self-start text-left sm:col-span-2 lg:col-span-1">
               <h3 className="font-sans text-xl font-semibold text-[#fcfcfe] sm:text-2xl">
@@ -146,14 +148,15 @@ const ResearchAbout = () => {
             </aside> */}
 
             {papers.map((paper) => (
-              <ResearchCard
-                key={paper.id}
-                title={paper.title}
-                authors={paper.authors}
-                image={paper.image}
-              />
+              <StaggerItem key={paper.id} className="h-full min-h-0">
+                <ResearchCard
+                  title={paper.title}
+                  authors={paper.authors}
+                  image={paper.image}
+                />
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
 
           {/* <ResearchPagination
             previousLabel={pagination.previousLabel}

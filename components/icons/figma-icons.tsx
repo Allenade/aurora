@@ -222,6 +222,66 @@ export function WorkshopArmIcon({ className }: IconProps) {
   );
 }
 
+/** Cohort workshop — blockchain / network nodes */
+export function WorkshopBlockchainIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <circle cx="6.5" cy="7" r="2.25" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="17.5" cy="7" r="2.25" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="17" r="2.25" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="M8.4 8.2 15.6 8.2M7.6 8.9 10.8 15.1M16.4 8.9 13.2 15.1"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+/** Cohort workshop — aerial robotics / drone */
+export function WorkshopDroneIcon({ className }: IconProps) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      aria-hidden
+    >
+      <rect
+        x="9"
+        y="10.5"
+        width="6"
+        height="4"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M9 12H6.5M15 12h2.5M7.5 8.5 9.5 11M16.5 8.5 14.5 11M7.5 15.5 9.5 13M16.5 15.5 14.5 13"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      <circle cx="5.5" cy="6.5" r="2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="18.5" cy="6.5" r="2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="5.5" cy="17.5" r="2" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="18.5" cy="17.5" r="2" stroke="currentColor" strokeWidth="1.7" />
+    </svg>
+  );
+}
+
 /** Join Us become — performance / bolt */
 export function BoltIcon({ className }: IconProps) {
   return (

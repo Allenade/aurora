@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { HeroVideo } from "@/components/layout/hero-video";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Stagger, StaggerItem } from "@/components/motion";
 import { IMAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -163,7 +164,11 @@ export function PageHero({
         <SiteContent
           className={cn("relative", isCentered && "flex justify-center")}
         >
-          <div
+          <Stagger
+            immediate
+            stagger={0.1}
+            delayChildren={0.05}
+            y={20}
             className={cn(
               "relative",
               isCentered && "mx-auto text-center",
@@ -175,84 +180,94 @@ export function PageHero({
             )}
           >
             {eyebrow ? (
-              <p
-                className={cn(
-                  "mb-3 font-display text-xs font-medium uppercase tracking-wide sm:mb-4 sm:text-sm lg:mb-5 lg:text-base xl:text-xl min-[2560px]:mb-6 min-[2560px]:text-2xl",
-                  isCentered ? "text-aurora-lime" : "text-white",
-                  eyebrowClassName,
-                )}
-              >
-                {eyebrow}
-              </p>
+              <StaggerItem>
+                <p
+                  className={cn(
+                    "mb-3 font-display text-xs font-medium uppercase tracking-wide sm:mb-4 sm:text-sm lg:mb-5 lg:text-base xl:text-xl min-[2560px]:mb-6 min-[2560px]:text-2xl",
+                    isCentered ? "text-aurora-lime" : "text-white",
+                    eyebrowClassName,
+                  )}
+                >
+                  {eyebrow}
+                </p>
+              </StaggerItem>
             ) : null}
 
-            <h1
-              className={cn(
-                "font-display font-bold uppercase leading-[1.1] text-white",
-                isCentered
-                  ? "text-[22px] sm:text-3xl lg:text-[40px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:text-[72px]"
-                  : "max-w-5xl text-[22px] sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:max-w-none min-[2560px]:text-[84px] min-[2560px]:leading-[1.05]",
-                titleClassName,
-              )}
-            >
-              {title}
-            </h1>
-
-            {description ? (
-              <p
+            <StaggerItem>
+              <h1
                 className={cn(
-                  "mt-4 font-sans text-sm leading-relaxed text-white/90 sm:mt-5 sm:text-base lg:mt-6 lg:text-lg min-[2560px]:mt-8 min-[2560px]:text-2xl min-[2560px]:leading-relaxed",
+                  "font-display font-bold uppercase leading-[1.1] text-white",
                   isCentered
-                    ? descriptionClassName
-                      ? "mx-auto"
-                      : "mx-auto max-w-none sm:max-w-2xl lg:max-w-3xl xl:max-w-[52rem]"
-                    : "max-w-md sm:max-w-lg lg:max-w-xl min-[2560px]:max-w-2xl",
-                  descriptionClassName,
+                    ? "text-[22px] sm:text-3xl lg:text-[40px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:text-[72px]"
+                    : "max-w-5xl text-[22px] sm:text-3xl lg:text-[34px] xl:text-[48px] 2xl:text-[56px] min-[2560px]:max-w-none min-[2560px]:text-[84px] min-[2560px]:leading-[1.05]",
+                  titleClassName,
                 )}
               >
-                {description}
-              </p>
+                {title}
+              </h1>
+            </StaggerItem>
+
+            {description ? (
+              <StaggerItem>
+                <p
+                  className={cn(
+                    "mt-4 font-sans text-sm leading-relaxed text-white/90 sm:mt-5 sm:text-base lg:mt-6 lg:text-lg min-[2560px]:mt-8 min-[2560px]:text-2xl min-[2560px]:leading-relaxed",
+                    isCentered
+                      ? descriptionClassName
+                        ? "mx-auto"
+                        : "mx-auto max-w-none sm:max-w-2xl lg:max-w-3xl xl:max-w-[52rem]"
+                      : "max-w-md sm:max-w-lg lg:max-w-xl min-[2560px]:max-w-2xl",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </p>
+              </StaggerItem>
             ) : null}
 
             {cta ? (
-              <Link
-                href={cta.href}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-lg bg-aurora-lime px-4 py-2 text-black transition-opacity hover:opacity-90",
-                  description
-                    ? "mt-5 sm:mt-6 lg:mt-8 min-[2560px]:mt-10"
-                    : "mt-6 sm:mt-8 lg:mt-10 min-[2560px]:mt-12",
-                  "sm:gap-3 sm:rounded-xl sm:px-5 sm:py-3 lg:gap-4 lg:px-6 lg:py-3.5",
-                  "min-[2560px]:gap-5 min-[2560px]:rounded-2xl min-[2560px]:px-8 min-[2560px]:py-4",
-                )}
-              >
-                <span className="font-sans text-xs font-medium sm:text-sm lg:text-lg min-[2560px]:text-2xl">
-                  {cta.label}
-                </span>
-                <Image
-                  src={IMAGES.ARROW_CIRCLE_DARK}
-                  alt=""
-                  width={28}
-                  height={28}
-                  className="size-5 shrink-0 sm:size-6 lg:size-7 min-[2560px]:size-10"
-                  aria-hidden
-                />
-              </Link>
+              <StaggerItem>
+                <Link
+                  href={cta.href}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-lg bg-aurora-lime px-4 py-2 text-black transition-opacity hover:opacity-90",
+                    description
+                      ? "mt-5 sm:mt-6 lg:mt-8 min-[2560px]:mt-10"
+                      : "mt-6 sm:mt-8 lg:mt-10 min-[2560px]:mt-12",
+                    "sm:gap-3 sm:rounded-xl sm:px-5 sm:py-3 lg:gap-4 lg:px-6 lg:py-3.5",
+                    "min-[2560px]:gap-5 min-[2560px]:rounded-2xl min-[2560px]:px-8 min-[2560px]:py-4",
+                  )}
+                >
+                  <span className="font-sans text-xs font-medium sm:text-sm lg:text-lg min-[2560px]:text-2xl">
+                    {cta.label}
+                  </span>
+                  <Image
+                    src={IMAGES.ARROW_CIRCLE_DARK}
+                    alt=""
+                    width={28}
+                    height={28}
+                    className="size-5 shrink-0 sm:size-6 lg:size-7 min-[2560px]:size-10"
+                    aria-hidden
+                  />
+                </Link>
+              </StaggerItem>
             ) : null}
 
             {footer && footerPlacement === "inline" ? (
-              <div
-                className={cn(
-                  "flex justify-center",
-                  cta || description
-                    ? "mt-8 sm:mt-10 lg:mt-12"
-                    : "mt-6 sm:mt-8",
-                )}
-              >
-                {footer}
-              </div>
+              <StaggerItem>
+                <div
+                  className={cn(
+                    "flex justify-center",
+                    cta || description
+                      ? "mt-8 sm:mt-10 lg:mt-12"
+                      : "mt-6 sm:mt-8",
+                  )}
+                >
+                  {footer}
+                </div>
+              </StaggerItem>
             ) : null}
-          </div>
+          </Stagger>
         </SiteContent>
       </SiteShell>
 

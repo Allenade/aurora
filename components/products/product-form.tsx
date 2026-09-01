@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal } from "@/components/motion";
 import { PRODUCTS_FORM } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +33,7 @@ const ProductsForm = () => {
     <section className="bg-black">
       <SiteShell className="py-14 sm:py-16 lg:py-20 xl:py-24 min-[2560px]:py-28">
         <SiteContent>
-          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
             <span
               className="mb-4 h-1 w-10 shrink-0 rounded-full bg-aurora-lime sm:mb-5 sm:w-12"
               aria-hidden
@@ -46,12 +47,17 @@ const ProductsForm = () => {
             <p className="mt-4 max-w-2xl font-sans text-sm leading-relaxed text-[#a3a3a3] sm:mt-5 sm:text-base lg:text-lg">
               {PRODUCTS_FORM.description}
             </p>
-          </div>
+          </Reveal>
 
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-[#151514] p-5 sm:mt-12 sm:p-8 lg:mt-14 lg:p-10"
+          <Reveal
+            as="div"
+            className="mx-auto mt-10 max-w-3xl sm:mt-12 lg:mt-14"
+            delay={0.1}
           >
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-2xl border border-white/10 bg-[#151514] p-5 sm:p-8 lg:p-10"
+            >
             <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
               <div className="flex flex-col gap-2">
                 <label
@@ -173,6 +179,7 @@ const ProductsForm = () => {
               {PRODUCTS_FORM.privacy}
             </p>
           </form>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

@@ -1,5 +1,6 @@
 import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ABOUT_WIDER_REACH } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -17,32 +18,39 @@ export default function AboutReach() {
               "lg:rounded-[1.75rem] lg:px-10 lg:py-14 xl:px-14",
             )}
           >
-            <h2
-              className={cn(
-                "font-display font-bold uppercase tracking-tight text-white",
-                "text-xl sm:text-2xl lg:text-[1.75rem]",
-              )}
-            >
-              {title}
-            </h2>
+            <Reveal>
+              <h2
+                className={cn(
+                  "font-display font-bold uppercase tracking-tight text-white",
+                  "text-xl sm:text-2xl lg:text-[1.75rem]",
+                )}
+              >
+                {title}
+              </h2>
+            </Reveal>
 
-            <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-12 lg:mt-14 lg:grid-cols-4 lg:gap-6">
+            <Stagger
+              as="ul"
+              className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-12 lg:mt-14 lg:grid-cols-4 lg:gap-6"
+              stagger={0.08}
+            >
               {stats.map((stat) => (
-                <li
+                <StaggerItem
                   key={stat.label}
+                  as="li"
                   className="flex flex-col items-center text-center"
                 >
                   <p className="font-display text-3xl font-semibold tabular-nums text-white sm:text-4xl lg:text-[2.5rem]">
-                    {stat.value}
+                    <CountUp value={stat.value} />
                   </p>
                   <p className="mt-2 max-w-44 font-sans text-[11px] font-medium uppercase tracking-[0.08em] text-white/80 sm:text-xs lg:max-w-none lg:text-sm">
                     {stat.label}
                   </p>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
 
-            <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4 lg:gap-5">
+            <Reveal className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4 lg:gap-5">
               {ctas.map((cta) => (
                 <AppLink
                   key={cta.id}
@@ -63,7 +71,7 @@ export default function AboutReach() {
                   {cta.label}
                 </AppLink>
               ))}
-            </div>
+            </Reveal>
           </div>
         </SiteContent>
       </SiteShell>

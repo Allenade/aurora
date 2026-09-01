@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_ENROLL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -34,18 +35,20 @@ const CohortEnroll = () => {
     <section className="bg-white">
       <SiteShell className="pb-14 sm:pb-16 lg:pb-20 xl:pb-24">
         <SiteContent>
-          <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514] sm:text-sm">
-            {eyebrow}
-          </p>
-          <h2 className="mt-3 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:mt-4 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
-            {title}
-          </h2>
+          <Reveal>
+            <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514] sm:text-sm">
+              {eyebrow}
+            </p>
+            <h2 className="mt-3 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:mt-4 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+              {title}
+            </h2>
+          </Reveal>
 
-          <ul className="mt-8 space-y-3 sm:mt-10">
+          <Stagger as="ul" className="mt-8 space-y-3 sm:mt-10">
             {steps.map((step) => {
               const isOpen = step.id === openId;
               return (
-                <li key={step.id}>
+                <StaggerItem as="li" key={step.id}>
                   <button
                     type="button"
                     onClick={() =>
@@ -80,12 +83,12 @@ const CohortEnroll = () => {
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
-                </li>
+                </StaggerItem>
               );
             })}
-          </ul>
+          </Stagger>
 
-          <div className="mt-10 flex flex-col items-center gap-3 sm:mt-12">
+          <Reveal className="mt-10 flex flex-col items-center gap-3 sm:mt-12">
             <a
               href={ctaHref}
               target="_blank"
@@ -96,7 +99,7 @@ const CohortEnroll = () => {
               <ArrowIcon />
             </a>
             <p className="font-sans text-sm text-[#757575] sm:text-base">{note}</p>
-          </div>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

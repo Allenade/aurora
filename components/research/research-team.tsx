@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal } from "@/components/motion";
 import { RESEARCH_TEAM } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ const ResearchTeam = () => {
         )}
       >
         <SiteContent>
-          <div
+          <Reveal
             className={cn(
               "relative mx-auto w-full max-w-5xl xl:max-w-6xl",
               "rounded-[1.25rem] bg-[#f4f4f4] sm:rounded-[1.5rem] lg:rounded-[1.75rem]",
@@ -121,7 +122,7 @@ const ResearchTeam = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

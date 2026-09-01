@@ -5,12 +5,15 @@ import { useMemo, useState } from "react";
 import {
   WorkshopAiIcon,
   WorkshopArmIcon,
+  WorkshopBlockchainIcon,
   WorkshopCodeIcon,
+  WorkshopDroneIcon,
   WorkshopRoverIcon,
   WorkshopSatelliteIcon,
   WorkshopVisionIcon,
 } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem, CountUp } from "@/components/motion";
 import { COHORT_TRACKS, EXTERNAL_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +27,8 @@ const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
   ai: WorkshopAiIcon,
   arm: WorkshopArmIcon,
   vision: WorkshopVisionIcon,
+  blockchain: WorkshopBlockchainIcon,
+  drone: WorkshopDroneIcon,
 };
 
 const PATHWAY_HINTS: Record<string, string> = {
@@ -109,6 +114,8 @@ function buildPathwayTitle(tracks: Track[]) {
     if (track.id === "arm") return "Arm";
     if (track.id === "vision") return "Vision";
     if (track.id === "programming") return "Programming";
+    if (track.id === "blockchain") return "Blockchain";
+    if (track.id === "aerial") return "Aerial";
     return track.title;
   });
   return short.join(" + ");
@@ -158,25 +165,26 @@ const CohortTracks = () => {
     <section id="tracks" className="bg-white">
       <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <header className="mx-auto max-w-4xl text-center">
+          <Reveal as="header" className="mx-auto max-w-4xl text-center">
             <h2 className="font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
               {title}
             </h2>
             <p className="mt-4 font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
               {description}
             </p>
-          </header>
+          </Reveal>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-3 lg:gap-6">
+          <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-4 lg:gap-6">
             {tracks.map((track) => {
               const Icon = TRACK_ICONS[track.icon];
               const inStack = stackIds.includes(track.id);
 
               return (
-                <article
+                <StaggerItem
+                  as="article"
                   key={track.id}
                   className={cn(
-                    "group relative flex flex-col rounded-2xl border border-white/10 bg-[#151514] p-5 transition-colors sm:p-6 lg:p-7",
+                    "group relative flex flex-col rounded-lg border border-white/10 bg-[#151514] p-5 transition-colors sm:p-6 lg:p-7",
                     "hover:border-aurora-lime",
                   )}
                 >
@@ -220,13 +228,13 @@ const CohortTracks = () => {
                     {curriculumLabel}
                     <CurriculumArrow />
                   </button>
-                </article>
+                </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
 
           {activeTrack && ActiveIcon ? (
-            <div
+            <Reveal
               id="track-detail"
               className="mt-10 scroll-mt-28 rounded-2xl border border-aurora-lime bg-[#111111] p-5 sm:mt-12 sm:p-7 lg:mt-14 lg:p-8"
             >
@@ -281,7 +289,7 @@ const CohortTracks = () => {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <a
-                  href={EXTERNAL_LINKS.WORKSHOP_WAITLIST}
+                  href={EXTERNAL_LINKS.COHORT_REGISTRATION}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full bg-aurora-lime px-6 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:text-base"
@@ -295,10 +303,10 @@ const CohortTracks = () => {
                   {downloadLabel}
                 </button>
               </div>
-            </div>
+            </Reveal>
           ) : null}
 
-          <div className="mt-10 rounded-2xl border border-aurora-lime bg-[#111111] p-5 sm:mt-12 sm:p-7 lg:p-8">
+          <Reveal className="mt-10 rounded-2xl border border-aurora-lime bg-[#111111] p-5 sm:mt-12 sm:p-7 lg:p-8">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <h3 className="font-display text-lg font-semibold uppercase tracking-wide text-white sm:text-xl lg:text-2xl">
@@ -359,27 +367,34 @@ const CohortTracks = () => {
                 </p>
               )}
             </div>
-          </div>
+          </Reveal>
 
-          <ul className="mt-10 grid grid-cols-1 divide-y divide-black/10 border-y border-black/10 sm:mt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <Stagger
+            as="ul"
+            className="mt-10 grid grid-cols-1 divide-y divide-black/10 border-y border-black/10 sm:mt-12 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+          >
             {stats.map((stat) => (
-              <li
+              <StaggerItem
+                as="li"
                 key={stat.label}
                 className="flex flex-col items-center px-4 py-8 text-center sm:py-10"
               >
                 <p className="font-display text-4xl font-semibold tabular-nums text-[#151514] sm:text-5xl lg:text-[56px]">
-                  {stat.value}
+                  <CountUp value={stat.value} />
                 </p>
                 <p className="mt-2 font-sans text-sm text-[#757575] sm:text-base">
                   {stat.label}
                 </p>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </Stagger>
 
-          <p className="mx-auto mt-10 max-w-3xl text-center font-sans text-sm leading-relaxed text-[#757575] sm:mt-12 sm:text-base lg:text-lg">
+          <Reveal
+            as="p"
+            className="mx-auto mt-10 max-w-3xl text-center font-sans text-sm leading-relaxed text-[#757575] sm:mt-12 sm:text-base lg:text-lg"
+          >
             {tagline}
-          </p>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

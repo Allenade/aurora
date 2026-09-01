@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AppLink } from "@/components/layout/app-link";
+import { Reveal, Stagger, StaggerItem, CountUp } from "@/components/motion";
 import { HOME_PRODUCT, IMAGES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -41,19 +42,24 @@ const HomeProduct = () => {
               "lg:[clip-path:polygon(28px_0%,100%_0%,100%_100%,28px_100%,28px_77.3%,0_73.7%,0_27.5%,28px_24.2%)]",
             )}
           >
-            <h2 className="font-display text-[1.5rem] font-semibold leading-[1.12] text-[#151514] sm:whitespace-nowrap sm:text-[1.65rem] lg:text-[1.75rem] xl:text-[2rem]">
+            <Reveal as="h2" className="font-display text-[1.5rem] font-semibold leading-[1.12] text-[#151514] sm:whitespace-nowrap sm:text-[1.65rem] lg:text-[1.75rem] xl:text-[2rem]">
               {title}
-            </h2>
+            </Reveal>
 
-            <ul className="mt-7 grid grid-cols-2 gap-x-6 sm:mt-8 sm:gap-x-10 lg:mt-9 lg:gap-x-12">
+            <Stagger
+              as="ul"
+              className="mt-7 grid grid-cols-2 gap-x-6 sm:mt-8 sm:gap-x-10 lg:mt-9 lg:gap-x-12"
+            >
               {stats.map((stat) => (
-                <li
+                <StaggerItem
                   key={stat.value}
+                  as="li"
                   className="flex flex-col items-start text-left"
                 >
-                  <p className="font-display text-[1.75rem] font-semibold leading-none tabular-nums text-[#151514] sm:text-[2rem] lg:text-[2.25rem]">
-                    {stat.value}
-                  </p>
+                  <CountUp
+                    value={stat.value}
+                    className="font-display text-[1.75rem] font-semibold leading-none tabular-nums text-[#151514] sm:text-[2rem] lg:text-[2.25rem]"
+                  />
                   <p className="mt-2 font-sans text-[9px] font-medium uppercase leading-[1.35] tracking-[0.05em] text-[#757575] sm:text-[10px] lg:text-[11px]">
                     {stat.labelLines.map((line) => (
                       <span key={line} className="block">
@@ -61,12 +67,12 @@ const HomeProduct = () => {
                       </span>
                     ))}
                   </p>
-                </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
 
             <div className="mt-7 space-y-5 sm:mt-8 sm:space-y-6">
-              <div>
+              <Reveal>
                 <h3 className="font-sans text-base font-semibold text-[#151514] sm:text-lg">
                   {problem.title}
                 </h3>
@@ -77,9 +83,9 @@ const HomeProduct = () => {
                     </span>
                   ))}
                 </p>
-              </div>
+              </Reveal>
 
-              <div>
+              <Reveal delay={0.08}>
                 <h3 className="font-sans text-base font-semibold text-[#151514] sm:text-lg">
                   {solution.title}
                 </h3>
@@ -90,10 +96,13 @@ const HomeProduct = () => {
                     </span>
                   ))}
                 </p>
-              </div>
+              </Reveal>
             </div>
 
-            <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
+            <Reveal
+              delay={0.12}
+              className="mt-8 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4"
+            >
               <AppLink
                 href={primaryCta.href}
                 className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-aurora-lime px-4 py-3 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:gap-3 sm:px-5 sm:py-3.5 sm:text-base"
@@ -115,7 +124,7 @@ const HomeProduct = () => {
               >
                 {secondaryCta.label}
               </AppLink>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

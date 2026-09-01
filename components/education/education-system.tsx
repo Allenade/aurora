@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { EDUCATION_SYSTEM } from "@/lib/constants";
 
 const EducationSystem = () => {
@@ -10,7 +11,7 @@ const EducationSystem = () => {
     <section className="bg-[#151514]">
       <SiteShell className="py-14 sm:py-16 lg:py-20 xl:py-24">
         <SiteContent>
-          <header className="max-w-5xl xl:max-w-6xl">
+          <Reveal as="header" className="max-w-5xl xl:max-w-6xl">
             <div className="flex items-center gap-3 sm:gap-4">
               <svg
                 width="40"
@@ -42,12 +43,16 @@ const EducationSystem = () => {
                 ))}
               </span>
             </p>
-          </header>
+          </Reveal>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:gap-5 lg:mt-14 lg:grid-cols-2 lg:gap-6">
+          <Stagger
+            className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:gap-5 lg:mt-14 lg:grid-cols-2 lg:gap-6"
+            stagger={0.1}
+          >
             {cards.map((card) => (
-              <article
+              <StaggerItem
                 key={card.id}
+                as="article"
                 className="border-l-[4px] border-aurora-lime bg-black px-5 py-6 sm:px-6 sm:py-7 lg:px-7 lg:py-8"
               >
                 <h3 className="font-display text-lg font-semibold leading-snug text-[#fcfcfe] sm:text-xl lg:text-xl xl:text-2xl">
@@ -63,11 +68,11 @@ const EducationSystem = () => {
                     ))}
                   </span>
                 </p>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
 
-          <div className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-start sm:gap-4 lg:mt-14">
+          <Reveal className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-start sm:gap-4 lg:mt-14">
             <Link
               href={primaryCta.href}
               target="_blank"
@@ -76,7 +81,7 @@ const EducationSystem = () => {
             >
               {primaryCta.label}
             </Link>
-          </div>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

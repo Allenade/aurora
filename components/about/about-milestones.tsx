@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ABOUT_MILESTONES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -65,7 +66,7 @@ const AboutMilestones = () => {
     <section className="bg-[#fcfcfe]">
       <SiteShell className="py-10 sm:py-12 lg:py-14 xl:py-16">
         <SiteContent>
-          <div className="flex items-center justify-between gap-4">
+          <Reveal className="flex items-center justify-between gap-4">
             <h2
               className={cn(
                 "font-display font-bold uppercase tracking-tight text-[#151514]",
@@ -84,44 +85,47 @@ const AboutMilestones = () => {
                 onClick={() => scrollByCard("next")}
               />
             </div>
-          </div>
+          </Reveal>
 
           <div
             ref={scrollerRef}
             className={cn(
-              "mt-8 flex gap-4 overflow-x-auto pb-2 sm:mt-10 sm:gap-5",
+              "mt-8 overflow-x-auto pb-2 sm:mt-10",
               "snap-x snap-mandatory scroll-smooth",
               "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
             )}
           >
-            {items.map((item) => (
-              <article
-                key={item.number}
-                className={cn(
-                  "snap-start shrink-0",
-                  "w-[min(100%,17.5rem)] sm:w-[18.5rem] lg:w-[19.5rem]",
-                  "rounded-2xl bg-black px-5 py-6 sm:rounded-[1.25rem] sm:px-6 sm:py-7",
-                )}
-              >
-                {/* Figma: short lime rule above the number */}
-                <span
-                  className="mb-3 block h-px w-10 bg-aurora-lime sm:mb-3.5"
-                  aria-hidden
-                />
-                <p className="font-display text-2xl font-bold tabular-nums text-aurora-lime sm:text-[1.75rem]">
-                  {item.number}
-                </p>
-                <p className="mt-3 font-sans text-xs text-white/55 sm:text-sm">
-                  {item.year}
-                </p>
-                <h3 className="mt-2 font-sans text-base font-semibold text-white sm:text-lg">
-                  {item.title}
-                </h3>
-                <p className="mt-2 font-sans text-sm leading-relaxed text-white/75 sm:mt-3">
-                  {item.body}
-                </p>
-              </article>
-            ))}
+            <Stagger className="flex gap-4 sm:gap-5" stagger={0.08}>
+              {items.map((item) => (
+                <StaggerItem
+                  key={item.number}
+                  as="article"
+                  className={cn(
+                    "snap-start shrink-0",
+                    "w-[min(100%,17.5rem)] sm:w-[18.5rem] lg:w-[19.5rem]",
+                    "rounded-2xl bg-black px-5 py-6 sm:rounded-[1.25rem] sm:px-6 sm:py-7",
+                  )}
+                >
+                  {/* Figma: short lime rule above the number */}
+                  <span
+                    className="mb-3 block h-px w-10 bg-aurora-lime sm:mb-3.5"
+                    aria-hidden
+                  />
+                  <p className="font-display text-2xl font-bold tabular-nums text-aurora-lime sm:text-[1.75rem]">
+                    {item.number}
+                  </p>
+                  <p className="mt-3 font-sans text-xs text-white/55 sm:text-sm">
+                    {item.year}
+                  </p>
+                  <h3 className="mt-2 font-sans text-base font-semibold text-white sm:text-lg">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 font-sans text-sm leading-relaxed text-white/75 sm:mt-3">
+                    {item.body}
+                  </p>
+                </StaggerItem>
+              ))}
+            </Stagger>
           </div>
         </SiteContent>
       </SiteShell>

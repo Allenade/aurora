@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { DocumentIcon } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ABOUT_TALENT_VALUE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +12,7 @@ const AboutTalentValue = () => {
     <section id="services" className="scroll-mt-24 bg-black">
       <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <div className="mx-auto w-full text-center">
+          <Reveal className="mx-auto w-full text-center">
             <h2
               className={cn(
                 "font-display font-bold uppercase tracking-tight text-white",
@@ -29,14 +30,18 @@ const AboutTalentValue = () => {
             >
               {description}
             </p>
-          </div>
+          </Reveal>
 
-          <ul className="mx-auto mt-10 flex max-w-5xl flex-col gap-3 sm:mt-12 sm:gap-4 lg:mt-14">
+          <Stagger
+            as="ul"
+            className="mx-auto mt-10 flex max-w-5xl flex-col gap-3 sm:mt-12 sm:gap-4 lg:mt-14"
+            stagger={0.08}
+          >
             {engines.map((engine) => {
               const featured = Boolean(engine.featured);
 
               return (
-                <li key={engine.id}>
+                <StaggerItem key={engine.id} as="li">
                   <article
                     className={cn(
                       "flex items-center gap-4 rounded-2xl px-4 py-4",
@@ -81,10 +86,10 @@ const AboutTalentValue = () => {
                       </div>
                     )}
                   </article>
-                </li>
+                </StaggerItem>
               );
             })}
-          </ul>
+          </Stagger>
         </SiteContent>
       </SiteShell>
     </section>

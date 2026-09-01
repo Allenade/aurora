@@ -1,4 +1,5 @@
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_PROVE } from "@/lib/constants";
 
 function MedalIcon({ className }: { className?: string }) {
@@ -93,15 +94,19 @@ const CohortProve = () => {
     <section className="bg-white">
       <SiteShell className="pb-12 sm:pb-14 lg:pb-16 xl:pb-20">
         <SiteContent>
-          <h2 className="max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+          <Reveal
+            as="h2"
+            className="max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:text-3xl lg:text-4xl xl:text-[2.75rem]"
+          >
             {title}
-          </h2>
+          </Reveal>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
+          <Stagger className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
             {cards.map((card) => {
               const Icon = PROVE_ICONS[card.icon];
               return (
-                <article
+                <StaggerItem
+                  as="article"
                   key={card.id}
                   className="rounded-2xl bg-[#151514] p-5 sm:p-6 lg:p-7"
                 >
@@ -114,14 +119,17 @@ const CohortProve = () => {
                   <p className="mt-3 font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
                     {card.body}
                   </p>
-                </article>
+                </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
 
-          <p className="mx-auto mt-8 max-w-3xl text-center font-sans text-sm leading-relaxed text-[#757575] sm:mt-10 sm:text-base lg:text-lg">
+          <Reveal
+            as="p"
+            className="mx-auto mt-8 max-w-3xl text-center font-sans text-sm leading-relaxed text-[#757575] sm:mt-10 sm:text-base lg:text-lg"
+          >
             {footer}
-          </p>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>

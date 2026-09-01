@@ -4,6 +4,7 @@ import {
   FOOTER_SOCIAL_LINKS,
 } from "@/lib/constants";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { cn } from "@/lib/utils";
 import { AuroraLogo } from "./aurora-logo";
 import { FooterNewsletter } from "./footer-newsletter";
@@ -119,9 +120,12 @@ const Footer = () => {
 
       <SiteShell className="relative py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-20">
+          <Stagger
+            className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-20"
+            stagger={0.12}
+          >
             {/* Brand column */}
-            <div className="flex flex-col">
+            <StaggerItem className="flex flex-col">
               <AuroraLogo variant="footer" />
               <FooterNewsletter />
               <div className="mt-8 flex flex-col gap-3 sm:mt-10">
@@ -138,10 +142,10 @@ const Footer = () => {
                   {FOOTER_CONTACT.tagline}
                 </p>
               </div>
-            </div>
+            </StaggerItem>
 
             {/* Contact */}
-            <div>
+            <StaggerItem>
               <div className="flex items-center gap-3">
                 <span className="h-1.5 w-8 shrink-0 bg-aurora-lime" aria-hidden />
                 <h2 className="font-sans text-sm font-semibold uppercase tracking-[0.16em] text-white lg:text-base">
@@ -208,11 +212,11 @@ const Footer = () => {
                   </a>
                 ))}
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </Stagger>
 
           {/* Social constellation */}
-          <div className="mt-14 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-16">
+          <Reveal className="mt-14 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-16">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
               <div>
                 <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-aurora-lime">
@@ -257,7 +261,7 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
-          </div>
+          </Reveal>
         </SiteContent>
       </SiteShell>
 

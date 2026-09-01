@@ -5,6 +5,7 @@ import {
   WorkshopSatelliteIcon,
 } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_HARDWARE } from "@/lib/constants";
 
 type KitIcon = (typeof COHORT_HARDWARE.kits)[number]["icon"];
@@ -84,24 +85,27 @@ const CohortHardware = () => {
     <section className="bg-white">
       <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
         <SiteContent>
-          <div className="flex items-center gap-3">
-            <span className="h-1 w-8 shrink-0 bg-[#151514]" aria-hidden />
-            <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514] sm:text-sm">
-              {eyebrow}
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <span className="h-1 w-8 shrink-0 bg-[#151514]" aria-hidden />
+              <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514] sm:text-sm">
+                {eyebrow}
+              </p>
+            </div>
+            <h2 className="mt-4 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:mt-5 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+              {title}
+            </h2>
+            <p className="mt-4 max-w-3xl font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
+              {description}
             </p>
-          </div>
-          <h2 className="mt-4 max-w-3xl font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:mt-5 sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
-            {title}
-          </h2>
-          <p className="mt-4 max-w-3xl font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
-            {description}
-          </p>
+          </Reveal>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
+          <Stagger className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
             {kits.map((kit) => {
               const Icon = KIT_ICONS[kit.icon];
               return (
-                <article
+                <StaggerItem
+                  as="article"
                   key={kit.id}
                   className="flex flex-col rounded-2xl bg-[#151514] p-5 sm:p-6 lg:p-7"
                 >
@@ -118,12 +122,12 @@ const CohortHardware = () => {
                     <TagIcon />
                     {pricingLabel}
                   </p>
-                </article>
+                </StaggerItem>
               );
             })}
-          </div>
+          </Stagger>
 
-          <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-[#151514] px-5 py-5 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-5 lg:px-7">
+          <Reveal className="mt-6 flex flex-col gap-4 rounded-2xl bg-[#151514] px-5 py-5 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6 sm:py-5 lg:px-7">
             <div className="flex items-start gap-3 sm:items-center">
               <CheckBadge className="shrink-0" />
               <p className="font-sans text-sm leading-relaxed text-white sm:text-base">
@@ -137,7 +141,7 @@ const CohortHardware = () => {
               {banner.ctaLabel}
               <ArrowIcon />
             </a>
-          </div>
+          </Reveal>
         </SiteContent>
       </SiteShell>
     </section>
