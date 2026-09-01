@@ -1202,7 +1202,7 @@ export const COHORT_ENROLL = Object.freeze({
   title: "How To Enroll",
   ctaLabel: "Start the free Gateway",
   ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
-  note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
+  // note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
   steps: [
     {
       id: "01",
