@@ -768,7 +768,7 @@ export const COHORT_TRACKS = Object.freeze({
     "Learn for free building towards a specialty — take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer)",
   curriculumLabel: "View Curriculum",
   outlineLabel: "Curriculum Outline",
-  enrollLabel: "Enroll for CORE 3.0",
+  enrollLabel: "Enroll Now",
   downloadLabel: "Download Curriculum",
   stack: {
     title: "BUILD MY LEARNING STACK",
