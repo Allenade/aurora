@@ -10,6 +10,7 @@ import {
   WorkshopSatelliteIcon,
   WorkshopVisionIcon,
 } from "@/components/icons/figma-icons";
+import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_PROGRAM, EXTERNAL_LINKS } from "@/lib/constants";
@@ -152,11 +153,21 @@ const CohortProgram = () => {
 
           <Stagger className="mt-8 flex flex-col items-stretch gap-4 lg:mt-10 lg:flex-row lg:items-center lg:gap-5">
             {steps.flatMap((step, index) => {
+              const isExternal = step.ctaHref.startsWith("http");
+              const ctaClassName =
+                "mt-5 inline-flex items-center gap-2 font-sans text-sm font-semibold text-white transition-colors hover:text-aurora-lime sm:text-base";
+              const ctaContent = (
+                <>
+                  {step.ctaLabel}
+                  <ArrowIcon className="size-4" />
+                </>
+              );
+
               const card = (
                 <StaggerItem
                   as="article"
                   key={step.id}
-                  className="relative flex-1 rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7"
+                  className="relative flex flex-1 flex-col rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7"
                 >
                   <span
                     className={cn(
@@ -166,15 +177,32 @@ const CohortProgram = () => {
                         : "bg-[#2a2a2a] text-white/80",
                     )}
                   >
-                    <LockIcon />
+                    {step.badgeTone === "paid" ? <LockIcon /> : null}
                     {step.badge}
                   </span>
-                  <h3 className="max-w-[18ch] pr-16 font-sans text-lg font-semibold text-white sm:text-xl">
+                  <h3 className="max-w-[20ch] pr-20 font-sans text-lg font-semibold text-white sm:text-xl">
                     {step.title}
                   </h3>
-                  <p className="mt-3 font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
+                  <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
                     {step.body}
                   </p>
+                  <p className="mt-5 font-sans text-sm text-white/55 sm:text-base">
+                    {step.meta}
+                  </p>
+                  {isExternal ? (
+                    <a
+                      href={step.ctaHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={ctaClassName}
+                    >
+                      {ctaContent}
+                    </a>
+                  ) : (
+                    <AppLink href={step.ctaHref} className={ctaClassName}>
+                      {ctaContent}
+                    </AppLink>
+                  )}
                 </StaggerItem>
               );
 
@@ -193,8 +221,13 @@ const CohortProgram = () => {
           </Stagger>
 
           <div className="mt-14 sm:mt-16 lg:mt-20">
-            <Reveal as="h3" className="max-w-3xl font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-3xl lg:text-[2.5rem]">
-              {engineer.title}
+            <Reveal>
+              <h3 className="max-w-3xl font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-3xl lg:text-[2.5rem]">
+                {engineer.title}
+              </h3>
+              <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-[#757575] sm:mt-4 sm:text-base lg:text-lg">
+                {engineer.description}
+              </p>
             </Reveal>
 
             <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">

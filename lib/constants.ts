@@ -1050,21 +1050,29 @@ export const COHORT_PROGRAM = Object.freeze({
   steps: [
     {
       id: "free",
-      title: "Free Gateway — Programming for Robotics",
-      body: "Start with Python, Linux, and Git. Earn your Programming Readiness Certificate — the free entry into every specialist track.",
+      title: "Aurora Educators Program (AEP)",
+      body: "Learn for Free from guided instruction to practical tasks, real tools, and a capstone project that proves what you can do.",
+      meta: "6 Weeks - Free",
+      ctaLabel: "Start Here",
+      ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
       badge: "FREE",
       badgeTone: "free" as const,
     },
     {
       id: "paid",
-      title: "Core 3.0 Tracks — 7 paid specializations",
-      body: "Choose IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, or Aerial Robotics. Take one track or combine several where the timetable allows.",
-      badge: "PAID",
+      title: "Core 3.0 Tracks — 7 paid specialisms",
+      body: "Robotics, AI, vision, arms, IoT, blockchain, and aerial — each with a capstone that proves what you can do.",
+      meta: "8 Weeks - Capstone",
+      ctaLabel: "Browse Tracks",
+      ctaHref: "#tracks",
+      badge: "7 PAID",
       badgeTone: "paid" as const,
     },
   ],
   engineer: {
     title: "Tell Us What Kind of Engineer You Want to Be...",
+    description:
+      "Because the schedule guarantees zero clashes, a learner can commit to several tracks in one intake",
     listLabel: "If You Want To Be...",
     combinationLabel: "Your Track Combination",
     whyLabel: "Why This Combination?",
@@ -1077,10 +1085,10 @@ export const COHORT_PROGRAM = Object.freeze({
         label: "A UGV Engineer",
         tracks: [
           { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
-          { id: "arm", title: "Arm Robotics", icon: "arm" as const },
+          { id: "ai", title: "AI in Robotics", icon: "ai" as const },
           { id: "vision", title: "Computer Vision", icon: "vision" as const },
         ],
-        why: "UGV work needs machines that move, manipulate in the field, and see their surroundings — Mobile Robotics, Arm Robotics, and Computer Vision form that foundation.",
+        why: "The full self-driving stack — navigation, perception, and learning working as one system.",
       },
       {
         id: "manipulation",
@@ -1108,7 +1116,7 @@ export const COHORT_PROGRAM = Object.freeze({
       },
       {
         id: "perception",
-        label: "A Perception Engineer",
+        label: "An AI/Perception Specialist",
         tracks: [
           { id: "vision", title: "Computer Vision", icon: "vision" as const },
           { id: "ai", title: "AI in Robotics", icon: "ai" as const },
@@ -1118,7 +1126,7 @@ export const COHORT_PROGRAM = Object.freeze({
       },
       {
         id: "autonomous",
-        label: "An Autonomous Systems Engineer",
+        label: "A Well-rounded Roboticist",
         tracks: [
           { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
           { id: "vision", title: "Computer Vision", icon: "vision" as const },
