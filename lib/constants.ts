@@ -779,7 +779,7 @@ export const COHORT_TRACKS = Object.freeze({
   },
   stats: [
     { value: "8", label: "Tracks Total" },
-    { value: "8", label: "Weeks Per Specialist Track" },
+    { value: "6", label: "Weeks Per Specialist Track" },
     { value: "1", label: "Cohort, Aug 2026 - Jan 2027" },
   ],
   tagline:
@@ -801,7 +801,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -833,7 +833,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -865,7 +865,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -897,7 +897,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -929,7 +929,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -961,7 +961,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -993,7 +993,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -1025,7 +1025,7 @@ export const COHORT_TRACKS = Object.freeze({
       meta: [
         {
           label: "DURATION",
-          value: "8 weeks - 2 live classes/week at 2 hrs each",
+          value: "6 weeks - 2hrs/live session",
         },
         {
           label: "PREREQUISITE",
@@ -1060,9 +1060,9 @@ export const COHORT_PROGRAM = Object.freeze({
     },
     {
       id: "paid",
-      title: "Core 3.0 Tracks — 7 paid specialisms",
+      title: "Core 3.0 8 Tracks — 7 paid specialisms",
       body: "Robotics, AI, vision, arms, IoT, blockchain, and aerial — each with a capstone that proves what you can do.",
-      meta: "8 Weeks - Capstone",
+      meta: "6 Weeks - Capstone",
       ctaLabel: "Browse Tracks",
       ctaHref: "#tracks",
       badge: "7 PAID",
@@ -1142,7 +1142,7 @@ export const COHORT_HARDWARE = Object.freeze({
   eyebrow: "OWN THE HARDWARE",
   title: "For Robotic Arm, IoT, and Mobile Robotics",
   description:
-    "Optional kits for learners who want to build on their own desk. Simulation and remote labs stay available either way — a kit is never required to complete CORE 3.0.",
+    "Optional kits for learners who want to build on their own desk. Simulation and remote labs stay available either way — a kit is never required to complete AEP.",
   pricingLabel: "Pricing Coming Soon",
   kits: [
     {
@@ -1216,7 +1216,7 @@ export const COHORT_ENROLL = Object.freeze({
     },
     {
       id: "03",
-      title: "Choose your Core 3.0 track — or combine several",
+      title: "Choose your AEP track — or combine several",
       body: "Pick IoT, Mobile, AI, Arm, Vision, Blockchain, or Aerial. Stack compatible tracks where the timetable allows.",
     },
     {
@@ -1238,9 +1238,9 @@ export const COHORT_FAQ = Object.freeze({
     },
     {
       id: "core-free",
-      question: "Is Core 3.0 itself free?",
+      question: "Is AEP itself free?",
       answer:
-        "No — Core 3.0 specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, and Aerial Robotics are paid specializations.",
+        "No — AEP specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, and Aerial Robotics are paid specializations.",
     },
     {
       id: "gateway-required",
@@ -1258,11 +1258,11 @@ export const COHORT_FAQ = Object.freeze({
       id: "robot-kit",
       question: "Do I need to buy a robot kit?",
       answer:
-        "No — kits are optional. Simulation and remote-lab access are included either way; a kit is never required to complete Core 3.0.",
+        "No — kits are optional. Simulation and remote-lab access are included either way; a kit is never required to complete AEP.",
     },
     {
       id: "fall-behind",
-      question: "What happens if I fall behind during the 8 weeks?",
+      question: "What happens if I fall behind during the 6 weeks?",
       answer:
         "Live sessions are recorded so you can catch up. Stay in touch with mentors and keep weekly tasks moving when you can.",
     },
@@ -1284,7 +1284,7 @@ export const COHORT_FAQ = Object.freeze({
 });
 
 export const COHORT_REGISTER = Object.freeze({
-  title: "Register for the Robotics Core 3.0 Workshop",
+  title: "Register for the Aurora Educators Program (AEP)",
   description:
     "Registering for this cohort gives you lifetime access to all resources released during this cohort.",
   submitLabel: "Submit Application",
