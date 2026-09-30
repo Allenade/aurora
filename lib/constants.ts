@@ -77,8 +77,12 @@ export const ROUTES = Object.freeze({
   ABOUT_TRACTION: "/about-us#traction",
   ABOUT_SERVICES: "/about-us#services",
   FAQ: "/faq",
-  JOIN_US: "/cohort",
+  JOIN_US: "/core-3",
   COHORT: "/cohort",
+  ENTER_FIRST: "/core-3",
+  ENTER_FIRST_ENROLL: "/core-3/enroll",
+  CORE_3: "/core-3",
+  CORE_3_ENROLL: "/core-3/enroll",
   CONTACT: "#contact",
   PRIVACY_POLICY: "/privacy-policy",
   TERMS_AND_CONDITIONS: "/terms-and-conditions",
@@ -128,15 +132,15 @@ export const HEADER_OPTIONS: HeaderOption[] = [
       { name: "Support", route: ROUTES.BASE },
     ],
   },
-  {
-    name: "Research",
-    route: ROUTES.RESEARCH,
-    options: [
-      { name: "Overview", route: ROUTES.RESEARCH },
-      { name: "Publications", route: ROUTES.RESEARCH_PUBLICATIONS },
-      { name: "Labs", route: ROUTES.RESEARCH_LABS },
-    ],
-  },
+  // {
+  //   name: "Research",
+  //   route: ROUTES.RESEARCH,
+  //   options: [
+  //     { name: "Overview", route: ROUTES.RESEARCH },
+  //     { name: "Publications", route: ROUTES.RESEARCH_PUBLICATIONS },
+  //     { name: "Labs", route: ROUTES.RESEARCH_LABS },
+  //   ],
+  // },
   {
     name: "Education",
     route: ROUTES.EDUCATION,
@@ -1202,7 +1206,7 @@ export const COHORT_ENROLL = Object.freeze({
   title: "How To Enroll",
   ctaLabel: "Start the free Gateway",
   ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
-  // note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
+  note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
   steps: [
     {
       id: "01",
@@ -1273,6 +1277,539 @@ export const COHORT_FAQ = Object.freeze({
     primary: {
       label: "Start Free Gateway",
       href: EXTERNAL_LINKS.COHORT_REGISTRATION,
+    },
+    secondary: {
+      label: "Explore Paid Tracks",
+      href: "#tracks",
+    },
+  },
+  legal:
+    "AURORA ROBOTICS LTD | RC-8896924 | Abuja, Nigeria | admin@aurora-robotics.com",
+});
+
+// Core 3.0 page copy (independent of cohort)
+export const ENTER_FIRST_HERO = Object.freeze({
+  eyebrow: "LEARN. BUILD. PROVE. EARN YOUR PLACE.",
+  title: "Sign up for the Aurora Core 3.0 workshop",
+  description:
+    "Aurora workshops move from guided instruction into practical tasks, real tools, and a capstone that proves what you can do.",
+});
+
+export const ENTER_FIRST_TRACKS = Object.freeze({
+  title: "Choose Your Track",
+  description:
+    "Learn for free building towards a specialty — take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer)",
+  curriculumLabel: "View Selection",
+  outlineLabel: "Selected Courses",
+  priceLabel: "Price",
+  totalLabel: "Total",
+  emptySelection: "Select one or more tracks above to see them here.",
+  enrollLabel: "Enroll Now",
+  downloadLabel: "Download Curriculum",
+  priceNote: "₦60,000 per specialist track",
+  stack: {
+    title: "BUILD MY LEARNING STACK",
+    description: "Select 2+ tracks to preview a combined pathway below",
+    clearLabel: "Clear Selection",
+    pathwayLabel: "Your Combined Pathway",
+    pathwayEmpty: "Select two or more tracks to preview a combined pathway.",
+  },
+  stats: [
+    { value: "8", label: "Tracks Total" },
+    { value: "6", label: "Weeks Per Specialist Track" },
+    { value: "1", label: "Cohort, Aug 2026 - Jan 2027" },
+  ],
+  tagline:
+    "A multi-track robotics programme where every learner chooses their own path - and can walk more than one",
+  tracks: [
+    {
+      id: "iot",
+      title: "IoT in Robotics",
+      body: "Sensors, embedded devices, networking, MQTT, dashboards, remote control and edge intelligence",
+      detail:
+        "Bring your robots online. Work with ESP32 and Raspberry Pi embedded boards, wire sensor packs, and learn MQTT messaging and edge intelligence so machines can sense, report, and act from anywhere.",
+      icon: "satellite" as const,
+      modules: [
+        "Module 1 - Embedded foundations & microcontrollers",
+        "Module 2 - Sensor interfacing & data acquisition",
+        "Module 3 - Networking, MQTT & edge intelligence",
+        "Module 4 - Cloud dashboards & remote control",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "mobile",
+      title: "Mobile Robotics",
+      body: "ROS 2, simulation, mapping, localisation, SLAM, navigation and autonomous ground vehicles.",
+      detail:
+        "Build robots that move with purpose. Work in ROS 2 and simulation to map spaces, localise reliably, run SLAM, and navigate autonomous ground vehicles from waypoint to goal.",
+      icon: "rover" as const,
+      modules: [
+        "Module 1 - ROS 2 fundamentals & robot bring-up",
+        "Module 2 - Simulation, sensors & transforms",
+        "Module 3 - Mapping, localisation & SLAM",
+        "Module 4 - Navigation stacks & AGV missions",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "ai",
+      title: "AI in Robotics",
+      body: "Machine learning, deep learning and reinforcement learning applied to robot perception and decision-making",
+      detail:
+        "Give robots the ability to learn. Apply machine learning, deep learning, and reinforcement learning to perception pipelines and decision-making loops that run on real robotic systems.",
+      icon: "ai" as const,
+      modules: [
+        "Module 1 - ML foundations for robotics",
+        "Module 2 - Deep learning for perception",
+        "Module 3 - Reinforcement learning for control",
+        "Module 4 - Deploying models on robot systems",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "blockchain",
+      title: "Blockchain For Autonomous Systems",
+      body: "Blockchain, smart contracts, decentralised systems and secure data sharing for trusted autonomous robots and machines",
+      detail:
+        "Build trust into autonomous machines. Work with blockchain, smart contracts, and decentralised systems so robots can share data securely and operate with verifiable integrity.",
+      icon: "blockchain" as const,
+      modules: [
+        "Module 1 - Blockchain foundations for robotics",
+        "Module 2 - Smart contracts & on-chain logic",
+        "Module 3 - Decentralised identity & secure data sharing",
+        "Module 4 - Trusted autonomy systems capstone",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "arm",
+      title: "Robotic Arm",
+      body: "Manipulator kinematics, motion planning, MoveIt 2 and practical pick-and-place systems.",
+      detail:
+        "Program manipulators with precision. Learn kinematics, motion planning, and MoveIt 2 to design practical pick-and-place systems that work in simulation and on hardware.",
+      icon: "arm" as const,
+      modules: [
+        "Module 1 - Manipulator kinematics & frames",
+        "Module 2 - Trajectory generation & control",
+        "Module 3 - MoveIt 2 motion planning",
+        "Module 4 - Pick-and-place systems & integration",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "vision",
+      title: "Computer Vision",
+      body: "Image processing, object detection, segmentation and visual systems that allow robots to understand their environment.",
+      detail:
+        "Teach robots to see. Build visual pipelines with image processing, object detection, and segmentation so machines can understand and act on their environment.",
+      icon: "vision" as const,
+      modules: [
+        "Module 1 - Image processing & camera models",
+        "Module 2 - Classical vision & feature pipelines",
+        "Module 3 - Object detection & segmentation",
+        "Module 4 - Vision systems on robots",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+    {
+      id: "programming",
+      title: "Programming Robotics",
+      body: "Python, Linux, Git and the foundations needed to enter technical robotics work with confidence.",
+      detail:
+        "Start where every roboticist begins. Build fluency in Python, Linux, and Git — the foundations you need to enter technical robotics work with confidence.",
+      icon: "code" as const,
+      modules: [
+        "Module 1 - Python for robotics workflows",
+        "Module 2 - Linux environments & tooling",
+        "Module 3 - Git, collaboration & project structure",
+        "Module 4 - Robotics readiness capstone",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "None — free gateway into CORE",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Programming Readiness Certificate",
+        },
+      ],
+    },
+    {
+      id: "aerial",
+      title: "Aerial Robotics (Drones)",
+      body: "Drone systems, flight control, PX4, simulation, navigation, sensor integration and autonomous aerial vehicles.",
+      detail:
+        "Take robotics into the air. Learn drone systems, PX4 flight control, simulation, navigation, and sensor integration to build autonomous aerial vehicles.",
+      icon: "drone" as const,
+      modules: [
+        "Module 1 - Drone systems & flight fundamentals",
+        "Module 2 - PX4, firmware & simulation",
+        "Module 3 - Navigation, sensing & autonomy",
+        "Module 4 - Autonomous aerial vehicle capstone",
+      ],
+      meta: [
+        {
+          label: "DURATION",
+          value: "6 weeks - 2hrs/live session",
+        },
+        {
+          label: "PREREQUISITE",
+          value: "Programming Readiness Certificate",
+        },
+        {
+          label: "DELIVERY",
+          value: "Live online + remote lab + recordings",
+        },
+        {
+          label: "CERTIFICATION",
+          value: "Track Completion Certificate on weekly tasks + capstone",
+        },
+      ],
+    },
+  ],
+});
+
+export const ENTER_FIRST_PROGRAM = Object.freeze({
+  eyebrow: "How The Program Works",
+  title: "One free step. Then the path is yours",
+  steps: [
+    {
+      id: "free",
+      title: "Aurora Educators Program (AEP)",
+      body: "Learn for Free from guided instruction to practical tasks, real tools, and a capstone project that proves what you can do.",
+      meta: "6 Weeks - Free",
+      ctaLabel: "Start Here",
+      ctaHref: ROUTES.ENTER_FIRST_ENROLL,
+      badge: "FREE",
+      badgeTone: "free" as const,
+    },
+    {
+      id: "paid",
+      title: "Core 3.0 8 Tracks — 7 paid specialisms",
+      body: "Robotics, AI, vision, arms, IoT, blockchain, and aerial — each with a capstone that proves what you can do.",
+      meta: "6 Weeks - Capstone",
+      ctaLabel: "Browse Tracks",
+      ctaHref: "#tracks",
+      badge: "7 PAID",
+      badgeTone: "paid" as const,
+    },
+  ],
+  engineer: {
+    title: "Tell Us What Kind of Engineer You Want to Be...",
+    description:
+      "Because the schedule guarantees zero clashes, a learner can commit to several tracks in one intake",
+    listLabel: "If You Want To Be...",
+    combinationLabel: "Your Track Combination",
+    whyLabel: "Why This Combination?",
+    dateRange: "September 1, 2026 — January 31, 2027",
+    registerLabel: "Register Here",
+    calendarLabel: "Get Program Calendar",
+    roles: [
+      {
+        id: "ugv",
+        label: "A UGV Engineer",
+        tracks: [
+          { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
+          { id: "ai", title: "AI in Robotics", icon: "ai" as const },
+          { id: "vision", title: "Computer Vision", icon: "vision" as const },
+        ],
+        why: "The full self-driving stack — navigation, perception, and learning working as one system.",
+      },
+      {
+        id: "manipulation",
+        label: "A Manipulation Engineer",
+        tracks: [
+          { id: "arm", title: "Arm Robotics", icon: "arm" as const },
+          { id: "vision", title: "Computer Vision", icon: "vision" as const },
+          { id: "ai", title: "AI in Robotics", icon: "ai" as const },
+        ],
+        why: "Manipulation systems combine precise arm control with visual perception and learning-based grasp decisions — Arm, Vision, and AI tracks together.",
+      },
+      {
+        id: "systems",
+        label: "A Robotics System Engineer",
+        tracks: [
+          { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
+          { id: "iot", title: "IoT in Robotics", icon: "satellite" as const },
+          {
+            id: "programming",
+            title: "Programming Robotics",
+            icon: "code" as const,
+          },
+        ],
+        why: "System engineers stitch navigation, sensing networks, and reliable software foundations — Mobile, IoT, and Programming build that stack.",
+      },
+      {
+        id: "perception",
+        label: "An AI/Perception Specialist",
+        tracks: [
+          { id: "vision", title: "Computer Vision", icon: "vision" as const },
+          { id: "ai", title: "AI in Robotics", icon: "ai" as const },
+          { id: "iot", title: "IoT in Robotics", icon: "satellite" as const },
+        ],
+        why: "Perception roles fuse cameras, learning models, and edge sensing pipelines — Vision, AI, and IoT cover the full sense-to-signal path.",
+      },
+      {
+        id: "autonomous",
+        label: "A Well-rounded Roboticist",
+        tracks: [
+          { id: "mobile", title: "Mobile Robotics", icon: "rover" as const },
+          { id: "vision", title: "Computer Vision", icon: "vision" as const },
+          { id: "ai", title: "AI in Robotics", icon: "ai" as const },
+        ],
+        why: "Autonomous systems need navigation, sight, and intelligent decisions — Mobile Robotics, Computer Vision, and AI in Robotics are the classic trio.",
+      },
+    ],
+  },
+});
+
+export const ENTER_FIRST_HARDWARE = Object.freeze({
+  eyebrow: "OWN THE HARDWARE",
+  title: "For Robotic Arm, IoT, and Mobile Robotics",
+  description:
+    "Optional kits for learners who want to build on their own desk. Simulation and remote labs stay available either way — a kit is never required to complete AEP.",
+  pricingLabel: "Pricing Coming Soon",
+  kits: [
+    {
+      id: "arm",
+      title: "Aurora Robotic Arm",
+      body: "Multi-DOF arm, gripper, and controller pack for kinematics, motion planning, and pick-and-place practice at home.",
+      icon: "arm" as const,
+    },
+    {
+      id: "iot",
+      title: "Aurora IoT Kit",
+      body: "ESP32 + Raspberry Pi boards, sensor packs, and cabling for MQTT, dashboards, and edge intelligence labs.",
+      icon: "satellite" as const,
+    },
+    {
+      id: "mobile",
+      title: "Aurora Mobile Kit",
+      body: "Mobile base, LiDAR, and depth camera setup for mapping, localisation, SLAM, and navigation missions.",
+      icon: "rover" as const,
+    },
+  ],
+  banner: {
+    body: "Simulation and remote-lab access is included regardless — a kit is always optional.",
+    ctaLabel: "Browse the Marketplace",
+    ctaHref: ROUTES.PRODUCTS,
+  },
+});
+
+export const ENTER_FIRST_PROVE = Object.freeze({
+  title: "Prove What You Can Do",
+  footer:
+    "Top performers across all tracks form Aurora's recruitment pool for internships and competitive-robotics teams.",
+  cards: [
+    {
+      id: "readiness",
+      title: "Program Readiness Certificate",
+      body: "Earned on passing the free gateway — proof you can code, collaborate, and enter specialist tracks.",
+      icon: "medal" as const,
+    },
+    {
+      id: "completion",
+      title: "Track Completion Certificate",
+      body: "Awarded for weekly tasks plus a portfolio-ready capstone in your chosen specialization.",
+      icon: "certificate" as const,
+    },
+    {
+      id: "multitrack",
+      title: "Multi-Track Recognition",
+      body: "Recognises learners who combine tracks into a coherent autonomous-systems or specialist pathway.",
+      icon: "gear" as const,
+    },
+  ],
+});
+
+export const ENTER_FIRST_ENROLL = Object.freeze({
+  eyebrow: "— REGISTRATION & ENROLLMENT",
+  title: "How To Enroll",
+  ctaLabel: "Start enrollment",
+  ctaHref: ROUTES.ENTER_FIRST_ENROLL,
+  note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
+  steps: [
+    {
+      id: "01",
+      title: "Enroll in the free Programming for Robotics Gateway",
+      body: "Join the free gateway cohort and begin Python, Linux, and Git foundations with live classes and recordings.",
+    },
+    {
+      id: "02",
+      title: "Earn your programme-readiness certificate",
+      body: "Pass the gateway assessment to unlock paid track enrollment.",
+    },
+    {
+      id: "03",
+      title: "Choose your AEP track — or combine several",
+      body: "Pick IoT, Mobile, AI, Arm, Vision, Blockchain, or Aerial. Stack compatible tracks where the timetable allows.",
+    },
+    {
+      id: "04",
+      title: "Build, ship, and earn your place",
+      body: "Complete weekly tasks and a capstone. Top performers enter Aurora's internship and competition pipeline.",
+    },
+  ],
+});
+
+export const ENTER_FIRST_FAQ = Object.freeze({
+  title: "Frequently Asked Questions",
+  items: [
+    {
+      id: "gateway-pay",
+      question: "Do I have to pay for the gateway track?",
+      answer:
+        "No — the Programming for Robotics gateway is completely free. It is the one free step in the programme.",
+    },
+    {
+      id: "core-free",
+      question: "Is AEP itself free?",
+      answer:
+        "No — AEP specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, and Aerial Robotics are paid specializations.",
+    },
+    {
+      id: "gateway-required",
+      question: "Do I have to take the free gateway before a paid track?",
+      answer:
+        "Yes — complete the free gateway and earn your programme-readiness certificate to unlock paid track enrollment.",
+    },
+    {
+      id: "multi-track",
+      question: "Can I take more than one paid track?",
+      answer:
+        "Yes — take one track or combine several where the timetable allows.",
+    },
+    {
+      id: "robot-kit",
+      question: "Do I need to buy a robot kit?",
+      answer:
+        "No — kits are optional. Simulation and remote-lab access are included either way; a kit is never required to complete AEP.",
+    },
+    {
+      id: "fall-behind",
+      question: "What happens if I fall behind during the 6 weeks?",
+      answer:
+        "Live sessions are recorded so you can catch up. Stay in touch with mentors and keep weekly tasks moving when you can.",
+    },
+  ],
+  cta: {
+    title: "Ready To Run Into the Unknown?",
+    body: "One free step. Eight specialist tracks. A capstone that proves what you can do — and a community that has your back.",
+    primary: {
+      label: "Start enrollment",
+      href: ROUTES.ENTER_FIRST_ENROLL,
     },
     secondary: {
       label: "Explore Paid Tracks",

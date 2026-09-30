@@ -3,6 +3,7 @@ import { Manrope, Orbitron, Tektur } from "next/font/google";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import { MotionProvider } from "@/components/motion";
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -47,9 +48,11 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-black font-sans text-white">
         <MotionProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <ToastProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </ToastProvider>
         </MotionProvider>
       </body>
     </html>

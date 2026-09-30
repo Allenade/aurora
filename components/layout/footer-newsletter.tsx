@@ -1,12 +1,19 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useToast } from "@/components/ui/toast";
 
 export function FooterNewsletter() {
   const [email, setEmail] = useState("");
+  const toast = useToast();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!email.trim()) {
+      toast.error("Enter a valid email address.");
+      return;
+    }
+    toast.success("Subscribed — thanks for joining the list.");
     setEmail("");
   };
 

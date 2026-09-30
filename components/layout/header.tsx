@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { SiteShell } from "./site-shell";
 import { AuroraLogo } from "./aurora-logo";
 import { JoinUsButton } from "./join-us-button";
+// import { EnterFirstButton } from "@/components/enter-first";
 
 // const getMenuPanelId = (name: string) =>
 //   `${name.toLowerCase().replace(/\s+/g, "-")}-panel`;
@@ -354,8 +355,9 @@ const Header = () => {
             })}
           </nav>
 
-          <div className="hidden shrink-0 lg:block">
-            <JoinUsButton compact href={ROUTES.COHORT} />
+          <div className="hidden shrink-0 items-center gap-2 lg:flex xl:gap-3">
+            {/* <EnterFirstButton compact href={ROUTES.ENTER_FIRST} /> */}
+            <JoinUsButton compact href={ROUTES.CORE_3} />
           </div>
 
           <button
@@ -526,8 +528,15 @@ const Header = () => {
           })}
         </nav>
 
-        <div className="mt-4">
-          <JoinUsButton className="w-full justify-center" href={ROUTES.COHORT} />
+        <div className="mt-4 flex flex-col gap-3">
+          {/* <EnterFirstButton
+            className="w-full justify-center"
+            href={ROUTES.ENTER_FIRST}
+          /> */}
+          <JoinUsButton
+            className="w-full justify-center"
+            href={ROUTES.CORE_3}
+          />
         </div>
       </div>
     </div>

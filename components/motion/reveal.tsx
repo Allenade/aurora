@@ -28,10 +28,7 @@ export function Reveal({
   as = "div",
   id,
 }: RevealProps) {
-  const MotionTag = useMemo(
-    () => motion.create(as as ElementType),
-    [as],
-  );
+  const MotionTag = useMemo(() => motion.create(as as ElementType), [as]);
   const transition = { duration, delay, ease: EASE };
 
   if (immediate) {

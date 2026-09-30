@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/motion";
+import { useToast } from "@/components/ui/toast";
 import { PRODUCTS_FORM } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,7 @@ const fieldClassName = cn(
 
 const ProductsForm = () => {
   const { fields } = PRODUCTS_FORM;
+  const toast = useToast();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [organization, setOrganization] = useState("");
@@ -22,6 +24,11 @@ const ProductsForm = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!fullName.trim() || !email.trim()) {
+      toast.error("Please fill in the required fields.");
+      return;
+    }
+    toast.success("Thanks — your message has been received.");
     setFullName("");
     setEmail("");
     setOrganization("");
@@ -58,127 +65,127 @@ const ProductsForm = () => {
               onSubmit={handleSubmit}
               className="rounded-2xl border border-white/10 bg-[#151514] p-5 sm:p-8 lg:p-10"
             >
-            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
-              <div className="flex flex-col gap-2">
+              <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="product-full-name"
+                    className="font-sans text-sm text-[#fcfcfe] sm:text-base"
+                  >
+                    {fields.fullName.label}
+                    {fields.fullName.required ? (
+                      <span className="text-[#ff4d4f]" aria-hidden>
+                        {" "}
+                        *
+                      </span>
+                    ) : null}
+                  </label>
+                  <input
+                    id="product-full-name"
+                    name="fullName"
+                    type="text"
+                    required={fields.fullName.required}
+                    value={fullName}
+                    onChange={(event) => setFullName(event.target.value)}
+                    placeholder={fields.fullName.placeholder}
+                    className={fieldClassName}
+                    autoComplete="name"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="product-email"
+                    className="font-sans text-sm text-[#fcfcfe] sm:text-base"
+                  >
+                    {fields.email.label}
+                    {fields.email.required ? (
+                      <span className="text-[#ff4d4f]" aria-hidden>
+                        {" "}
+                        *
+                      </span>
+                    ) : null}
+                  </label>
+                  <input
+                    id="product-email"
+                    name="email"
+                    type="email"
+                    required={fields.email.required}
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder={fields.email.placeholder}
+                    className={fieldClassName}
+                    autoComplete="email"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="product-organization"
+                    className="font-sans text-sm text-[#fcfcfe] sm:text-base"
+                  >
+                    {fields.organization.label}
+                  </label>
+                  <input
+                    id="product-organization"
+                    name="organization"
+                    type="text"
+                    value={organization}
+                    onChange={(event) => setOrganization(event.target.value)}
+                    placeholder={fields.organization.placeholder}
+                    className={fieldClassName}
+                    autoComplete="organization"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="product-country"
+                    className="font-sans text-sm text-[#fcfcfe] sm:text-base"
+                  >
+                    {fields.country.label}
+                  </label>
+                  <input
+                    id="product-country"
+                    name="country"
+                    type="text"
+                    value={country}
+                    onChange={(event) => setCountry(event.target.value)}
+                    placeholder={fields.country.placeholder}
+                    className={fieldClassName}
+                    autoComplete="country-name"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-col gap-2 sm:mt-6">
                 <label
-                  htmlFor="product-full-name"
+                  htmlFor="product-message"
                   className="font-sans text-sm text-[#fcfcfe] sm:text-base"
                 >
-                  {fields.fullName.label}
-                  {fields.fullName.required ? (
-                    <span className="text-[#ff4d4f]" aria-hidden>
-                      {" "}
-                      *
-                    </span>
-                  ) : null}
+                  {fields.message.label}
                 </label>
-                <input
-                  id="product-full-name"
-                  name="fullName"
-                  type="text"
-                  required={fields.fullName.required}
-                  value={fullName}
-                  onChange={(event) => setFullName(event.target.value)}
-                  placeholder={fields.fullName.placeholder}
-                  className={fieldClassName}
-                  autoComplete="name"
+                <textarea
+                  id="product-message"
+                  name="message"
+                  rows={5}
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
+                  placeholder={fields.message.placeholder}
+                  className={cn(fieldClassName, "min-h-[140px] resize-y")}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="product-email"
-                  className="font-sans text-sm text-[#fcfcfe] sm:text-base"
-                >
-                  {fields.email.label}
-                  {fields.email.required ? (
-                    <span className="text-[#ff4d4f]" aria-hidden>
-                      {" "}
-                      *
-                    </span>
-                  ) : null}
-                </label>
-                <input
-                  id="product-email"
-                  name="email"
-                  type="email"
-                  required={fields.email.required}
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder={fields.email.placeholder}
-                  className={fieldClassName}
-                  autoComplete="email"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="product-organization"
-                  className="font-sans text-sm text-[#fcfcfe] sm:text-base"
-                >
-                  {fields.organization.label}
-                </label>
-                <input
-                  id="product-organization"
-                  name="organization"
-                  type="text"
-                  value={organization}
-                  onChange={(event) => setOrganization(event.target.value)}
-                  placeholder={fields.organization.placeholder}
-                  className={fieldClassName}
-                  autoComplete="organization"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="product-country"
-                  className="font-sans text-sm text-[#fcfcfe] sm:text-base"
-                >
-                  {fields.country.label}
-                </label>
-                <input
-                  id="product-country"
-                  name="country"
-                  type="text"
-                  value={country}
-                  onChange={(event) => setCountry(event.target.value)}
-                  placeholder={fields.country.placeholder}
-                  className={fieldClassName}
-                  autoComplete="country-name"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 flex flex-col gap-2 sm:mt-6">
-              <label
-                htmlFor="product-message"
-                className="font-sans text-sm text-[#fcfcfe] sm:text-base"
+              <button
+                type="submit"
+                className="mt-6 w-full rounded-xl bg-aurora-lime px-6 py-4 font-sans text-base font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:mt-8 sm:text-lg lg:text-xl"
               >
-                {fields.message.label}
-              </label>
-              <textarea
-                id="product-message"
-                name="message"
-                rows={5}
-                value={message}
-                onChange={(event) => setMessage(event.target.value)}
-                placeholder={fields.message.placeholder}
-                className={cn(fieldClassName, "min-h-[140px] resize-y")}
-              />
-            </div>
+                {PRODUCTS_FORM.submitLabel}
+              </button>
 
-            <button
-              type="submit"
-              className="mt-6 w-full rounded-xl bg-aurora-lime px-6 py-4 font-sans text-base font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:mt-8 sm:text-lg lg:text-xl"
-            >
-              {PRODUCTS_FORM.submitLabel}
-            </button>
-
-            <p className="mt-4 text-center font-sans text-xs leading-relaxed text-[#a3a3a3] sm:mt-5 sm:text-sm">
-              {PRODUCTS_FORM.privacy}
-            </p>
-          </form>
+              <p className="mt-4 text-center font-sans text-xs leading-relaxed text-[#a3a3a3] sm:mt-5 sm:text-sm">
+                {PRODUCTS_FORM.privacy}
+              </p>
+            </form>
           </Reveal>
         </SiteContent>
       </SiteShell>
