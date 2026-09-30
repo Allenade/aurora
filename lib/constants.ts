@@ -1001,7 +1001,7 @@ export const COHORT_TRACKS = Object.freeze({
         },
         {
           label: "PREREQUISITE",
-          value: "None — free gateway into CORE",
+          value: "Programming readiness recommended",
         },
         {
           label: "DELIVERY",
@@ -1306,7 +1306,7 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
   emptySelection: "Select one or more tracks above to see them here.",
   enrollLabel: "Enroll Now",
   downloadLabel: "Download Curriculum",
-  priceNote: "₦60,000 per specialist track",
+  priceNote: "₦60,000 per track",
   stack: {
     title: "BUILD MY LEARNING STACK",
     description: "Select 2+ tracks to preview a combined pathway below",
@@ -1534,7 +1534,7 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
         },
         {
           label: "PREREQUISITE",
-          value: "None — free gateway into CORE",
+          value: "Programming readiness recommended",
         },
         {
           label: "DELIVERY",

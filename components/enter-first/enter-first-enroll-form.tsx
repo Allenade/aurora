@@ -145,8 +145,8 @@ export default function EnterFirstEnrollForm() {
 
   if (paymentState === "paid") {
     return (
-      <section className="bg-white">
-        <SiteShell className="flex min-h-[70svh] items-center py-28 sm:min-h-[75svh] sm:py-32 lg:py-36">
+      <section className="flex min-h-[calc(100svh-6rem)] items-center justify-center bg-white sm:min-h-[calc(100svh-7rem)]">
+        <SiteShell className="w-full py-10">
           <SiteContent>
             <Reveal className="mx-auto max-w-xl text-center">
               <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514]">
@@ -159,11 +159,6 @@ export default function EnterFirstEnrollForm() {
                 Payment confirmed. A confirmation email is on its way — check
                 your inbox for next steps.
               </p>
-              {payReference ? (
-                <p className="mt-2 font-sans text-sm text-[#adadad]">
-                  Reference: {payReference}
-                </p>
-              ) : null}
             </Reveal>
           </SiteContent>
         </SiteShell>
@@ -173,8 +168,8 @@ export default function EnterFirstEnrollForm() {
 
   if (paymentState === "checking" || paymentState === "pending") {
     return (
-      <section className="bg-white">
-        <SiteShell className="flex min-h-[70svh] items-center py-28 sm:min-h-[75svh] sm:py-32 lg:py-36">
+      <section className="flex min-h-[calc(100svh-6rem)] items-center justify-center bg-white sm:min-h-[calc(100svh-7rem)]">
+        <SiteShell className="w-full py-10">
           <SiteContent>
             <Reveal className="mx-auto max-w-xl text-center">
               <h1 className="font-display text-3xl font-semibold text-[#151514]">
@@ -237,8 +232,7 @@ export default function EnterFirstEnrollForm() {
             </h1>
             <p className="mt-3 max-w-2xl font-sans text-sm text-[#757575] sm:text-base">
               Fill in your details, pick your track(s), then continue to
-              Paystack. Programming for Robotics is free; specialist tracks are
-              charged per track.
+              Paystack. Each track is ₦60,000.
             </p>
           </Reveal>
 
@@ -412,9 +406,7 @@ export default function EnterFirstEnrollForm() {
                             {track.title}
                           </span>
                           <span className="mt-0.5 block font-sans text-xs text-[#757575]">
-                            {amount === 0
-                              ? "Free"
-                              : `₦${amount.toLocaleString("en-NG")}`}
+                            {`₦${amount.toLocaleString("en-NG")}`}
                           </span>
                         </span>
                       </label>
@@ -427,9 +419,7 @@ export default function EnterFirstEnrollForm() {
                 <p className="font-sans text-sm text-[#757575]">
                   Total due:{" "}
                   <span className="font-semibold text-[#151514]">
-                    {total === 0
-                      ? "Free"
-                      : `₦${total.toLocaleString("en-NG")}`}
+                    {`₦${total.toLocaleString("en-NG")}`}
                   </span>
                 </p>
                 <button
@@ -437,11 +427,7 @@ export default function EnterFirstEnrollForm() {
                   disabled={submitting}
                   className="inline-flex items-center justify-center rounded-lg bg-aurora-lime px-8 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 disabled:opacity-60 sm:text-base"
                 >
-                  {submitting
-                    ? "Starting payment…"
-                    : total === 0
-                      ? "Complete free enrollment"
-                      : "Continue to Paystack"}
+                  {submitting ? "Starting payment…" : "Continue to Paystack"}
                 </button>
               </div>
             </form>
