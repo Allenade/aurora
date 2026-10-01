@@ -135,7 +135,6 @@ const CohortTracks = () => {
     curriculumLabel,
     outlineLabel,
     enrollLabel,
-    downloadLabel,
     stack,
     stats,
     tagline,
@@ -296,12 +295,6 @@ const CohortTracks = () => {
                 >
                   {enrollLabel}
                 </a>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3.5 font-sans text-sm font-semibold text-white transition-colors hover:border-aurora-lime hover:text-aurora-lime sm:text-base"
-                >
-                  {downloadLabel}
-                </button>
               </div>
             </Reveal>
           ) : null}

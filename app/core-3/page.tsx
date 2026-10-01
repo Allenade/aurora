@@ -1,6 +1,8 @@
 import EnterFirstPage from "@/components/enter-first";
 import type { Metadata } from "next";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Core 3.0",
   description:

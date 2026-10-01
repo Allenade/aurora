@@ -6,18 +6,25 @@ export type ApiErrorBody = {
 export class BffRequestError extends Error {
   status: number;
   fieldErrors?: Record<string, string>;
+  messages: string[];
 
   constructor(
     message: string,
     status: number,
     fieldErrors?: Record<string, string>,
+    messages?: string[],
   ) {
     super(message);
     this.name = "BffRequestError";
     this.status = status;
     this.fieldErrors = fieldErrors;
+    this.messages = messages?.length ? messages : [message];
   }
 }
+
+type ErrorPayload = ApiErrorBody & {
+  messages?: string[];
+};
 
 async function parseJson<T>(res: Response): Promise<T | null> {
   try {
@@ -40,12 +47,16 @@ export async function bffFetch<T>(
     },
   });
 
-  const body = await parseJson<T & ApiErrorBody>(res);
+  const body = await parseJson<T & ErrorPayload>(res);
   if (!res.ok) {
+    const messages =
+      body?.messages?.filter((item) => item.trim()) ??
+      (body?.message ? [body.message] : ["Request failed"]);
     throw new BffRequestError(
-      body?.message ?? "Request failed",
+      messages.join("\n"),
       res.status,
       body?.fieldErrors,
+      messages,
     );
   }
   return body as T;
@@ -67,6 +78,15 @@ export type EnterFirstEnrollPayload = {
   howDidYouHear?: string;
   joinedCommunity?: string;
   tracks: string[];
+  termsAccepted: boolean;
+  termsVersion: string;
+  privacyVersion: string;
+  marketingOptIn: boolean;
+  ageConfirmed: boolean;
+  dateOfBirth: string;
+  guardianName?: string;
+  guardianEmail?: string;
+  guardianConsent?: boolean;
 };
 
 export type EnterFirstEnrollResponse = {
@@ -96,6 +116,8 @@ export type EnterFirstPaymentStatus = {
   currency: string;
   tracks: string[];
   enrollmentId: string;
+  amountMismatch?: boolean;
+  currencyMismatch?: boolean;
 };
 
 export function createEnterFirstEnrollment(input: EnterFirstEnrollPayload) {

@@ -5,11 +5,15 @@ import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ENTER_FIRST_FAQ } from "@/lib/constants";
+import { buildFaqItems, faqCta } from "@/lib/enter-first/copy";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { useTrackSelection } from "./track-selection";
 
-const EnterFirstFaq = () => {
-  const { title, items, cta, legal } = ENTER_FIRST_FAQ;
+const EnterFirstFaq = ({ courses }: { courses: PublicCourse[] }) => {
+  const { title, legal } = ENTER_FIRST_FAQ;
+  const items = buildFaqItems(courses);
+  const cta = faqCta(courses);
   const [openId, setOpenId] = useState(items[0]?.id ?? "");
   const { enrollHref } = useTrackSelection();
   const formHref = enrollHref();
@@ -82,17 +86,13 @@ const EnterFirstFaq = () => {
                 href={formHref}
                 className="inline-flex items-center justify-center rounded-lg bg-aurora-lime px-7 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
-                {cta.primary.label}
+                {cta.primaryLabel}
               </AppLink>
               <AppLink
-                href={
-                  cta.secondary.href.startsWith("#")
-                    ? cta.secondary.href
-                    : formHref
-                }
+                href="#tracks"
                 className="inline-flex items-center justify-center rounded-lg border-[1.5px] border-aurora-lime bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-aurora-lime transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
-                {cta.secondary.label}
+                {cta.secondaryLabel}
               </AppLink>
             </div>
           </Reveal>

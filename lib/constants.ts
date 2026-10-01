@@ -87,6 +87,8 @@ export const ROUTES = Object.freeze({
   PRIVACY_POLICY: "/privacy-policy",
   TERMS_AND_CONDITIONS: "/terms-and-conditions",
   COOKIE_POLICY: "/cookie-policy",
+  REFUND_POLICY: "/refund-policy",
+  UNSUBSCRIBE: "/unsubscribe",
 });
 
 /** External forms / third-party destinations */
@@ -1298,15 +1300,13 @@ export const ENTER_FIRST_HERO = Object.freeze({
 export const ENTER_FIRST_TRACKS = Object.freeze({
   title: "Choose Your Track",
   description:
-    "Learn for free building towards a specialty — take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer)",
+    "Take a single track or combine several where the timetable allows (e.g. Mobile Robotics + Computer Vision + AI in Robotics builds the foundations of an autonomous-systems engineer). The price on each card is the price checkout charges.",
   curriculumLabel: "View Selection",
   outlineLabel: "Selected Courses",
   priceLabel: "Price",
   totalLabel: "Total",
   emptySelection: "Select one or more tracks above to see them here.",
   enrollLabel: "Enroll Now",
-  downloadLabel: "Download Curriculum",
-  priceNote: "₦60,000 per track",
   stack: {
     title: "BUILD MY LEARNING STACK",
     description: "Select 2+ tracks to preview a combined pathway below",
@@ -1315,9 +1315,9 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
     pathwayEmpty: "Select two or more tracks to preview a combined pathway.",
   },
   stats: [
-    { value: "8", label: "Tracks Total" },
+    { value: "8", label: "Tracks listed" },
     { value: "6", label: "Weeks Per Specialist Track" },
-    { value: "1", label: "Cohort, Aug 2026 - Jan 2027" },
+    { value: "—", label: "Dates on each track" },
   ],
   tagline:
     "A multi-track robotics programme where every learner chooses their own path - and can walk more than one",
@@ -1583,26 +1583,26 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
 
 export const ENTER_FIRST_PROGRAM = Object.freeze({
   eyebrow: "How The Program Works",
-  title: "One free step. Then the path is yours",
+  title: "Choose your tracks, then build",
   steps: [
     {
-      id: "free",
-      title: "Aurora Educators Program (AEP)",
-      body: "Learn for Free from guided instruction to practical tasks, real tools, and a capstone project that proves what you can do.",
-      meta: "6 Weeks - Free",
-      ctaLabel: "Start Here",
-      ctaHref: ROUTES.ENTER_FIRST_ENROLL,
-      badge: "FREE",
-      badgeTone: "free" as const,
-    },
-    {
-      id: "paid",
-      title: "Core 3.0 8 Tracks — 7 paid specialisms",
-      body: "Robotics, AI, vision, arms, IoT, blockchain, and aerial — each with a capstone that proves what you can do.",
-      meta: "6 Weeks - Capstone",
+      id: "tracks",
+      title: "Tracks are published on this page",
+      body: "When enrollment is open, each course shows its name, description, price, seats, and dates.",
+      meta: "Prices appear with the course list",
       ctaLabel: "Browse Tracks",
       ctaHref: "#tracks",
-      badge: "7 PAID",
+      badge: "TRACKS",
+      badgeTone: "paid" as const,
+    },
+    {
+      id: "enroll",
+      title: "Pay the total shown",
+      body: "Checkout charges the sum of the course prices for the tracks you select. A course marked Free adds nothing.",
+      meta: "Paystack",
+      ctaLabel: "Enroll",
+      ctaHref: ROUTES.ENTER_FIRST_ENROLL,
+      badge: "ENROLL",
       badgeTone: "paid" as const,
     },
   ],
@@ -1613,7 +1613,6 @@ export const ENTER_FIRST_PROGRAM = Object.freeze({
     listLabel: "If You Want To Be...",
     combinationLabel: "Your Track Combination",
     whyLabel: "Why This Combination?",
-    dateRange: "September 1, 2026 — January 31, 2027",
     registerLabel: "Register Here",
     calendarLabel: "Get Program Calendar",
     roles: [
@@ -1716,7 +1715,7 @@ export const ENTER_FIRST_PROVE = Object.freeze({
     {
       id: "readiness",
       title: "Program Readiness Certificate",
-      body: "Earned on passing the free gateway — proof you can code, collaborate, and enter specialist tracks.",
+      body: "Earned on the programming track. The fee, if any, is the price shown for that course.",
       icon: "medal" as const,
     },
     {
@@ -1739,22 +1738,22 @@ export const ENTER_FIRST_ENROLL = Object.freeze({
   title: "How To Enroll",
   ctaLabel: "Start enrollment",
   ctaHref: ROUTES.ENTER_FIRST_ENROLL,
-  note: "Free gateway opens 24 Aug. Paid tracks begin 1 Sep.",
+  note: "Dates are shown on each course when they are set.",
   steps: [
     {
       id: "01",
-      title: "Enroll in the free Programming for Robotics Gateway",
-      body: "Join the free gateway cohort and begin Python, Linux, and Git foundations with live classes and recordings.",
+      title: "Choose the tracks listed on this page",
+      body: "Each open course shows its price, seats, and dates. Your total is the sum of the tracks you select.",
     },
     {
       id: "02",
-      title: "Earn your programme-readiness certificate",
-      body: "Pass the gateway assessment to unlock paid track enrollment.",
+      title: "Confirm your details and consent",
+      body: "Accept the terms, confirm your date of birth, and add a parent or guardian if you are under 18.",
     },
     {
       id: "03",
-      title: "Choose your AEP track — or combine several",
-      body: "Pick IoT, Mobile, AI, Arm, Vision, Blockchain, or Aerial. Stack compatible tracks where the timetable allows.",
+      title: "Choose one track — or combine several",
+      body: "Add any open track. Closed, full, and past-cutoff courses stay visible so you can see why they are unavailable.",
     },
     {
       id: "04",
@@ -1769,21 +1768,21 @@ export const ENTER_FIRST_FAQ = Object.freeze({
   items: [
     {
       id: "gateway-pay",
-      question: "Do I have to pay for the gateway track?",
+      question: "Do I have to pay for Programming for Robotics?",
       answer:
-        "No — the Programming for Robotics gateway is completely free. It is the one free step in the programme.",
+        "Only if that course is marked Free. Otherwise checkout charges the price shown on the course card.",
     },
     {
       id: "core-free",
-      question: "Is AEP itself free?",
+      question: "How is my total calculated?",
       answer:
-        "No — AEP specialist tracks are paid. The gateway is free; IoT, Mobile Robotics, AI, Robotic Arm, Computer Vision, Blockchain, and Aerial Robotics are paid specializations.",
+        "Your total is the sum of the prices on the tracks you select. Paystack charges that total.",
     },
     {
       id: "gateway-required",
-      question: "Do I have to take the free gateway before a paid track?",
+      question: "Do I have to finish one track before I can enroll in another?",
       answer:
-        "Yes — complete the free gateway and earn your programme-readiness certificate to unlock paid track enrollment.",
+        "No. You can enroll in any open track, or combine several.",
     },
     {
       id: "multi-track",
@@ -1806,7 +1805,7 @@ export const ENTER_FIRST_FAQ = Object.freeze({
   ],
   cta: {
     title: "Ready To Run Into the Unknown?",
-    body: "One free step. Eight specialist tracks. A capstone that proves what you can do — and a community that has your back.",
+    body: "Prices and dates are on this page when enrollment is open. A capstone proves what you can do — and a community that has your back.",
     primary: {
       label: "Start enrollment",
       href: ROUTES.ENTER_FIRST_ENROLL,
@@ -2149,7 +2148,7 @@ export const JOIN_US_SIGN = Object.freeze({
     {
       id: "programming",
       title: "Programming for Robotics",
-      body: "Python, C++, and ROS 2 fundamentals — the language layer every roboticist needs. This is the free gateway into the Core ecosystem.",
+      body: "Python, C++, and ROS 2 fundamentals — the language layer every roboticist needs. Price and availability follow the Core 3.0 course list; this track is not automatically free.",
       icon: "code" as const,
     },
     {

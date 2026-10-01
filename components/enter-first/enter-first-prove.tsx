@@ -1,6 +1,8 @@
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ENTER_FIRST_PROVE } from "@/lib/constants";
+import { readinessBody } from "@/lib/enter-first/copy";
+import type { PublicCourse } from "@/lib/enter-first/types";
 
 function MedalIcon({ className }: { className?: string }) {
   return (
@@ -99,8 +101,11 @@ const PROVE_ICONS = {
   gear: GearIcon,
 } as const;
 
-const EnterFirstProve = () => {
+const EnterFirstProve = ({ courses }: { courses: PublicCourse[] }) => {
   const { title, footer, cards } = ENTER_FIRST_PROVE;
+  const visibleCards = cards.map((card) =>
+    card.id === "readiness" ? { ...card, body: readinessBody(courses) } : card,
+  );
 
   return (
     <section className="bg-white">
@@ -114,7 +119,7 @@ const EnterFirstProve = () => {
           </Reveal>
 
           <Stagger className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
-            {cards.map((card) => {
+            {visibleCards.map((card) => {
               const Icon = PROVE_ICONS[card.icon];
               return (
                 <StaggerItem

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ENTER_FIRST_ENROLL } from "@/lib/constants";
+import { buildEnrollSection } from "@/lib/enter-first/copy";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { useTrackSelection } from "./track-selection";
 
@@ -28,8 +30,9 @@ function ArrowIcon({ className }: { className?: string }) {
   );
 }
 
-const EnterFirstEnroll = () => {
-  const { eyebrow, title, ctaLabel, note, steps } = ENTER_FIRST_ENROLL;
+const EnterFirstEnroll = ({ courses }: { courses: PublicCourse[] }) => {
+  const { eyebrow, title, ctaLabel } = ENTER_FIRST_ENROLL;
+  const { note, steps } = buildEnrollSection(courses);
   const [openId, setOpenId] = useState(steps[1]?.id ?? steps[0]?.id ?? "");
   const { enrollHref } = useTrackSelection();
   const formHref = enrollHref();
