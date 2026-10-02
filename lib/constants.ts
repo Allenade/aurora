@@ -1314,11 +1314,6 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
     pathwayLabel: "Your Combined Pathway",
     pathwayEmpty: "Select two or more tracks to preview a combined pathway.",
   },
-  stats: [
-    { value: "8", label: "Tracks listed" },
-    { value: "6", label: "Weeks Per Specialist Track" },
-    { value: "—", label: "Dates on each track" },
-  ],
   tagline:
     "A multi-track robotics programme where every learner chooses their own path - and can walk more than one",
   tracks: [

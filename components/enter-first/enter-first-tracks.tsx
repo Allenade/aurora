@@ -151,9 +151,7 @@ function buildPathwayBody(courses: PublicCourse[]) {
 }
 
 function courseBody(course: PublicCourse) {
-  const text = course.description.trim();
-  if (text) return text;
-  return PRESENTATION.get(course.slug)?.body ?? "";
+  return course.description.trim();
 }
 
 const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
