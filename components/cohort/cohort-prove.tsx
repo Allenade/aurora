@@ -1,6 +1,7 @@
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_PROVE } from "@/lib/constants";
+import type { PublicCourse } from "@/lib/enter-first/types";
 
 function MedalIcon({ className }: { className?: string }) {
   return (
@@ -87,8 +88,11 @@ const PROVE_ICONS = {
   gear: GearIcon,
 } as const;
 
-const CohortProve = () => {
+const CohortProve = ({ courses }: { courses: PublicCourse[] }) => {
   const { title, footer, cards } = COHORT_PROVE;
+  const visibleCards = cards.filter(
+    (card) => card.id !== "multitrack" || courses.length > 1,
+  );
 
   return (
     <section className="bg-white">
@@ -102,7 +106,7 @@ const CohortProve = () => {
           </Reveal>
 
           <Stagger className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-3 lg:gap-6">
-            {cards.map((card) => {
+            {visibleCards.map((card) => {
               const Icon = PROVE_ICONS[card.icon];
               return (
                 <StaggerItem

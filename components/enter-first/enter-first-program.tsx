@@ -1,15 +1,5 @@
 "use client";
 
-import type { ComponentType } from "react";
-import { useState } from "react";
-import {
-  WorkshopAiIcon,
-  WorkshopArmIcon,
-  WorkshopCodeIcon,
-  WorkshopRoverIcon,
-  WorkshopSatelliteIcon,
-  WorkshopVisionIcon,
-} from "@/components/icons/figma-icons";
 import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
@@ -18,18 +8,6 @@ import { buildProgram } from "@/lib/enter-first/copy";
 import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { useTrackSelection } from "./track-selection";
-
-type TrackIcon =
-  (typeof ENTER_FIRST_PROGRAM.engineer.roles)[number]["tracks"][number]["icon"];
-
-const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
-  code: WorkshopCodeIcon,
-  satellite: WorkshopSatelliteIcon,
-  rover: WorkshopRoverIcon,
-  ai: WorkshopAiIcon,
-  arm: WorkshopArmIcon,
-  vision: WorkshopVisionIcon,
-};
 
 function LockIcon({ className }: { className?: string }) {
   return (
@@ -133,15 +111,10 @@ function StepArrow({ className }: { className?: string }) {
 }
 
 const EnterFirstProgram = ({ courses }: { courses: PublicCourse[] }) => {
-  const { eyebrow, engineer } = ENTER_FIRST_PROGRAM;
+  const { eyebrow, cta } = ENTER_FIRST_PROGRAM;
   const { title, steps, dateLine } = buildProgram(courses);
-  const [openId, setOpenId] = useState(engineer.roles[0]?.id ?? "");
-  const activeRole =
-    engineer.roles.find((role) => role.id === openId) ?? engineer.roles[0];
   const { enrollHref } = useTrackSelection();
-  const roleEnrollHref = enrollHref(
-    activeRole?.tracks.map((track) => track.id) ?? [],
-  );
+  const roleEnrollHref = enrollHref();
 
   return (
     <section className="bg-[#151514]">
@@ -234,108 +207,11 @@ const EnterFirstProgram = ({ courses }: { courses: PublicCourse[] }) => {
           </Stagger>
 
           <div className="mt-14 sm:mt-16 lg:mt-20">
-            <Reveal>
-              <h3 className="max-w-3xl font-display text-[1.5rem] font-semibold leading-tight text-white sm:text-3xl lg:text-[2.5rem]">
-                {engineer.title}
-              </h3>
-              <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-[#757575] sm:mt-4 sm:text-base lg:text-lg">
-                {engineer.description}
+            {dateLine ? (
+              <p className="font-sans text-sm text-white/70 sm:text-base">
+                {dateLine}
               </p>
-            </Reveal>
-
-            <div className="mt-8 grid gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">
-              <div>
-                <p className="font-sans text-sm font-semibold text-white/80 sm:text-base">
-                  {engineer.listLabel}
-                </p>
-                <Stagger as="ul" className="mt-4 space-y-3">
-                  {engineer.roles.map((role) => {
-                    const isOpen = role.id === openId;
-                    return (
-                      <StaggerItem as="li" key={role.id}>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setOpenId((current) =>
-                              current === role.id ? "" : role.id,
-                            )
-                          }
-                          className={cn(
-                            "group flex w-full items-center justify-between gap-4 rounded-xl border bg-black px-4 py-4 text-left transition-colors sm:px-5 sm:py-5",
-                            isOpen
-                              ? "border-aurora-lime"
-                              : "border-transparent hover:border-aurora-lime",
-                          )}
-                        >
-                          <span className="font-sans text-sm font-medium text-white sm:text-base lg:text-lg">
-                            {role.label}
-                          </span>
-                          <span
-                            className={cn(
-                              "flex size-7 shrink-0 items-center justify-center rounded-full border text-lg leading-none",
-                              isOpen
-                                ? "border-aurora-lime text-aurora-lime"
-                                : "border-white/30 text-white/70 group-hover:border-aurora-lime group-hover:text-aurora-lime",
-                            )}
-                            aria-hidden
-                          >
-                            {isOpen ? "−" : "+"}
-                          </span>
-                        </button>
-                      </StaggerItem>
-                    );
-                  })}
-                </Stagger>
-              </div>
-
-              <Reveal>
-                <aside className="rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7">
-                  <h4 className="font-sans text-lg font-semibold text-white sm:text-xl">
-                    {engineer.combinationLabel}
-                  </h4>
-
-                  {activeRole ? (
-                    <>
-                      <div className="mt-5 flex flex-wrap gap-2.5">
-                        {activeRole.tracks.map((track) => {
-                          const Icon = TRACK_ICONS[track.icon];
-                          return (
-                            <span
-                              key={track.id}
-                              className="inline-flex items-center gap-2 rounded-full border border-aurora-lime px-3.5 py-2 font-sans text-sm text-aurora-lime"
-                            >
-                              <Icon className="size-4" />
-                              {track.title}
-                            </span>
-                          );
-                        })}
-                      </div>
-
-                      <div className="mt-6">
-                        <p className="font-sans text-sm font-semibold text-white sm:text-base">
-                          {engineer.whyLabel}
-                        </p>
-                        <div className="mt-3 rounded-xl bg-[#151514] px-4 py-4 sm:px-5 sm:py-5">
-                          <p className="font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
-                            {activeRole.why}
-                          </p>
-                        </div>
-                      </div>
-
-                      {dateLine ? (
-                        <p className="mt-6 font-sans text-sm text-white/70 sm:text-base">
-                          {dateLine}
-                        </p>
-                      ) : null}
-                    </>
-                  ) : (
-                    <p className="mt-5 font-sans text-sm text-[#757575]">
-                      Select a role to preview your track combination.
-                    </p>
-                  )}
-                </aside>
-              </Reveal>
-            </div>
+            ) : null}
 
             <Reveal className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
               <a
@@ -343,7 +219,7 @@ const EnterFirstProgram = ({ courses }: { courses: PublicCourse[] }) => {
                 style={{ borderRadius: 16 }}
                 className="inline-flex items-center justify-center gap-2.5 bg-aurora-lime px-7 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
-                {engineer.registerLabel}
+                {cta.registerLabel}
                 <ArrowIcon />
               </a>
               <a
@@ -352,7 +228,7 @@ const EnterFirstProgram = ({ courses }: { courses: PublicCourse[] }) => {
                 className="inline-flex items-center justify-center gap-2.5 border-[1.5px] border-aurora-lime bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-aurora-lime transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
                 <CalendarIcon />
-                {engineer.calendarLabel}
+                {cta.calendarLabel}
               </a>
             </Reveal>
           </div>

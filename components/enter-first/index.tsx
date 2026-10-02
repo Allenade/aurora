@@ -11,7 +11,7 @@ import { getEnterFirstCatalog } from "@/lib/enter-first/courses";
 export { EnterFirstButton } from "./enter-first-button";
 
 const EnterFirstPage = async () => {
-  const courses = await getEnterFirstCatalog({ revalidate: 60 });
+  const courses = await getEnterFirstCatalog({ revalidate: false });
 
   return (
     <TrackSelectionProvider>

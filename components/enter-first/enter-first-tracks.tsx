@@ -25,15 +25,14 @@ import {
   formatCourseTotal,
   priceNoteFor,
   seatLabel,
+  sharedCourseWeeks,
 } from "@/lib/enter-first/pricing";
 import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { EnrollmentUnavailable } from "./enrollment-unavailable";
 import { useTrackSelection } from "./track-selection";
 
-type TrackIcon = (typeof ENTER_FIRST_TRACKS.tracks)[number]["icon"];
-
-const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
+const TRACK_ICONS = {
   code: WorkshopCodeIcon,
   satellite: WorkshopSatelliteIcon,
   rover: WorkshopRoverIcon,
@@ -42,29 +41,13 @@ const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
   vision: WorkshopVisionIcon,
   blockchain: WorkshopBlockchainIcon,
   drone: WorkshopDroneIcon,
-};
+} satisfies Record<string, ComponentType<{ className?: string }>>;
 
-const PATHWAY_HINTS: Record<string, string> = {
-  "iot+mobile":
-    "2 tracks, zero schedule clashes. Build toward cloud-connected sensor robot + autonomous mapped & navigated vehicle.",
-  "mobile+vision+ai":
-    "3 tracks building the foundations of an autonomous-systems engineer — navigation, sight, and intelligent decisions.",
-  "mobile+vision":
-    "2 tracks pairing navigation with perception for robots that move and understand their surroundings.",
-  "vision+ai":
-    "2 tracks combining visual understanding with learning-based decision systems.",
-  "iot+ai":
-    "2 tracks connecting edge intelligence with learning models that act on live sensor streams.",
-  "arm+vision":
-    "2 tracks for manipulators that see — motion planning paired with visual perception.",
-};
+type TrackIcon = keyof typeof TRACK_ICONS;
 
-const PRESENTATION = new Map(
-  ENTER_FIRST_TRACKS.tracks.map((track) => [track.id, track]),
-);
-
+/** Icon only. Names, prices, and copy always come from the course list. */
 function iconFor(slug: string): TrackIcon {
-  return PRESENTATION.get(slug)?.icon ?? "code";
+  return slug in TRACK_ICONS ? (slug as TrackIcon) : "code";
 }
 
 function CurriculumArrow({ className }: { className?: string }) {
@@ -121,33 +104,13 @@ function SelectionBox({
   );
 }
 
-function pathwayKey(ids: string[]) {
-  return [...ids].sort().join("+");
-}
-
-function shortName(course: PublicCourse) {
-  if (course.slug === "iot") return "IoT";
-  if (course.slug === "mobile") return "Mobile";
-  if (course.slug === "ai") return "AI";
-  if (course.slug === "arm") return "Arm";
-  if (course.slug === "vision") return "Vision";
-  if (course.slug === "programming") return "Programming";
-  if (course.slug === "blockchain") return "Blockchain";
-  if (course.slug === "aerial") return "Aerial";
-  return course.name;
-}
-
 function buildPathwayTitle(courses: PublicCourse[]) {
-  if (courses.length === 0) return "";
-  if (courses.length === 1) return courses[0].name;
-  return courses.map(shortName).join(" + ");
+  return courses.map((course) => course.name).join(" + ");
 }
 
 function buildPathwayBody(courses: PublicCourse[]) {
-  const key = pathwayKey(courses.map((course) => course.slug));
-  if (PATHWAY_HINTS[key]) return PATHWAY_HINTS[key];
   if (courses.length < 2) return ENTER_FIRST_TRACKS.stack.pathwayEmpty;
-  return `${courses.length} tracks selected. Combine these specialties into one learning pathway where the timetable allows.`;
+  return `${courses.length} tracks selected. Combine these into one learning pathway where the timetable allows.`;
 }
 
 function courseBody(course: PublicCourse) {
@@ -187,9 +150,12 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
       .size > 1;
   const priceNote = priceNoteFor(courses);
   const dateLine = buildCohortDateLine(courses);
+  const weeks = sharedCourseWeeks(courses);
   const stats = [
     { value: String(courses.length), label: "Tracks listed" },
-    { value: "6", label: "Weeks Per Specialist Track" },
+    weeks
+      ? { value: String(weeks), label: "Weeks Per Track" }
+      : { value: "—", label: "Weeks shown on each track" },
     {
       value: dateLine && !dateLine.startsWith("Dates vary") ? "1" : "—",
       label: dateLine ?? "Dates on each track",
