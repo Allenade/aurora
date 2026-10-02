@@ -103,9 +103,11 @@ const PROVE_ICONS = {
 
 const EnterFirstProve = ({ courses }: { courses: PublicCourse[] }) => {
   const { title, footer, cards } = ENTER_FIRST_PROVE;
-  const visibleCards = cards.map((card) =>
-    card.id === "readiness" ? { ...card, body: readinessBody(courses) } : card,
-  );
+  const visibleCards = cards
+    .filter((card) => card.id !== "multitrack" || courses.length > 1)
+    .map((card) =>
+      card.id === "readiness" ? { ...card, body: readinessBody(courses) } : card,
+    );
 
   return (
     <section className="bg-white">

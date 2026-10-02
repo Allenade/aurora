@@ -154,3 +154,16 @@ export function buildCohortDateLine(courses: PublicCourse[]): string | null {
   if (!span) return null;
   return same ? span : `Dates vary by track (${span})`;
 }
+
+/** Shared course length in weeks, when every dated course has the same span. */
+export function sharedCourseWeeks(courses: PublicCourse[]): number | null {
+  const weeks = courses.map((course) => {
+    if (!course.startDate || !course.endDate) return null;
+    const start = new Date(course.startDate).getTime();
+    const end = new Date(course.endDate).getTime();
+    if (Number.isNaN(start) || Number.isNaN(end) || end <= start) return null;
+    return Math.round((end - start) / (7 * 24 * 60 * 60 * 1000));
+  });
+  if (!weeks.length || weeks.some((value) => value == null)) return null;
+  return new Set(weeks).size === 1 ? (weeks[0] as number) : null;
+}

@@ -5,9 +5,11 @@ import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_FAQ } from "@/lib/constants";
+import { cohortCtaBody } from "@/lib/enter-first/copy";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 
-const CohortFaq = () => {
+const CohortFaq = ({ courses }: { courses: PublicCourse[] }) => {
   const { title, items, cta, legal } = COHORT_FAQ;
   const [openId, setOpenId] = useState(items[0]?.id ?? "");
 
@@ -72,7 +74,7 @@ const CohortFaq = () => {
               {cta.title}
             </h3>
             <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-[#adadad] sm:mt-5 sm:text-base lg:text-lg">
-              {cta.body}
+              {cohortCtaBody(courses)}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
               <a

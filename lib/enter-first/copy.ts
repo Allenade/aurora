@@ -108,6 +108,55 @@ export function buildProgram(courses: PublicCourse[]): {
   return { title, steps, dateLine };
 }
 
+/**
+ * Catalogue summary card for the cohort program flow.
+ * Counts, names, and prices come only from the course list.
+ */
+export function buildCatalogStep(courses: PublicCourse[]): ProgramStepView {
+  if (!courses.length) {
+    return {
+      id: "catalog",
+      title: "Core 3.0 tracks",
+      body: "Tracks are published on this page when enrollment opens. Each one shows its name, price, seats, and dates.",
+      meta: "Opening soon",
+      ctaLabel: "Browse Tracks",
+      ctaHref: "#tracks",
+      badge: "SOON",
+      badgeTone: "paid",
+    };
+  }
+
+  const paid = courses.filter((course) => chargedAmount(course) > 0);
+  const free = courses.length - paid.length;
+  const names = courses.map((course) => course.name).join(", ");
+  const amounts = [...new Set(paid.map((course) => formatCoursePrice(course)))];
+  const priceSentence = !paid.length
+    ? "Free to join."
+    : amounts.length === 1
+      ? `${paid.length === 1 ? "Price" : "Each paid track"}: ${amounts[0]}.`
+      : "Each track is charged at the price shown on its card.";
+
+  return {
+    id: "catalog",
+    title: `Core 3.0 — ${courses.length} ${courses.length === 1 ? "track" : "tracks"}`,
+    body: clip(`${names}. ${priceSentence}`),
+    meta: buildCohortDateLine(courses) ?? "Dates shown on each track",
+    ctaLabel: "Browse Tracks",
+    ctaHref: "#tracks",
+    badge: paid.length ? `${paid.length} PAID` : `${free} FREE`,
+    badgeTone: "paid",
+  };
+}
+
+/** CTA line for the cohort FAQ block, built from the course list. */
+export function cohortCtaBody(courses: PublicCourse[]) {
+  const base =
+    "One free step. A capstone that proves what you can do — and a community that has your back.";
+  if (!courses.length) return base;
+  const count = `${courses.length} ${courses.length === 1 ? "track" : "tracks"} listed`;
+  return `One free step. ${count}, each at the price shown. A capstone that proves what you can do — and a community that has your back.`;
+}
+
 export type FaqItemView = {
   id: string;
   question: string;
@@ -164,7 +213,7 @@ export function buildFaqItems(courses: PublicCourse[]): FaqItemView[] {
     },
     {
       id: "fall-behind",
-      question: "What happens if I fall behind during the 6 weeks?",
+      question: "What happens if I fall behind during a track?",
       answer:
         "Live sessions are recorded so you can catch up. Stay in touch with mentors and keep weekly tasks moving when you can.",
     },
@@ -200,7 +249,7 @@ export function readinessBody(courses: PublicCourse[]) {
   if (programming) {
     return `Earned on ${programming.name}. The fee is ${formatCoursePrice(programming)}, the price shown for that course.`;
   }
-  return "Earned by completing the programming track when it is listed — proof you can code, collaborate, and continue.";
+  return "Earned by completing a foundation track when one is listed — proof you can code, collaborate, and continue.";
 }
 
 export function buildEnrollSection(courses: PublicCourse[]) {
