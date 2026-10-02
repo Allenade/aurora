@@ -14,13 +14,24 @@ import {
 } from "@/components/icons/figma-icons";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem, CountUp } from "@/components/motion";
-import { formatNgn, trackAmountNgn } from "@/lib/bff/config";
 import { ENTER_FIRST_TRACKS } from "@/lib/constants";
+import {
+  buildCohortDateLine,
+  courseBlock,
+  courseBlockLabel,
+  courseDateLabel,
+  cutoffLabel,
+  formatCoursePrice,
+  formatCourseTotal,
+  priceNoteFor,
+  seatLabel,
+} from "@/lib/enter-first/pricing";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
+import { EnrollmentUnavailable } from "./enrollment-unavailable";
 import { useTrackSelection } from "./track-selection";
 
-type Track = (typeof ENTER_FIRST_TRACKS.tracks)[number];
-type TrackIcon = Track["icon"];
+type TrackIcon = (typeof ENTER_FIRST_TRACKS.tracks)[number]["icon"];
 
 const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
   code: WorkshopCodeIcon,
@@ -47,6 +58,14 @@ const PATHWAY_HINTS: Record<string, string> = {
   "arm+vision":
     "2 tracks for manipulators that see — motion planning paired with visual perception.",
 };
+
+const PRESENTATION = new Map(
+  ENTER_FIRST_TRACKS.tracks.map((track) => [track.id, track]),
+);
+
+function iconFor(slug: string): TrackIcon {
+  return PRESENTATION.get(slug)?.icon ?? "code";
+}
 
 function CurriculumArrow({ className }: { className?: string }) {
   return (
@@ -106,31 +125,36 @@ function pathwayKey(ids: string[]) {
   return [...ids].sort().join("+");
 }
 
-function buildPathwayTitle(tracks: Track[]) {
-  if (tracks.length === 0) return "";
-  if (tracks.length === 1) return tracks[0].title;
-  const short = tracks.map((track) => {
-    if (track.id === "iot") return "IoT";
-    if (track.id === "mobile") return "Mobile";
-    if (track.id === "ai") return "AI";
-    if (track.id === "arm") return "Arm";
-    if (track.id === "vision") return "Vision";
-    if (track.id === "programming") return "Programming";
-    if (track.id === "blockchain") return "Blockchain";
-    if (track.id === "aerial") return "Aerial";
-    return track.title;
-  });
-  return short.join(" + ");
+function shortName(course: PublicCourse) {
+  if (course.slug === "iot") return "IoT";
+  if (course.slug === "mobile") return "Mobile";
+  if (course.slug === "ai") return "AI";
+  if (course.slug === "arm") return "Arm";
+  if (course.slug === "vision") return "Vision";
+  if (course.slug === "programming") return "Programming";
+  if (course.slug === "blockchain") return "Blockchain";
+  if (course.slug === "aerial") return "Aerial";
+  return course.name;
 }
 
-function buildPathwayBody(tracks: Track[]) {
-  const key = pathwayKey(tracks.map((track) => track.id));
+function buildPathwayTitle(courses: PublicCourse[]) {
+  if (courses.length === 0) return "";
+  if (courses.length === 1) return courses[0].name;
+  return courses.map(shortName).join(" + ");
+}
+
+function buildPathwayBody(courses: PublicCourse[]) {
+  const key = pathwayKey(courses.map((course) => course.slug));
   if (PATHWAY_HINTS[key]) return PATHWAY_HINTS[key];
-  if (tracks.length < 2) return ENTER_FIRST_TRACKS.stack.pathwayEmpty;
-  return `${tracks.length} tracks selected. Combine these specialties into one learning pathway where the timetable allows.`;
+  if (courses.length < 2) return ENTER_FIRST_TRACKS.stack.pathwayEmpty;
+  return `${courses.length} tracks selected. Combine these specialties into one learning pathway where the timetable allows.`;
 }
 
-const EnterFirstTracks = () => {
+function courseBody(course: PublicCourse) {
+  return course.description.trim();
+}
+
+const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
   const {
     title,
     description,
@@ -140,29 +164,37 @@ const EnterFirstTracks = () => {
     totalLabel,
     emptySelection,
     enrollLabel,
-    downloadLabel,
-    priceNote,
     stack,
-    stats,
     tagline,
-    tracks,
   } = ENTER_FIRST_TRACKS;
 
   const { selectedIds, toggleTrack, clearSelection, enrollHref } =
     useTrackSelection();
-  const stackIds = selectedIds;
 
-  const stackedTracks = useMemo(
-    () => tracks.filter((track) => stackIds.includes(track.id)),
-    [stackIds, tracks],
+  const openCourses = useMemo(
+    () => courses.filter((course) => !courseBlock(course)),
+    [courses],
   );
-
-  const totalAmount = useMemo(
-    () => stackedTracks.reduce((sum, track) => sum + trackAmountNgn(track.id), 0),
-    [stackedTracks],
+  const selectedCourses = useMemo(
+    () =>
+      openCourses.filter((course) => selectedIds.includes(course.slug)),
+    [openCourses, selectedIds],
   );
-
-  const enrollLink = enrollHref();
+  const totalLabelText = formatCourseTotal(selectedCourses);
+  const mixedCurrency =
+    selectedCourses.length > 1 &&
+    new Set(selectedCourses.map((course) => course.currency.toUpperCase()))
+      .size > 1;
+  const priceNote = priceNoteFor(courses);
+  const dateLine = buildCohortDateLine(courses);
+  const stats = [
+    { value: String(courses.length), label: "Tracks listed" },
+    { value: "6", label: "Weeks Per Specialist Track" },
+    {
+      value: dateLine && !dateLine.startsWith("Dates vary") ? "1" : "—",
+      label: dateLine ?? "Dates on each track",
+    },
+  ];
 
   const focusSelection = () => {
     document.getElementById("track-detail")?.scrollIntoView({
@@ -170,6 +202,25 @@ const EnterFirstTracks = () => {
       block: "start",
     });
   };
+
+  if (!courses.length) {
+    return (
+      <section id="tracks" className="bg-white">
+        <SiteShell className="py-12 sm:py-14 lg:py-16 xl:py-20">
+          <SiteContent>
+            <Reveal as="header" className="mx-auto max-w-4xl text-center">
+              <h2 className="font-display text-[1.75rem] font-semibold leading-tight text-[#151514] sm:text-3xl lg:text-4xl xl:text-[2.75rem]">
+                {title}
+              </h2>
+            </Reveal>
+            <div className="mt-10">
+              <EnrollmentUnavailable />
+            </div>
+          </SiteContent>
+        </SiteShell>
+      </section>
+    );
+  }
 
   return (
     <section id="tracks" className="bg-white">
@@ -182,24 +233,31 @@ const EnterFirstTracks = () => {
             <p className="mt-4 font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
               {description}
             </p>
-            <p className="mt-3 font-sans text-sm font-semibold text-[#151514] sm:text-base">
-              {priceNote}
-            </p>
+            {priceNote ? (
+              <p className="mt-3 font-sans text-sm font-semibold text-[#151514] sm:text-base">
+                {priceNote}
+              </p>
+            ) : null}
           </Reveal>
 
           <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-4 lg:gap-6">
-            {tracks.map((track) => {
-              const Icon = TRACK_ICONS[track.icon];
-              const inStack = stackIds.includes(track.id);
-              const amount = trackAmountNgn(track.id);
+            {courses.map((course) => {
+              const Icon = TRACK_ICONS[iconFor(course.slug)];
+              const blocked = courseBlock(course);
+              const inStack =
+                !blocked && selectedIds.includes(course.slug);
+              const meta = [seatLabel(course), courseDateLabel(course), cutoffLabel(course)]
+                .filter(Boolean)
+                .join(" · ");
 
               return (
                 <StaggerItem
                   as="article"
-                  key={track.id}
+                  key={course.slug}
                   className={cn(
                     "group relative flex flex-col rounded-lg border border-white/10 bg-[#151514] p-5 transition-colors sm:p-6 lg:p-7",
                     inStack ? "border-aurora-lime" : "hover:border-aurora-lime",
+                    blocked && "opacity-80",
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -213,31 +271,42 @@ const EnterFirstTracks = () => {
                     >
                       <Icon className="size-6 sm:size-7" />
                     </div>
-                    <button
-                      type="button"
-                      aria-pressed={inStack}
-                      aria-label={`${inStack ? "Remove" : "Add"} ${track.title} to learning stack`}
-                      onClick={() => toggleTrack(track.id)}
-                      className="rounded-sm p-0.5 transition-opacity hover:opacity-80"
-                    >
-                      <SelectionBox checked={inStack} />
-                    </button>
+                    {blocked ? (
+                      <span className="rounded-md bg-white/10 px-2 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide text-white">
+                        {courseBlockLabel(blocked)}
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        aria-pressed={inStack}
+                        aria-label={`${inStack ? "Remove" : "Add"} ${course.name} to learning stack`}
+                        onClick={() => toggleTrack(course.slug)}
+                        className="rounded-sm p-0.5 transition-opacity hover:opacity-80"
+                      >
+                        <SelectionBox checked={inStack} />
+                      </button>
+                    )}
                   </div>
 
                   <h3 className="mt-5 font-sans text-lg font-semibold text-white transition-colors group-hover:text-aurora-lime sm:text-xl lg:text-[22px]">
-                    {track.title}
+                    {course.name}
                   </h3>
                   <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
-                    {track.body}
+                    {courseBody(course)}
                   </p>
+                  {meta ? (
+                    <p className="mt-3 font-sans text-xs leading-relaxed text-white/55">
+                      {meta}
+                    </p>
+                  ) : null}
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <p className="font-sans text-sm font-semibold text-aurora-lime sm:text-base">
-                      {formatNgn(amount)}
+                      {formatCoursePrice(course)}
                     </p>
                     <button
                       type="button"
                       onClick={() => {
-                        if (!inStack) toggleTrack(track.id);
+                        if (!blocked && !inStack) toggleTrack(course.slug);
                         focusSelection();
                       }}
                       className="inline-flex items-center gap-2 self-start font-sans text-sm font-medium text-white/70 transition-colors group-hover:text-aurora-lime sm:text-[15px]"
@@ -257,16 +326,16 @@ const EnterFirstTracks = () => {
           >
             <div className="min-w-0">
               <h3 className="font-sans text-xl font-semibold text-white sm:text-2xl lg:text-[28px]">
-                {stackedTracks.length
-                  ? buildPathwayTitle(stackedTracks)
+                {selectedCourses.length
+                  ? buildPathwayTitle(selectedCourses)
                   : "Your selected tracks"}
               </h3>
               <p className="mt-3 max-w-4xl font-sans text-sm leading-relaxed text-[#757575] sm:text-base lg:text-lg">
-                {!stackedTracks.length
+                {!selectedCourses.length
                   ? emptySelection
-                  : stackedTracks.length === 1
-                    ? stackedTracks[0].detail
-                    : buildPathwayBody(stackedTracks)}
+                  : selectedCourses.length === 1
+                    ? courseBody(selectedCourses[0]) || selectedCourses[0].name
+                    : buildPathwayBody(selectedCourses)}
               </p>
             </div>
 
@@ -275,21 +344,21 @@ const EnterFirstTracks = () => {
                 <p className="font-sans text-sm font-semibold text-aurora-lime sm:text-base">
                   {outlineLabel}
                 </p>
-                {stackedTracks.length ? (
+                {selectedCourses.length ? (
                   <ul className="mt-4 space-y-3">
-                    {stackedTracks.map((track) => {
-                      const Icon = TRACK_ICONS[track.icon];
+                    {selectedCourses.map((course) => {
+                      const Icon = TRACK_ICONS[iconFor(course.slug)];
                       return (
                         <li
-                          key={track.id}
+                          key={course.slug}
                           className="flex items-center gap-3 rounded-xl border border-white/15 px-4 py-3.5"
                         >
                           <Icon className="size-5 shrink-0 text-aurora-lime" />
                           <span className="min-w-0 flex-1 font-sans text-sm text-white/85 sm:text-[15px]">
-                            {track.title}
+                            {course.name}
                           </span>
                           <span className="shrink-0 font-sans text-sm font-semibold text-aurora-lime">
-                            {formatNgn(trackAmountNgn(track.id))}
+                            {formatCoursePrice(course)}
                           </span>
                         </li>
                       );
@@ -303,11 +372,11 @@ const EnterFirstTracks = () => {
               </div>
 
               <div className="space-y-4">
-                {stackedTracks.length ? (
+                {selectedCourses.length ? (
                   <>
-                    {stackedTracks.map((track) => (
+                    {selectedCourses.map((course) => (
                       <div
-                        key={`price-${track.id}`}
+                        key={`price-${course.slug}`}
                         className="rounded-xl border border-white/15 px-4 py-3.5"
                       >
                         <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
@@ -315,7 +384,7 @@ const EnterFirstTracks = () => {
                         </p>
                         <div className="my-2 h-px bg-white/10" aria-hidden />
                         <p className="font-sans text-sm text-white sm:text-[15px]">
-                          {track.title}: {formatNgn(trackAmountNgn(track.id))}
+                          {course.name}: {formatCoursePrice(course)}
                         </p>
                       </div>
                     ))}
@@ -325,55 +394,41 @@ const EnterFirstTracks = () => {
                       </p>
                       <div className="my-2 h-px bg-aurora-lime/20" aria-hidden />
                       <p className="font-sans text-lg font-semibold text-aurora-lime sm:text-xl">
-                        {formatNgn(totalAmount)}
+                        {mixedCurrency
+                          ? "Different currencies"
+                          : (totalLabelText ?? "—")}
                       </p>
                     </div>
                   </>
                 ) : (
-                  <>
-                    <div className="rounded-xl border border-white/15 px-4 py-3.5">
-                      <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                        {priceLabel}
-                      </p>
-                      <div className="my-2 h-px bg-white/10" aria-hidden />
-                      <p className="font-sans text-sm text-white sm:text-[15px]">
-                        {priceNote}
-                      </p>
-                    </div>
-                    <div className="rounded-xl border border-white/15 px-4 py-3.5">
-                      <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                        {totalLabel}
-                      </p>
-                      <div className="my-2 h-px bg-white/10" aria-hidden />
-                      <p className="font-sans text-sm text-white sm:text-[15px]">
-                        {formatNgn(0)}
-                      </p>
-                    </div>
-                  </>
+                  <div className="rounded-xl border border-white/15 px-4 py-3.5">
+                    <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+                      {totalLabel}
+                    </p>
+                    <div className="my-2 h-px bg-white/10" aria-hidden />
+                    <p className="font-sans text-sm text-white sm:text-[15px]">
+                      Select a track to see the total charged at checkout.
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <a
-                href={enrollLink}
+                href={enrollHref()}
                 className={cn(
                   "inline-flex items-center justify-center rounded-full bg-aurora-lime px-6 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:text-base",
-                  !stackedTracks.length && "pointer-events-none opacity-50",
+                  (!selectedCourses.length || mixedCurrency) &&
+                    "pointer-events-none opacity-50",
                 )}
-                aria-disabled={!stackedTracks.length}
+                aria-disabled={!selectedCourses.length || mixedCurrency}
               >
                 {enrollLabel}
-                {stackedTracks.length
-                  ? ` · ${formatNgn(totalAmount)}`
+                {totalLabelText && !mixedCurrency
+                  ? ` · ${totalLabelText}`
                   : ""}
               </a>
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3.5 font-sans text-sm font-semibold text-white transition-colors hover:border-aurora-lime hover:text-aurora-lime sm:text-base"
-              >
-                {downloadLabel}
-              </button>
             </div>
           </Reveal>
 
@@ -397,23 +452,30 @@ const EnterFirstTracks = () => {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              {tracks.map((track) => {
-                const Icon = TRACK_ICONS[track.icon];
-                const selected = stackIds.includes(track.id);
+              {courses.map((course) => {
+                const Icon = TRACK_ICONS[iconFor(course.slug)];
+                const blocked = courseBlock(course);
+                const selected =
+                  !blocked && selectedIds.includes(course.slug);
                 return (
                   <button
-                    key={track.id}
+                    key={course.slug}
                     type="button"
-                    onClick={() => toggleTrack(track.id)}
+                    disabled={Boolean(blocked)}
+                    onClick={() => {
+                      if (!blocked) toggleTrack(course.slug);
+                    }}
                     className={cn(
                       "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 font-sans text-sm transition-colors",
                       selected
                         ? "border-aurora-lime text-aurora-lime"
                         : "border-white/20 text-[#757575] hover:border-white/40 hover:text-white",
+                      blocked && "cursor-not-allowed opacity-50",
                     )}
                   >
                     <Icon className="size-4" />
-                    {track.title}
+                    {course.name}
+                    {blocked ? ` · ${courseBlockLabel(blocked)}` : ""}
                   </button>
                 );
               })}
@@ -423,17 +485,19 @@ const EnterFirstTracks = () => {
               <p className="font-sans text-sm font-semibold text-aurora-lime">
                 {stack.pathwayLabel}
               </p>
-              {stackedTracks.length >= 2 ? (
+              {selectedCourses.length >= 2 ? (
                 <>
                   <p className="mt-2 font-sans text-lg font-semibold text-aurora-lime sm:text-xl">
-                    {buildPathwayTitle(stackedTracks)}
+                    {buildPathwayTitle(selectedCourses)}
                   </p>
                   <p className="mt-2 max-w-3xl font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
-                    {buildPathwayBody(stackedTracks)}
+                    {buildPathwayBody(selectedCourses)}
                   </p>
-                  <p className="mt-3 font-sans text-sm font-semibold text-white">
-                    Total: {formatNgn(totalAmount)}
-                  </p>
+                  {totalLabelText && !mixedCurrency ? (
+                    <p className="mt-3 font-sans text-sm font-semibold text-white">
+                      Total: {totalLabelText}
+                    </p>
+                  ) : null}
                 </>
               ) : (
                 <p className="mt-2 font-sans text-sm text-[#757575] sm:text-base">

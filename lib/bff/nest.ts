@@ -2,11 +2,13 @@ import { getBackendUrl } from "@/lib/bff/config";
 
 export class NestError extends Error {
   status: number;
+  messages: string[];
 
-  constructor(message: string, status = 400) {
+  constructor(message: string, status = 400, messages?: string[]) {
     super(message);
     this.name = "NestError";
     this.status = status;
+    this.messages = messages?.length ? messages : [message];
   }
 }
 
@@ -15,13 +17,14 @@ type NestErrorBody = {
   statusCode?: number;
 };
 
-function nestErrorMessage(body: NestErrorBody | null, fallback: string) {
+function readMessages(body: NestErrorBody | null, fallback: string) {
   const message = body?.message;
   if (Array.isArray(message)) {
-    return message.filter(Boolean).join(", ") || fallback;
+    const items = message.map((item) => String(item).trim()).filter(Boolean);
+    return items.length ? items : [fallback];
   }
-  if (typeof message === "string" && message.trim()) return message;
-  return fallback;
+  if (typeof message === "string" && message.trim()) return [message.trim()];
+  return [fallback];
 }
 
 async function parseJson<T>(res: Response): Promise<T | null> {
@@ -51,9 +54,11 @@ export async function nestFetch<T>(
   const res = await fetch(url, { ...init, headers, cache: "no-store" });
   const body = await parseJson<T & NestErrorBody>(res);
   if (!res.ok) {
+    const messages = readMessages(body, "Request failed");
     throw new NestError(
-      nestErrorMessage(body, "Request failed"),
+      messages.join("\n"),
       body?.statusCode ?? res.status,
+      messages,
     );
   }
   return body as T;

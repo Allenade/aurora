@@ -14,6 +14,8 @@ import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { ENTER_FIRST_PROGRAM } from "@/lib/constants";
+import { buildProgram } from "@/lib/enter-first/copy";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { useTrackSelection } from "./track-selection";
 
@@ -130,13 +132,13 @@ function StepArrow({ className }: { className?: string }) {
   );
 }
 
-const EnterFirstProgram = () => {
-  const { eyebrow, title, steps, engineer } = ENTER_FIRST_PROGRAM;
+const EnterFirstProgram = ({ courses }: { courses: PublicCourse[] }) => {
+  const { eyebrow, engineer } = ENTER_FIRST_PROGRAM;
+  const { title, steps, dateLine } = buildProgram(courses);
   const [openId, setOpenId] = useState(engineer.roles[0]?.id ?? "");
   const activeRole =
     engineer.roles.find((role) => role.id === openId) ?? engineer.roles[0];
   const { enrollHref } = useTrackSelection();
-  const formHref = enrollHref();
   const roleEnrollHref = enrollHref(
     activeRole?.tracks.map((track) => track.id) ?? [],
   );
@@ -159,8 +161,9 @@ const EnterFirstProgram = () => {
 
           <Stagger className="mt-8 flex flex-col items-stretch gap-4 lg:mt-10 lg:flex-row lg:items-center lg:gap-5">
             {steps.flatMap((step, index) => {
-              const isAnchor = step.ctaHref.startsWith("#");
-              const href = isAnchor ? step.ctaHref : formHref;
+              const href = step.ctaHref.startsWith("#")
+                ? step.ctaHref
+                : enrollHref(step.trackIds ?? []);
               const ctaClassName =
                 "mt-5 inline-flex items-center gap-2 font-sans text-sm font-semibold text-white transition-colors hover:text-aurora-lime sm:text-base";
               const ctaContent = (
@@ -305,9 +308,11 @@ const EnterFirstProgram = () => {
                         </div>
                       </div>
 
-                      <p className="mt-6 font-sans text-sm text-white/70 sm:text-base">
-                        {engineer.dateRange}
-                      </p>
+                      {dateLine ? (
+                        <p className="mt-6 font-sans text-sm text-white/70 sm:text-base">
+                          {dateLine}
+                        </p>
+                      ) : null}
                     </>
                   ) : (
                     <p className="mt-5 font-sans text-sm text-[#757575]">

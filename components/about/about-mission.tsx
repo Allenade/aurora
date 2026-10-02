@@ -1,5 +1,5 @@
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Stagger, StaggerItem } from "@/components/motion";
 import { ABOUT_MISSION } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 

@@ -1,5 +1,8 @@
 "use client";
 
+/* Polymorphic `as` uses motion.create. The element is stable for a given tag. */
+/* eslint-disable react-hooks/static-components */
+
 import { motion, type Variants } from "motion/react";
 import {
   createContext,

@@ -2,6 +2,7 @@ import {
   FOOTER_CONTACT,
   FOOTER_COPYRIGHT,
   FOOTER_SOCIAL_LINKS,
+  ROUTES,
 } from "@/lib/constants";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
@@ -268,7 +269,23 @@ const Footer = () => {
       <div className="relative border-t border-white/10">
         <SiteShell className="py-5 sm:py-6">
           <SiteContent>
-            <p className="font-sans text-sm text-white/40">{FOOTER_COPYRIGHT}</p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="font-sans text-sm text-white/40">{FOOTER_COPYRIGHT}</p>
+              <nav className="flex flex-wrap gap-x-4 gap-y-2">
+                <a href={ROUTES.PRIVACY_POLICY} className="font-sans text-sm text-white/50 hover:text-aurora-lime">
+                  Privacy
+                </a>
+                <a href={ROUTES.TERMS_AND_CONDITIONS} className="font-sans text-sm text-white/50 hover:text-aurora-lime">
+                  Terms
+                </a>
+                <a href={ROUTES.COOKIE_POLICY} className="font-sans text-sm text-white/50 hover:text-aurora-lime">
+                  Cookies
+                </a>
+                <a href={ROUTES.REFUND_POLICY} className="font-sans text-sm text-white/50 hover:text-aurora-lime">
+                  Refunds
+                </a>
+              </nav>
+            </div>
           </SiteContent>
         </SiteShell>
       </div>
