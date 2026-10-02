@@ -176,18 +176,32 @@ const EnterFirstProgram = () => {
                   key={step.id}
                   className="relative flex flex-1 flex-col rounded-2xl border border-white/10 bg-black p-5 sm:p-6 lg:p-7"
                 >
-                  <span
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5">
+                    {step.id === "free" ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-md bg-[#2a2a2a] px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide text-white/80">
+                        <LockIcon />
+                        Closed
+                      </span>
+                    ) : null}
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide",
+                        step.badgeTone === "free"
+                          ? "bg-aurora-lime text-[#151514]"
+                          : "bg-[#2a2a2a] text-white/80",
+                      )}
+                    >
+                      {step.badgeTone === "paid" ? <LockIcon /> : null}
+                      {step.badge}
+                    </span>
+                  </div>
+                  <h3
                     className={cn(
-                      "absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide",
-                      step.badgeTone === "free"
-                        ? "bg-aurora-lime text-[#151514]"
-                        : "bg-[#2a2a2a] text-white/80",
+                      "max-w-[20ch] pr-20 font-sans text-lg font-semibold text-white sm:text-xl",
+                      step.id === "free" &&
+                        "max-[480px]:max-w-none max-[480px]:pr-[8.6rem]",
                     )}
                   >
-                    {step.badgeTone === "paid" ? <LockIcon /> : null}
-                    {step.badge}
-                  </span>
-                  <h3 className="max-w-[20ch] pr-20 font-sans text-lg font-semibold text-white sm:text-xl">
                     {step.title}
                   </h3>
                   <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-[#757575] sm:text-base">
