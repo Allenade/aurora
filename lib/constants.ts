@@ -947,6 +947,8 @@ export const ENTER_FIRST_TRACKS = Object.freeze({
   description:
     "Take a single track or combine several where the timetable allows. The price on each card is the price checkout charges.",
   curriculumLabel: "View Selection",
+  syllabusLabel: "View syllabus",
+  syllabusDownloadLabel: "Download PDF",
   outlineLabel: "Selected Courses",
   priceLabel: "Price",
   totalLabel: "Total",

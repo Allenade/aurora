@@ -89,3 +89,84 @@ html {
     transform: translateY(0);
   }
 }
+
+.syllabus-html :where(h2, h3, h4) {
+  margin: 1.15rem 0 0.45rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.syllabus-html :where(h2) {
+  font-size: 1.25rem;
+}
+
+.syllabus-html :where(h3) {
+  font-size: 1.1rem;
+}
+
+.syllabus-html :where(h4) {
+  font-size: 1rem;
+}
+
+.syllabus-html :where(p, ul, ol, blockquote, pre, table) {
+  margin: 0.75rem 0;
+}
+
+.syllabus-html :where(ul, ol) {
+  padding-left: 1.25rem;
+}
+
+.syllabus-html ul {
+  list-style: disc;
+}
+
+.syllabus-html ol {
+  list-style: decimal;
+}
+
+.syllabus-html a {
+  color: var(--aurora-lime);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.syllabus-html blockquote {
+  border-left: 2px solid rgba(198, 255, 0, 0.7);
+  padding-left: 0.75rem;
+  color: #adadad;
+}
+
+.syllabus-html table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.syllabus-html :where(th, td) {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.syllabus-html th {
+  color: #fff;
+}
+
+.syllabus-html :where(pre, code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+}
+
+.syllabus-html pre {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: #111;
+  padding: 0.75rem 1rem;
+}
+
+.syllabus-html hr {
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}

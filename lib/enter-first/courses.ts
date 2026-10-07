@@ -1,4 +1,5 @@
 import { getBackendUrl } from "@/lib/bff/config";
+import { normalizeCourseMedia } from "./media";
 import type { PublicCourse } from "./types";
 
 function asString(value: unknown) {
@@ -56,6 +57,7 @@ export function normalizePublicCourse(value: unknown): PublicCourse | null {
     status: asString(row.status) || "closed",
     sortOrder: asNullableInt(row.sortOrder) ?? 0,
     cohort: asNullableString(row.cohort),
+    ...normalizeCourseMedia(row),
   };
 }
 
