@@ -2,6 +2,7 @@
 
 import type { ComponentType } from "react";
 import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   WorkshopAiIcon,
   WorkshopArmIcon,
@@ -212,6 +213,7 @@ function CourseCard({
   const [syllabusOpen, setSyllabusOpen] = useState(false);
   const imageUrl = course.imageUrl;
   const showImage = Boolean(imageUrl) && failedImageUrl !== imageUrl;
+  const showSyllabus = hasSyllabusContent(course.syllabus);
   const Icon = TRACK_ICONS[iconFor(course.slug)];
   const meta = [seatLabel(course), courseDateLabel(course), cutoffLabel(course)]
     .filter(Boolean)
@@ -289,7 +291,12 @@ function CourseCard({
         <p className="font-sans text-sm font-semibold text-aurora-lime sm:text-base">
           {formatCoursePrice(course)}
         </p>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <div
+          className={cn(
+            "flex max-w-full flex-wrap items-center justify-end gap-x-4 gap-y-1",
+            showSyllabus && "w-full",
+          )}
+        >
           <button
             type="button"
             onClick={onViewSelection}
@@ -304,9 +311,15 @@ function CourseCard({
           />
         </div>
       </div>
-      {syllabusOpen && course.syllabus.text ? (
-        <SyllabusDialog course={course} onClose={() => setSyllabusOpen(false)} />
-      ) : null}
+      {syllabusOpen && course.syllabus.text
+        ? createPortal(
+            <SyllabusDialog
+              course={course}
+              onClose={() => setSyllabusOpen(false)}
+            />,
+            document.body,
+          )
+        : null}
     </StaggerItem>
   );
 }

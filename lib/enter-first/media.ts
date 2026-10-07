@@ -112,6 +112,7 @@ export function hasSyllabusContent(
  */
 export function sanitizeSyllabusHtml(input: string): string {
   const source = stripNulls(input);
+  const state = { safeAnchors: 0 };
   let out = "";
   let cursor = 0;
   while (cursor < source.length) {
@@ -140,7 +141,7 @@ export function sanitizeSyllabusHtml(input: string): string {
       cursor = tag.gt + 1;
       continue;
     }
-    out += renderTag(source.slice(lt + 1, tag.gt));
+    out += renderTag(source.slice(lt + 1, tag.gt), state);
     cursor = tag.gt + 1;
   }
   return out.trim();
@@ -224,7 +225,7 @@ function skipDiscardedElement(
   return cursor;
 }
 
-function renderTag(raw: string): string {
+function renderTag(raw: string, state: { safeAnchors: number }): string {
   const body = raw.trim();
   if (!body) return "";
   const closing = body.startsWith("/");
@@ -233,6 +234,17 @@ function renderTag(raw: string): string {
   if (!match) return "";
   const tag = match[1].toLowerCase();
   if (!ALLOWED_TAGS.has(tag)) return "";
+  if (tag === "a") {
+    if (closing) {
+      if (state.safeAnchors <= 0) return "";
+      state.safeAnchors -= 1;
+      return "</a>";
+    }
+    const attrs = sanitizeAttributes(tag, match[2].replace(/\/\s*$/, ""));
+    if (!attrs.includes('href="')) return "";
+    state.safeAnchors += 1;
+    return `<a${attrs}>`;
+  }
   if (closing || VOID_TAGS.has(tag)) {
     return closing ? (VOID_TAGS.has(tag) ? "" : `</${tag}>`) : `<${tag}>`;
   }
@@ -326,6 +338,16 @@ function serializeChildren(node: ParentNode): string {
     }
     if (VOID_TAGS.has(tag)) {
       out += `<${tag}>`;
+      continue;
+    }
+    if (tag === "a") {
+      const href = safeHref(el.getAttribute("href") ?? "");
+      const inner = serializeChildren(el);
+      if (!href) {
+        out += inner;
+        continue;
+      }
+      out += `<a href="${escapeAttr(href)}" rel="noopener noreferrer" target="_blank">${inner}</a>`;
       continue;
     }
     out += `<${tag}${elementAttributes(tag, el)}>${serializeChildren(el)}</${tag}>`;
