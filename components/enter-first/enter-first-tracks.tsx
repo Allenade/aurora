@@ -279,7 +279,7 @@ function CourseCard({
       >
         {course.name}
       </h3>
-      <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
+      <p className="mt-3 flex-1 whitespace-pre-line font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
         {courseBody(course)}
       </p>
       {meta ? (
@@ -442,7 +442,7 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
                   ? buildPathwayTitle(selectedCourses)
                   : "Your selected tracks"}
               </h3>
-              <p className="mt-3 max-w-4xl font-sans text-sm leading-relaxed text-[#757575] sm:text-base lg:text-lg">
+              <p className="mt-3 max-w-4xl whitespace-pre-line font-sans text-sm leading-relaxed text-[#757575] sm:text-base lg:text-lg">
                 {!selectedCourses.length
                   ? emptySelection
                   : selectedCourses.length === 1
