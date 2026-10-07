@@ -682,7 +682,7 @@ export default function EnterFirstEnrollForm({
                   {submitting
                     ? "Starting payment…"
                     : paid
-                      ? "Continue to Paystack"
+                      ? "Continue"
                       : "Complete enrollment"}
                 </button>
               </div>
