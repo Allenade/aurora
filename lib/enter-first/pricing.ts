@@ -38,21 +38,6 @@ export function formatCourseTotal(courses: PublicCourse[]): string | null {
   return formatMoney(amount, courses[0]?.currency || "NGN");
 }
 
-export function priceNoteFor(courses: PublicCourse[]): string | null {
-  if (!courses.length) return null;
-  const paid = courses.filter((course) => chargedAmount(course) > 0);
-  const free = courses.filter((course) => chargedAmount(course) === 0);
-  if (!paid.length) return "These tracks are free.";
-  const labels = [...new Set(paid.map((course) => formatCoursePrice(course)))];
-  if (paid.length === courses.length && labels.length === 1) {
-    return `${labels[0]} per track. Checkout charges this amount.`;
-  }
-  if (labels.length === 1 && free.length) {
-    return `Paid tracks are ${labels[0]} each. Free tracks are marked Free. Checkout charges the total shown.`;
-  }
-  return "Each track shows the price checkout charges. Your total is the sum of the tracks you select.";
-}
-
 export function courseBlock(
   course: PublicCourse,
   now = new Date(),
@@ -77,7 +62,6 @@ export function courseBlock(
 
 export function courseBlockLabel(reason: CourseBlockReason) {
   if (reason === "full") return "Full";
-  if (reason === "past-cutoff") return "Past cutoff";
   return "Closed";
 }
 

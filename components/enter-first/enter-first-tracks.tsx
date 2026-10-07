@@ -24,7 +24,6 @@ import {
   cutoffLabel,
   formatCoursePrice,
   formatCourseTotal,
-  priceNoteFor,
   seatLabel,
   sharedCourseWeeks,
 } from "@/lib/enter-first/pricing";
@@ -137,7 +136,7 @@ function TrackSelectControl({
     return (
       <span
         className={cn(
-          "rounded-md px-2 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide text-white",
+          "rounded-md px-2 py-1 font-sans text-[11px] font-semibold tracking-wide text-white",
           overlay ? "bg-[#151514]/85" : "bg-white/10",
         )}
       >
@@ -354,7 +353,6 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
     selectedCourses.length > 1 &&
     new Set(selectedCourses.map((course) => course.currency.toUpperCase()))
       .size > 1;
-  const priceNote = priceNoteFor(courses);
   const dateLine = buildCohortDateLine(courses);
   const weeks = sharedCourseWeeks(courses);
   const stats = [
@@ -405,11 +403,6 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
             <p className="mt-4 font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
               {description}
             </p>
-            {priceNote ? (
-              <p className="mt-3 font-sans text-sm font-semibold text-[#151514] sm:text-base">
-                {priceNote}
-              </p>
-            ) : null}
           </Reveal>
 
           <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-4 lg:gap-6">
