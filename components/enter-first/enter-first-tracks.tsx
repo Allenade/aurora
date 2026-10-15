@@ -28,7 +28,7 @@ import {
   sharedCourseWeeks,
 } from "@/lib/enter-first/pricing";
 import { hasSyllabusContent } from "@/lib/enter-first/media";
-import type { CourseBlockReason, PublicCourse } from "@/lib/enter-first/types";
+import type { CourseBlockReason, CourseLink, PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { EnrollmentUnavailable } from "./enrollment-unavailable";
 import { SyllabusDialog } from "./syllabus-dialog";
@@ -161,6 +161,24 @@ function TrackSelectControl({
   );
 }
 
+const CARD_ACTION_CLASS =
+  "inline-flex max-w-full items-center gap-2 text-left font-sans text-sm font-medium text-white/70 transition-colors hover:text-aurora-lime group-hover:text-aurora-lime sm:text-[15px]";
+
+function CourseLinkButtons({ links }: { links: CourseLink[] }) {
+  return links.map((link, index) => (
+    <a
+      key={`${index}-${link.url}`}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={CARD_ACTION_CLASS}
+    >
+      {link.label} <span aria-hidden>↗</span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  ));
+}
+
 function SyllabusControl({
   course,
   onOpenText,
@@ -170,12 +188,10 @@ function SyllabusControl({
 }) {
   if (!hasSyllabusContent(course.syllabus)) return null;
   const { syllabusLabel } = ENTER_FIRST_TRACKS;
-  const className =
-    "inline-flex items-center gap-2 font-sans text-sm font-medium text-white/70 transition-colors hover:text-aurora-lime group-hover:text-aurora-lime sm:text-[15px]";
 
   if (course.syllabus.text) {
     return (
-      <button type="button" onClick={onOpenText} className={className}>
+      <button type="button" onClick={onOpenText} className={CARD_ACTION_CLASS}>
         {syllabusLabel}
       </button>
     );
@@ -186,7 +202,7 @@ function SyllabusControl({
       href={course.syllabus.url ?? undefined}
       target="_blank"
       rel="noopener noreferrer"
-      className={className}
+      className={CARD_ACTION_CLASS}
     >
       {syllabusLabel}
       <span className="sr-only"> (opens in a new tab)</span>
@@ -213,6 +229,7 @@ function CourseCard({
   const imageUrl = course.imageUrl;
   const showImage = Boolean(imageUrl) && failedImageUrl !== imageUrl;
   const showSyllabus = hasSyllabusContent(course.syllabus);
+  const links = course.links ?? [];
   const Icon = TRACK_ICONS[iconFor(course.slug)];
   const meta = [seatLabel(course), courseDateLabel(course), cutoffLabel(course)]
     .filter(Boolean)
@@ -292,14 +309,14 @@ function CourseCard({
         </p>
         <div
           className={cn(
-            "flex max-w-full flex-wrap items-center justify-end gap-x-4 gap-y-1",
-            showSyllabus && "w-full",
+            "flex max-w-full flex-wrap items-center justify-end gap-x-4 gap-y-2",
+            (showSyllabus || links.length > 0) && "w-full",
           )}
         >
           <button
             type="button"
             onClick={onViewSelection}
-            className="inline-flex items-center gap-2 font-sans text-sm font-medium text-white/70 transition-colors group-hover:text-aurora-lime sm:text-[15px]"
+            className={CARD_ACTION_CLASS}
           >
             {curriculumLabel}
             <CurriculumArrow />
@@ -308,6 +325,7 @@ function CourseCard({
             course={course}
             onOpenText={() => setSyllabusOpen(true)}
           />
+          <CourseLinkButtons links={links} />
         </div>
       </div>
       {syllabusOpen && course.syllabus.text

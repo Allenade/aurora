@@ -7,6 +7,12 @@ export type CourseSyllabus = {
   text: string | null;
 };
 
+/** Named http(s) link on a public course. */
+export type CourseLink = {
+  label: string;
+  url: string;
+};
+
 /** Public course row from GET /api/v1/enter-first/courses. */
 export type PublicCourse = {
   id: string;
@@ -29,6 +35,8 @@ export type PublicCourse = {
   imageUrl: string | null;
   /** PDF and/or sanitized HTML. All null when missing or when an older API omits it. */
   syllabus: CourseSyllabus;
+  /** Named links in saved order. Empty when the API omits them or sends null. */
+  links: CourseLink[];
 };
 
 export type CourseBlockReason = "closed" | "full" | "past-cutoff";
