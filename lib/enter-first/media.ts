@@ -1,4 +1,4 @@
-import type { CourseSyllabus } from "./types";
+import type { CourseLink, CourseSyllabus } from "./types";
 
 const ALLOWED_TAGS = new Set([
   "p",
@@ -81,11 +81,38 @@ export function publicHttpUrl(value: unknown): string | null {
 export function normalizeCourseMedia(row: Record<string, unknown>): {
   imageUrl: string | null;
   syllabus: CourseSyllabus;
+  links: CourseLink[];
 } {
   return {
     imageUrl: publicHttpUrl(row.imageUrl),
     syllabus: normalizeSyllabus(row.syllabus),
+    links: normalizeCourseLinks(row.links),
   };
+}
+
+/**
+ * Named course links in the order the API sent them.
+ * Missing, null, and non-arrays become []. Only http(s) URLs are kept.
+ */
+export function normalizeCourseLinks(value: unknown): CourseLink[] {
+  if (!Array.isArray(value)) return [];
+  const links: CourseLink[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as Record<string, unknown>;
+    const url = publicHttpUrl(row.url);
+    const label = linkLabel(row.label);
+    if (!url || !label) continue;
+    links.push({ label, url });
+  }
+  return links;
+}
+
+function linkLabel(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const cleaned = value.replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
+  if (!cleaned) return null;
+  return cleaned.slice(0, 120);
 }
 
 export function normalizeSyllabus(value: unknown): CourseSyllabus {
