@@ -93,10 +93,11 @@ export const ROUTES = Object.freeze({
 
 /** External forms / third-party destinations */
 export const EXTERNAL_LINKS = Object.freeze({
-  WORKSHOP_WAITLIST:
-    "https://docs.google.com/forms/d/e/1FAIpQLScIlTJG4jBTUtb4ksU-nM_3-Ynqd8wbqAvVg-e9mXj9ae_9iQ/viewform?usp=header",
-  COHORT_REGISTRATION:
-    "https://docs.google.com/forms/d/13-XINwl3hpw1ZzTCrazD6QVvAgX90IuUZeJtL8GYqD4/viewform",
+  // Old sign-up forms, kept for reference. Sign-up buttons now go to /core-3.
+  // WORKSHOP_WAITLIST:
+  //   "https://docs.google.com/forms/d/e/1FAIpQLScIlTJG4jBTUtb4ksU-nM_3-Ynqd8wbqAvVg-e9mXj9ae_9iQ/viewform?usp=header",
+  // COHORT_REGISTRATION:
+  //   "https://docs.google.com/forms/d/13-XINwl3hpw1ZzTCrazD6QVvAgX90IuUZeJtL8GYqD4/viewform",
 });
 
 export type HeaderOptionItem = {
@@ -233,7 +234,7 @@ export const FOOTER_COPYRIGHT =
 export const HOME_WEBINAR = Object.freeze({
   title: "Robotics Core Workshop 3.0",
   ctaLabel: "Register",
-  ctaHref: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+  ctaHref: ROUTES.CORE_3,
 });
 
 export const HOME_WHO = Object.freeze({
@@ -269,7 +270,7 @@ export const HOME_WE = Object.freeze({
   },
   cta: {
     label: "Join Waitlist",
-    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+    href: ROUTES.CORE_3,
   },
   image: {
     src: IMAGES.HOME_EDUCATION_GAP,
@@ -778,7 +779,7 @@ export const COHORT_PROGRAM = Object.freeze({
       body: "Learn for Free from guided instruction to practical tasks, real tools, and a capstone project that proves what you can do.",
       meta: "6 Weeks - Free",
       ctaLabel: "Start Here",
-      ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
+      ctaHref: ROUTES.CORE_3,
       badge: "FREE",
       badgeTone: "free" as const,
     },
@@ -852,7 +853,7 @@ export const COHORT_ENROLL = Object.freeze({
   eyebrow: "— REGISTRATION & ENROLLMENT",
   title: "How To Enroll",
   ctaLabel: "Start the free Gateway",
-  ctaHref: EXTERNAL_LINKS.COHORT_REGISTRATION,
+  ctaHref: ROUTES.CORE_3,
   note: "Free gateway opens 24 Aug.",
   steps: [
     {
@@ -923,7 +924,7 @@ export const COHORT_FAQ = Object.freeze({
     body: "One free step. A capstone that proves what you can do — and a community that has your back.",
     primary: {
       label: "Start Free Gateway",
-      href: EXTERNAL_LINKS.COHORT_REGISTRATION,
+      href: ROUTES.CORE_3,
     },
     secondary: {
       label: "Explore Paid Tracks",
@@ -1172,7 +1173,7 @@ export const EDUCATION_HERO = Object.freeze({
   tagline: "LEARN IT · BUILD IT · DEPLOY IT.",
   primaryCta: {
     label: "Join the Waitlist",
-    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+    href: ROUTES.CORE_3,
   },
   stats: [
     { value: "190+", label: "Engineers Trained" },
@@ -1230,7 +1231,7 @@ export const EDUCATION_SYSTEM = Object.freeze({
   ],
   primaryCta: {
     label: "Join the Waitlist",
-    href: EXTERNAL_LINKS.WORKSHOP_WAITLIST,
+    href: ROUTES.CORE_3,
   },
 });
 

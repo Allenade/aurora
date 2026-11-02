@@ -79,8 +79,6 @@ const CohortFaq = ({ courses }: { courses: PublicCourse[] }) => {
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
               <a
                 href={cta.primary.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-lg bg-aurora-lime px-7 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
                 {cta.primary.label}

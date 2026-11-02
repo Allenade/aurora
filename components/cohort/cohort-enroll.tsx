@@ -97,8 +97,6 @@ const CohortEnroll = ({ courses }: { courses: PublicCourse[] }) => {
           <Reveal className="mt-10 flex flex-col items-center gap-3 sm:mt-12">
             <a
               href={ctaHref}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-aurora-lime px-8 py-4 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:text-base"
             >
               {ctaLabel}

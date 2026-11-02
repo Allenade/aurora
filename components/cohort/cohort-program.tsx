@@ -3,7 +3,7 @@
 import { AppLink } from "@/components/layout/app-link";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
-import { COHORT_PROGRAM, EXTERNAL_LINKS } from "@/lib/constants";
+import { COHORT_PROGRAM, ROUTES } from "@/lib/constants";
 import { buildCatalogStep } from "@/lib/enter-first/copy";
 import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
@@ -215,9 +215,7 @@ const CohortProgram = ({ courses }: { courses: PublicCourse[] }) => {
           <div className="mt-14 sm:mt-16 lg:mt-20">
             <Reveal className="mt-8 flex flex-col items-start gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
               <a
-                href={EXTERNAL_LINKS.COHORT_REGISTRATION}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={ROUTES.CORE_3}
                 style={{ borderRadius: 16 }}
                 className="inline-flex items-center justify-center gap-2.5 bg-aurora-lime px-7 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
@@ -225,9 +223,7 @@ const CohortProgram = ({ courses }: { courses: PublicCourse[] }) => {
                 <ArrowIcon />
               </a>
               <a
-                href={EXTERNAL_LINKS.COHORT_REGISTRATION}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={ROUTES.CORE_3}
                 style={{ borderRadius: 16 }}
                 className="inline-flex items-center justify-center gap-2.5 border-[1.5px] border-aurora-lime bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-aurora-lime transition-opacity hover:opacity-90 sm:px-8 sm:py-4 sm:text-base"
               >
