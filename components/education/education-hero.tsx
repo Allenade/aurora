@@ -66,8 +66,6 @@ const EducationHero = () => {
             <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4">
               <Link
                 href={primaryCta.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl bg-aurora-lime px-7 py-3.5 font-sans text-base font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:px-8 sm:text-lg"
               >
                 {primaryCta.label}

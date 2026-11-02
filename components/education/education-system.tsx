@@ -75,8 +75,6 @@ const EducationSystem = () => {
           <Reveal className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-start sm:gap-4 lg:mt-14">
             <Link
               href={primaryCta.href}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center rounded-xl bg-aurora-lime px-7 py-3.5 font-sans text-base font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:w-auto sm:min-w-[11.5rem] sm:px-8 sm:text-lg"
             >
               {primaryCta.label}
