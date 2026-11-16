@@ -15,6 +15,14 @@ const PUBLIC_ENTER_FIRST: AllowedRoute[] = [
       path.length === 2 && path[0] === "enter-first" && path[1] === "courses",
   },
   {
+    methods: ["GET"],
+    test: (path) =>
+      path.length === 3 &&
+      path[0] === "enter-first" &&
+      (path[1] === "invites" || path[1] === "coupons") &&
+      Boolean(path[2]),
+  },
+  {
     methods: ["POST"],
     test: (path) =>
       path.length === 2 &&

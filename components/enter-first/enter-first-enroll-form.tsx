@@ -8,13 +8,16 @@ import { Reveal } from "@/components/motion";
 import {
   BffRequestError,
   createEnterFirstEnrollment,
+  getEnterFirstInvite,
   getEnterFirstPaymentStatus,
+  type EnterFirstInvitePreview,
   type EnterFirstPaymentStatus,
 } from "@/lib/bff/client";
 import { isUnder18 } from "@/lib/enter-first/age";
 import {
   courseBlock,
   courseBlockLabel,
+  estimateInviteTotal,
   formatCoursePrice,
   formatCourseTotal,
   formatMoney,
@@ -75,6 +78,13 @@ export default function EnterFirstEnrollForm({
     .getAll("track")
     .filter((id) => openSlugs.has(id));
   const payReference = searchParams.get("pay") ?? "";
+  const presetCoupon = (
+    searchParams.get("coupon") ??
+    searchParams.get("invite") ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -106,14 +116,72 @@ export default function EnterFirstEnrollForm({
   );
   const [paymentDetail, setPaymentDetail] =
     useState<EnterFirstPaymentStatus | null>(null);
+  const [invite, setInvite] = useState<EnterFirstInvitePreview | null>(null);
+  const [inviteError, setInviteError] = useState<string | null>(null);
+  const [couponDraft, setCouponDraft] = useState(presetCoupon);
+  const [couponBusy, setCouponBusy] = useState(false);
   const toast = useToast();
 
   const selectedCourses = useMemo(
     () => courses.filter((course) => tracks.includes(course.slug) && !courseBlock(course)),
     [courses, tracks],
   );
-  const totalLabel = formatCourseTotal(selectedCourses);
+  const listTotalLabel = formatCourseTotal(selectedCourses);
+  const totalLabel = estimateInviteTotal(selectedCourses, invite);
   const needsGuardian = isUnder18(dateOfBirth);
+
+  async function applyCoupon(raw: string) {
+    const code = raw.trim().toLowerCase();
+    if (!code) {
+      setInvite(null);
+      setInviteError(null);
+      return;
+    }
+    setCouponBusy(true);
+    setInviteError(null);
+    try {
+      const preview = await getEnterFirstInvite(code);
+      setInvite(preview);
+      setCouponDraft(preview.code);
+    } catch (err) {
+      setInvite(null);
+      setInviteError(
+        err instanceof BffRequestError
+          ? err.messages[0] ?? err.message
+          : "This coupon is not valid.",
+      );
+    } finally {
+      setCouponBusy(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!presetCoupon) return;
+    let cancelled = false;
+    void (async () => {
+      setCouponBusy(true);
+      setInviteError(null);
+      try {
+        const preview = await getEnterFirstInvite(presetCoupon);
+        if (cancelled) return;
+        setInvite(preview);
+        setCouponDraft(preview.code);
+      } catch (err) {
+        if (cancelled) return;
+        setInvite(null);
+        setInviteError(
+          err instanceof BffRequestError
+            ? err.messages[0] ?? err.message
+            : "This coupon is not valid.",
+        );
+      } finally {
+        if (!cancelled) setCouponBusy(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [presetCoupon]);
 
   useEffect(() => {
     if (!payReference) return;
@@ -170,6 +238,7 @@ export default function EnterFirstEnrollForm({
       howDidYouHear,
       joinedCommunity,
       tracks,
+      inviteCode: invite?.code,
       termsAccepted,
       marketingOptIn,
       ageConfirmed,
@@ -320,7 +389,7 @@ export default function EnterFirstEnrollForm({
     );
   }
 
-  const paid = selectedCourses.some((course) => course.price > 0 && !course.isFree);
+  const chargeDue = totalLabel !== "Free";
 
   return (
     <section className="bg-white">
@@ -330,6 +399,19 @@ export default function EnterFirstEnrollForm({
             <p className="font-display text-xs uppercase tracking-[0.16em] text-[#151514]">
               Core 3.0 enrollment
             </p>
+            {invite ? (
+              <p className="mt-3 rounded-lg border border-[#151514]/10 bg-[#f7f7f5] px-4 py-3 font-sans text-sm text-[#151514]">
+                Coupon {invite.code.toUpperCase()} applied: {invite.discountLabel}
+                {invite.lockToPerson
+                  ? ". Use the email this coupon was issued for."
+                  : "."}
+              </p>
+            ) : null}
+            {inviteError ? (
+              <p className="mt-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 font-sans text-sm text-red-800">
+                {inviteError} You can still enroll at the catalogue price.
+              </p>
+            ) : null}
             <h1 className="mt-3 font-display text-3xl font-semibold text-[#151514] sm:text-4xl">
               Secure your track seat
             </h1>
@@ -622,6 +704,54 @@ export default function EnterFirstEnrollForm({
                 ) : null}
               </fieldset>
 
+              <fieldset className="mt-8">
+                <legend className="font-sans text-sm font-semibold text-[#151514] sm:text-base">
+                  Coupon code
+                </legend>
+                <p className="mt-1 font-sans text-sm text-[#757575]">
+                  Optional. Enter a code to apply percent off or make this
+                  enrollment free.
+                </p>
+                <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                  <input
+                    className={fieldClassName}
+                    value={couponDraft}
+                    onChange={(e) => {
+                      setCouponDraft(e.target.value);
+                      setInviteError(null);
+                    }}
+                    placeholder="AURORA20"
+                    autoCapitalize="characters"
+                    autoComplete="off"
+                    disabled={couponBusy}
+                    aria-invalid={Boolean(inviteError)}
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      disabled={couponBusy || !couponDraft.trim()}
+                      onClick={() => void applyCoupon(couponDraft)}
+                      className="inline-flex items-center justify-center rounded-lg border border-[#151514] bg-white px-5 py-3.5 font-sans text-sm font-semibold text-[#151514] disabled:opacity-60"
+                    >
+                      {couponBusy ? "Checking…" : "Apply"}
+                    </button>
+                    {invite ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setInvite(null);
+                          setInviteError(null);
+                          setCouponDraft("");
+                        }}
+                        className="inline-flex items-center justify-center rounded-lg border border-[#e5e5e5] bg-white px-5 py-3.5 font-sans text-sm text-[#151514]"
+                      >
+                        Remove
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              </fieldset>
+
               <CheckField
                 className="mt-8"
                 checked={termsAccepted}
@@ -668,21 +798,32 @@ export default function EnterFirstEnrollForm({
               </p>
 
               <div className="mt-8 flex flex-col gap-3 border-t border-[#e5e5e5] pt-6 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-sans text-sm text-[#757575]">
-                  Total due:{" "}
-                  <span className="font-semibold text-[#151514]">
-                    {totalLabel ?? "Select a track"}
-                  </span>
-                </p>
+                <div className="font-sans text-sm text-[#757575]">
+                  <p>
+                    Total due:{" "}
+                    <span className="font-semibold text-[#151514]">
+                      {totalLabel ?? "Select a track"}
+                    </span>
+                  </p>
+                  {invite && listTotalLabel && listTotalLabel !== totalLabel ? (
+                    <p className="mt-1 text-xs">
+                      Catalogue {listTotalLabel} · {invite.discountLabel}
+                    </p>
+                  ) : null}
+                </div>
                 <button
                   type="submit"
-                  disabled={submitting || !selectedCourses.length}
+                  disabled={
+                    submitting ||
+                    !selectedCourses.length ||
+                    couponBusy
+                  }
                   className="inline-flex items-center justify-center rounded-lg bg-aurora-lime px-8 py-3.5 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 disabled:opacity-60 sm:text-base"
                 >
                   {submitting
                     ? "Starting payment…"
-                    : paid
-                      ? "Continue"
+                    : chargeDue
+                      ? "Continue to Paystack"
                       : "Complete enrollment"}
                 </button>
               </div>

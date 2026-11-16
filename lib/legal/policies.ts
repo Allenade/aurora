@@ -216,7 +216,7 @@ export const TERMS: LegalDocument = {
         },
         {
           type: "p",
-          text: "You may select one course or several, up to eight. The amount you pay is the sum of the course prices at the moment you enroll. That sum is what Paystack charges. We do not publish a substitute price on this website.",
+          text: "You may select one course or several, up to eight. The amount you pay is the sum of the course prices at the moment you enroll, after a valid coupon is applied if you enter one. That discounted total is what Paystack charges. A 100% off or free coupon charges nothing and does not open Paystack.",
         },
       ],
     },
@@ -230,7 +230,7 @@ export const TERMS: LegalDocument = {
         },
         {
           type: "p",
-          text: "A course marked Free has no charge. You still need to submit the form, including consent and age details.",
+          text: "A course marked Free, or a valid free or 100% coupon, has no charge. You still need to submit the form, including consent and age details.",
         },
         {
           type: "p",

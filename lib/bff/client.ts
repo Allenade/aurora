@@ -78,6 +78,8 @@ export type EnterFirstEnrollPayload = {
   howDidYouHear?: string;
   joinedCommunity?: string;
   tracks: string[];
+  inviteCode?: string;
+  couponCode?: string;
   termsAccepted: boolean;
   termsVersion: string;
   privacyVersion: string;
@@ -87,6 +89,19 @@ export type EnterFirstEnrollPayload = {
   guardianName?: string;
   guardianEmail?: string;
   guardianConsent?: boolean;
+};
+
+export type EnterFirstInvitePreview = {
+  code: string;
+  label: string | null;
+  offerType: "discount_percent" | "discount_fixed" | "free";
+  discountPercent: number | null;
+  discountAmount: number | null;
+  trackScope: "all" | "selected";
+  trackSlugs: string[];
+  expiresAt: string | null;
+  lockToPerson: boolean;
+  discountLabel: string;
 };
 
 export type EnterFirstEnrollResponse = {
@@ -130,5 +145,11 @@ export function createEnterFirstEnrollment(input: EnterFirstEnrollPayload) {
 export function getEnterFirstPaymentStatus(reference: string) {
   return bffFetch<EnterFirstPaymentStatus>(
     `/api/bff/enter-first/enrollments/by-reference/${encodeURIComponent(reference)}/status`,
+  );
+}
+
+export function getEnterFirstInvite(code: string) {
+  return bffFetch<EnterFirstInvitePreview>(
+    `/api/bff/enter-first/coupons/${encodeURIComponent(code)}`,
   );
 }
