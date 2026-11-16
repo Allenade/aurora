@@ -1,7 +1,8 @@
 import EnterFirstPage from "@/components/enter-first";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+// Always render with the current course list from the dashboard.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Core 3.0",

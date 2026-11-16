@@ -1,4 +1,5 @@
 import { getBackendUrl } from "@/lib/bff/config";
+import { normalizeCourseMedia } from "./media";
 import type { PublicCourse } from "./types";
 
 function asString(value: unknown) {
@@ -56,6 +57,7 @@ export function normalizePublicCourse(value: unknown): PublicCourse | null {
     status: asString(row.status) || "closed",
     sortOrder: asNullableInt(row.sortOrder) ?? 0,
     cohort: asNullableString(row.cohort),
+    ...normalizeCourseMedia(row),
   };
 }
 
@@ -68,8 +70,8 @@ export function normalizePublicCourses(body: unknown): PublicCourse[] {
 
 /**
  * Server catalogue fetch.
- * `revalidate` seconds cache the public list (ISR). `false` skips the cache
- * so the enrollment form shows the price checkout will charge.
+ * Defaults to no cache so dashboard changes show on the next request.
+ * Pass `revalidate` seconds only where a cached list is acceptable.
  * Failures and empty lists return [] — callers show an opening-soon state.
  */
 export async function getEnterFirstCatalog(options?: {
@@ -78,7 +80,7 @@ export async function getEnterFirstCatalog(options?: {
   const base = getBackendUrl();
   if (!base) return [];
 
-  const revalidate = options?.revalidate === undefined ? 60 : options.revalidate;
+  const revalidate = options?.revalidate === undefined ? false : options.revalidate;
 
   try {
     const res = await fetch(`${base}/api/v1/enter-first/courses`, 

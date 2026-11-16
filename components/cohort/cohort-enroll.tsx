@@ -4,6 +4,8 @@ import { useState } from "react";
 import { SiteContent, SiteShell } from "@/components/layout/site-shell";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 import { COHORT_ENROLL } from "@/lib/constants";
+import { buildCohortDateLine } from "@/lib/enter-first/pricing";
+import type { PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 
 function ArrowIcon({ className }: { className?: string }) {
@@ -27,8 +29,12 @@ function ArrowIcon({ className }: { className?: string }) {
   );
 }
 
-const CohortEnroll = () => {
-  const { eyebrow, title, ctaLabel, ctaHref, note, steps } = COHORT_ENROLL;
+const CohortEnroll = ({ courses }: { courses: PublicCourse[] }) => {
+  const { eyebrow, title, ctaLabel, ctaHref, steps } = COHORT_ENROLL;
+  const dateLine = buildCohortDateLine(courses);
+  const note = dateLine
+    ? `${COHORT_ENROLL.note} Track dates: ${dateLine}.`
+    : `${COHORT_ENROLL.note} Track dates are shown on each track.`;
   const [openId, setOpenId] = useState(steps[1]?.id ?? steps[0]?.id ?? "");
 
   return (
@@ -91,8 +97,6 @@ const CohortEnroll = () => {
           <Reveal className="mt-10 flex flex-col items-center gap-3 sm:mt-12">
             <a
               href={ctaHref}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-aurora-lime px-8 py-4 font-sans text-sm font-semibold text-[#151514] transition-opacity hover:opacity-90 sm:text-base"
             >
               {ctaLabel}

@@ -1,6 +1,9 @@
 import CohortPage from "@/components/cohort";
 import type { Metadata } from "next";
 
+// Always render with the current course list from the dashboard.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Cohort",
   description:

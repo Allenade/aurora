@@ -1,7 +1,8 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   WorkshopAiIcon,
   WorkshopArmIcon,
@@ -23,17 +24,17 @@ import {
   cutoffLabel,
   formatCoursePrice,
   formatCourseTotal,
-  priceNoteFor,
   seatLabel,
+  sharedCourseWeeks,
 } from "@/lib/enter-first/pricing";
-import type { PublicCourse } from "@/lib/enter-first/types";
+import { hasSyllabusContent } from "@/lib/enter-first/media";
+import type { CourseBlockReason, CourseLink, PublicCourse } from "@/lib/enter-first/types";
 import { cn } from "@/lib/utils";
 import { EnrollmentUnavailable } from "./enrollment-unavailable";
+import { SyllabusDialog } from "./syllabus-dialog";
 import { useTrackSelection } from "./track-selection";
 
-type TrackIcon = (typeof ENTER_FIRST_TRACKS.tracks)[number]["icon"];
-
-const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
+const TRACK_ICONS = {
   code: WorkshopCodeIcon,
   satellite: WorkshopSatelliteIcon,
   rover: WorkshopRoverIcon,
@@ -42,29 +43,13 @@ const TRACK_ICONS: Record<TrackIcon, ComponentType<{ className?: string }>> = {
   vision: WorkshopVisionIcon,
   blockchain: WorkshopBlockchainIcon,
   drone: WorkshopDroneIcon,
-};
+} satisfies Record<string, ComponentType<{ className?: string }>>;
 
-const PATHWAY_HINTS: Record<string, string> = {
-  "iot+mobile":
-    "2 tracks, zero schedule clashes. Build toward cloud-connected sensor robot + autonomous mapped & navigated vehicle.",
-  "mobile+vision+ai":
-    "3 tracks building the foundations of an autonomous-systems engineer — navigation, sight, and intelligent decisions.",
-  "mobile+vision":
-    "2 tracks pairing navigation with perception for robots that move and understand their surroundings.",
-  "vision+ai":
-    "2 tracks combining visual understanding with learning-based decision systems.",
-  "iot+ai":
-    "2 tracks connecting edge intelligence with learning models that act on live sensor streams.",
-  "arm+vision":
-    "2 tracks for manipulators that see — motion planning paired with visual perception.",
-};
+type TrackIcon = keyof typeof TRACK_ICONS;
 
-const PRESENTATION = new Map(
-  ENTER_FIRST_TRACKS.tracks.map((track) => [track.id, track]),
-);
-
+/** Icon only. Names, prices, and copy always come from the course list. */
 function iconFor(slug: string): TrackIcon {
-  return PRESENTATION.get(slug)?.icon ?? "code";
+  return slug in TRACK_ICONS ? (slug as TrackIcon) : "code";
 }
 
 function CurriculumArrow({ className }: { className?: string }) {
@@ -121,44 +106,245 @@ function SelectionBox({
   );
 }
 
-function pathwayKey(ids: string[]) {
-  return [...ids].sort().join("+");
-}
-
-function shortName(course: PublicCourse) {
-  if (course.slug === "iot") return "IoT";
-  if (course.slug === "mobile") return "Mobile";
-  if (course.slug === "ai") return "AI";
-  if (course.slug === "arm") return "Arm";
-  if (course.slug === "vision") return "Vision";
-  if (course.slug === "programming") return "Programming";
-  if (course.slug === "blockchain") return "Blockchain";
-  if (course.slug === "aerial") return "Aerial";
-  return course.name;
-}
-
 function buildPathwayTitle(courses: PublicCourse[]) {
-  if (courses.length === 0) return "";
-  if (courses.length === 1) return courses[0].name;
-  return courses.map(shortName).join(" + ");
+  return courses.map((course) => course.name).join(" + ");
 }
 
 function buildPathwayBody(courses: PublicCourse[]) {
-  const key = pathwayKey(courses.map((course) => course.slug));
-  if (PATHWAY_HINTS[key]) return PATHWAY_HINTS[key];
   if (courses.length < 2) return ENTER_FIRST_TRACKS.stack.pathwayEmpty;
-  return `${courses.length} tracks selected. Combine these specialties into one learning pathway where the timetable allows.`;
+  return `${courses.length} tracks selected. Combine these into one learning pathway where the timetable allows.`;
 }
 
 function courseBody(course: PublicCourse) {
   return course.description.trim();
 }
 
+function TrackSelectControl({
+  course,
+  blocked,
+  inStack,
+  onToggle,
+  overlay,
+}: {
+  course: PublicCourse;
+  blocked: CourseBlockReason | null;
+  inStack: boolean;
+  onToggle: () => void;
+  overlay?: boolean;
+}) {
+  if (blocked) {
+    return (
+      <span
+        className={cn(
+          "rounded-md px-2 py-1 font-sans text-[11px] font-semibold tracking-wide text-white",
+          overlay ? "bg-[#151514]/85" : "bg-white/10",
+        )}
+      >
+        {courseBlockLabel(blocked)}
+      </span>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      aria-pressed={inStack}
+      aria-label={`${inStack ? "Remove" : "Add"} ${course.name} to learning stack`}
+      onClick={onToggle}
+      className={cn(
+        "rounded-sm p-0.5 transition-opacity hover:opacity-80",
+        overlay && "rounded-md bg-[#151514]/85 p-1.5",
+      )}
+    >
+      <SelectionBox checked={inStack} />
+    </button>
+  );
+}
+
+const CARD_ACTION_CLASS =
+  "inline-flex max-w-full items-center gap-2 text-left font-sans text-sm font-medium text-white/70 transition-colors hover:text-aurora-lime group-hover:text-aurora-lime sm:text-[15px]";
+
+function CourseLinkButtons({ links }: { links: CourseLink[] }) {
+  return links.map((link, index) => (
+    <a
+      key={`${index}-${link.url}`}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={CARD_ACTION_CLASS}
+    >
+      {link.label} <span aria-hidden>↗</span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  ));
+}
+
+function SyllabusControl({
+  course,
+  onOpenText,
+}: {
+  course: PublicCourse;
+  onOpenText: () => void;
+}) {
+  if (!hasSyllabusContent(course.syllabus)) return null;
+  const { syllabusLabel } = ENTER_FIRST_TRACKS;
+
+  if (course.syllabus.text) {
+    return (
+      <button type="button" onClick={onOpenText} className={CARD_ACTION_CLASS}>
+        {syllabusLabel}
+      </button>
+    );
+  }
+
+  return (
+    <a
+      href={course.syllabus.url ?? undefined}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={CARD_ACTION_CLASS}
+    >
+      {syllabusLabel}
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  );
+}
+
+function CourseCard({
+  course,
+  blocked,
+  inStack,
+  onToggle,
+  onViewSelection,
+}: {
+  course: PublicCourse;
+  blocked: CourseBlockReason | null;
+  inStack: boolean;
+  onToggle: () => void;
+  onViewSelection: () => void;
+}) {
+  const { curriculumLabel } = ENTER_FIRST_TRACKS;
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
+  const [syllabusOpen, setSyllabusOpen] = useState(false);
+  const imageUrl = course.imageUrl;
+  const showImage = Boolean(imageUrl) && failedImageUrl !== imageUrl;
+  const showSyllabus = hasSyllabusContent(course.syllabus);
+  const links = course.links ?? [];
+  const Icon = TRACK_ICONS[iconFor(course.slug)];
+  const meta = [seatLabel(course), courseDateLabel(course), cutoffLabel(course)]
+    .filter(Boolean)
+    .join(" · ");
+
+  return (
+    <StaggerItem
+      as="article"
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#151514] p-5 transition-colors sm:p-6 lg:p-7",
+        inStack ? "border-aurora-lime" : "hover:border-aurora-lime",
+        blocked && "opacity-80",
+      )}
+    >
+      {showImage ? (
+        <div className="relative -mx-5 -mt-5 mb-5 aspect-[16/9] overflow-hidden sm:-mx-6 sm:-mt-6 lg:-mx-7 lg:-mt-7">
+          {/* Course pictures use whatever public host the API returns. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrl ?? undefined}
+            alt=""
+            className="h-full w-full object-cover"
+            onError={() => {
+              if (imageUrl) setFailedImageUrl(imageUrl);
+            }}
+          />
+          <div className="absolute top-3 right-3">
+            <TrackSelectControl
+              course={course}
+              blocked={blocked}
+              inStack={inStack}
+              onToggle={onToggle}
+              overlay
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-start justify-between gap-3">
+          <div
+            className={cn(
+              "flex size-11 items-center justify-center rounded-md border border-white/25 text-white transition-colors",
+              "group-hover:border-aurora-lime group-hover:text-aurora-lime",
+              inStack && "border-aurora-lime text-aurora-lime",
+              "sm:size-12",
+            )}
+          >
+            <Icon className="size-6 sm:size-7" />
+          </div>
+          <TrackSelectControl
+            course={course}
+            blocked={blocked}
+            inStack={inStack}
+            onToggle={onToggle}
+          />
+        </div>
+      )}
+
+      <h3
+        className={cn(
+          "font-sans text-lg font-semibold text-white transition-colors group-hover:text-aurora-lime sm:text-xl lg:text-[22px]",
+          showImage ? "mt-0" : "mt-5",
+        )}
+      >
+        {course.name}
+      </h3>
+      <p className="mt-3 flex-1 whitespace-pre-line font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
+        {courseBody(course)}
+      </p>
+      {meta ? (
+        <p className="mt-3 font-sans text-xs leading-relaxed text-white/55">
+          {meta}
+        </p>
+      ) : null}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <p className="font-sans text-sm font-semibold text-aurora-lime sm:text-base">
+          {formatCoursePrice(course)}
+        </p>
+        <div
+          className={cn(
+            "flex max-w-full flex-wrap items-center justify-end gap-x-4 gap-y-2",
+            (showSyllabus || links.length > 0) && "w-full",
+          )}
+        >
+          <button
+            type="button"
+            onClick={onViewSelection}
+            className={CARD_ACTION_CLASS}
+          >
+            {curriculumLabel}
+            <CurriculumArrow />
+          </button>
+          <SyllabusControl
+            course={course}
+            onOpenText={() => setSyllabusOpen(true)}
+          />
+          <CourseLinkButtons links={links} />
+        </div>
+      </div>
+      {syllabusOpen && course.syllabus.text
+        ? createPortal(
+            <SyllabusDialog
+              course={course}
+              onClose={() => setSyllabusOpen(false)}
+            />,
+            document.body,
+          )
+        : null}
+    </StaggerItem>
+  );
+}
+
 const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
   const {
     title,
     description,
-    curriculumLabel,
     outlineLabel,
     priceLabel,
     totalLabel,
@@ -185,11 +371,13 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
     selectedCourses.length > 1 &&
     new Set(selectedCourses.map((course) => course.currency.toUpperCase()))
       .size > 1;
-  const priceNote = priceNoteFor(courses);
   const dateLine = buildCohortDateLine(courses);
+  const weeks = sharedCourseWeeks(courses);
   const stats = [
     { value: String(courses.length), label: "Tracks listed" },
-    { value: "6", label: "Weeks Per Specialist Track" },
+    weeks
+      ? { value: String(weeks), label: "Weeks Per Track" }
+      : { value: "—", label: "Weeks shown on each track" },
     {
       value: dateLine && !dateLine.startsWith("Dates vary") ? "1" : "—",
       label: dateLine ?? "Dates on each track",
@@ -233,89 +421,24 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
             <p className="mt-4 font-sans text-sm leading-relaxed text-[#757575] sm:mt-5 sm:text-base lg:text-lg">
               {description}
             </p>
-            {priceNote ? (
-              <p className="mt-3 font-sans text-sm font-semibold text-[#151514] sm:text-base">
-                {priceNote}
-              </p>
-            ) : null}
           </Reveal>
 
           <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-4 lg:gap-6">
             {courses.map((course) => {
-              const Icon = TRACK_ICONS[iconFor(course.slug)];
               const blocked = courseBlock(course);
-              const inStack =
-                !blocked && selectedIds.includes(course.slug);
-              const meta = [seatLabel(course), courseDateLabel(course), cutoffLabel(course)]
-                .filter(Boolean)
-                .join(" · ");
-
+              const inStack = !blocked && selectedIds.includes(course.slug);
               return (
-                <StaggerItem
-                  as="article"
+                <CourseCard
                   key={course.slug}
-                  className={cn(
-                    "group relative flex flex-col rounded-lg border border-white/10 bg-[#151514] p-5 transition-colors sm:p-6 lg:p-7",
-                    inStack ? "border-aurora-lime" : "hover:border-aurora-lime",
-                    blocked && "opacity-80",
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div
-                      className={cn(
-                        "flex size-11 items-center justify-center rounded-md border border-white/25 text-white transition-colors",
-                        "group-hover:border-aurora-lime group-hover:text-aurora-lime",
-                        inStack && "border-aurora-lime text-aurora-lime",
-                        "sm:size-12",
-                      )}
-                    >
-                      <Icon className="size-6 sm:size-7" />
-                    </div>
-                    {blocked ? (
-                      <span className="rounded-md bg-white/10 px-2 py-1 font-sans text-[11px] font-semibold uppercase tracking-wide text-white">
-                        {courseBlockLabel(blocked)}
-                      </span>
-                    ) : (
-                      <button
-                        type="button"
-                        aria-pressed={inStack}
-                        aria-label={`${inStack ? "Remove" : "Add"} ${course.name} to learning stack`}
-                        onClick={() => toggleTrack(course.slug)}
-                        className="rounded-sm p-0.5 transition-opacity hover:opacity-80"
-                      >
-                        <SelectionBox checked={inStack} />
-                      </button>
-                    )}
-                  </div>
-
-                  <h3 className="mt-5 font-sans text-lg font-semibold text-white transition-colors group-hover:text-aurora-lime sm:text-xl lg:text-[22px]">
-                    {course.name}
-                  </h3>
-                  <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-[#adadad] sm:text-base">
-                    {courseBody(course)}
-                  </p>
-                  {meta ? (
-                    <p className="mt-3 font-sans text-xs leading-relaxed text-white/55">
-                      {meta}
-                    </p>
-                  ) : null}
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                    <p className="font-sans text-sm font-semibold text-aurora-lime sm:text-base">
-                      {formatCoursePrice(course)}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (!blocked && !inStack) toggleTrack(course.slug);
-                        focusSelection();
-                      }}
-                      className="inline-flex items-center gap-2 self-start font-sans text-sm font-medium text-white/70 transition-colors group-hover:text-aurora-lime sm:text-[15px]"
-                    >
-                      {curriculumLabel}
-                      <CurriculumArrow />
-                    </button>
-                  </div>
-                </StaggerItem>
+                  course={course}
+                  blocked={blocked}
+                  inStack={inStack}
+                  onToggle={() => toggleTrack(course.slug)}
+                  onViewSelection={() => {
+                    if (!blocked && !inStack) toggleTrack(course.slug);
+                    focusSelection();
+                  }}
+                />
               );
             })}
           </Stagger>
@@ -330,7 +453,7 @@ const EnterFirstTracks = ({ courses }: { courses: PublicCourse[] }) => {
                   ? buildPathwayTitle(selectedCourses)
                   : "Your selected tracks"}
               </h3>
-              <p className="mt-3 max-w-4xl font-sans text-sm leading-relaxed text-[#757575] sm:text-base lg:text-lg">
+              <p className="mt-3 max-w-4xl whitespace-pre-line font-sans text-sm leading-relaxed text-[#757575] sm:text-base lg:text-lg">
                 {!selectedCourses.length
                   ? emptySelection
                   : selectedCourses.length === 1
