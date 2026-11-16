@@ -14,6 +14,8 @@ const KNOWN_FIELDS = [
   "howDidYouHear",
   "joinedCommunity",
   "tracks",
+  "inviteCode",
+  "couponCode",
   "termsAccepted",
   "termsVersion",
   "privacyVersion",

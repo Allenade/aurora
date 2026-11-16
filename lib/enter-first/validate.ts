@@ -44,6 +44,7 @@ export type EnrollFormInput = {
   howDidYouHear: string;
   joinedCommunity: string;
   tracks: string[];
+  inviteCode?: string;
   termsAccepted: boolean;
   marketingOptIn: boolean;
   ageConfirmed: boolean;
@@ -248,6 +249,12 @@ export function toEnrollmentPayload(input: EnrollFormInput, courses: PublicCours
     howDidYouHear: optional(input.howDidYouHear),
     joinedCommunity: optional(input.joinedCommunity),
     tracks: tracks.filter((id) => known.has(id)),
+    ...(input.inviteCode?.trim()
+      ? {
+          couponCode: input.inviteCode.trim().toLowerCase(),
+          inviteCode: input.inviteCode.trim().toLowerCase(),
+        }
+      : {}),
     termsAccepted: true as const,
     termsVersion: POLICY_VERSIONS.termsVersion,
     privacyVersion: POLICY_VERSIONS.privacyVersion,
