@@ -101,6 +101,7 @@ export type EnterFirstInvitePreview = {
   trackSlugs: string[];
   expiresAt: string | null;
   lockToPerson: boolean;
+  lockToEmail: boolean;
   discountLabel: string;
 };
 
