@@ -60,6 +60,14 @@ export function fieldErrorsFromMessages(messages: string[]) {
     ) {
       fieldErrors.tracks = text;
     }
+    if (
+      /coupon is locked to a different email|already used this coupon/i.test(
+        text,
+      ) &&
+      !fieldErrors.email
+    ) {
+      fieldErrors.email = text;
+    }
   }
 
   return fieldErrors;

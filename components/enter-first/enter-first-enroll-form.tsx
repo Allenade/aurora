@@ -402,9 +402,9 @@ export default function EnterFirstEnrollForm({
             {invite ? (
               <p className="mt-3 rounded-lg border border-[#151514]/10 bg-[#f7f7f5] px-4 py-3 font-sans text-sm text-[#151514]">
                 Coupon {invite.code.toUpperCase()} applied: {invite.discountLabel}
-                {invite.lockToPerson
-                  ? ". Use the email this coupon was issued for."
-                  : "."}
+                {invite.lockToEmail || invite.lockToPerson
+                  ? ". Use an email this coupon was issued for."
+                  : ". Each email can use this code once."}
               </p>
             ) : null}
             {inviteError ? (
@@ -710,7 +710,8 @@ export default function EnterFirstEnrollForm({
                 </legend>
                 <p className="mt-1 font-sans text-sm text-[#757575]">
                   Optional. Enter a code to apply percent off or make this
-                  enrollment free.
+                  enrollment free. A shared code works once per email. A locked
+                  code only works for the emails it was issued to.
                 </p>
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                   <input
